@@ -1,7 +1,6 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Wrzz
- * Date: 2018/2/7
- * Time: 2:56
- */
+
+@extends('layout.default')
+@section('title', 'home')
+@section('content')
+    这是主页
+@stop

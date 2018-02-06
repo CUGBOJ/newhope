@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>@yield('title', 'test')</title>
+    <title>@yield('title','default')</title>
 <link rel="stylesheet" href="/css/default.css">
 </head>
 <body>
 <header class="navbar navbar-fixed-top navbar-inverse">
-    <div class="container">
-        <div class="col-md-offset-1 col-md-10">
-            <a href="/" id="logo">Sample App</a>
-            <nav>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/help">帮助</a></li>
-                    <li><a href="#">登录</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <nav>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">主页</a></li>
+            <li><a href="/help">帮助</a></li>
+            <li><a href="/about">关于</a></li>
+            <li><a href="/signup">注册</a></li>
+            <li><a href="/signin">登陆</a></li>
+        </ul>
+    </nav>
 </header>
 
 <div class="container">
