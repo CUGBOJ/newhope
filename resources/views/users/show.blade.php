@@ -3,32 +3,20 @@
  * Created by PhpStorm.
  * User: Wrzz
  * Date: 2018/2/7
- * Time: 2:41
+ * Time: 2:26
  */
 ?>
+@extends('layout.default')
+@section('title', '注册')
+
+@section('content')
+    <div>
+        @include('share._error')
+    <h2>this is imformation of <?php echo $user->name; ?></h2>
+    <p>
+        his email id  <?php echo $user->email;?>
+    </p>
+    </div>
+@stop
 
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>create</title>
-</head>
-<body>
-
-<h1>this is the information of <?php  echo $user->name;?></h1>
-
-<p>
-    email is  <?php  echo $user->email;?>
-</p>
-
-
-
-
-</body>
-
-
-
-
-
-</html>
