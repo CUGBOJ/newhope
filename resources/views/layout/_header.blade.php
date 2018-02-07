@@ -12,8 +12,7 @@
                             <a href="{{ route('users.show', Auth::user()->id) }}">个人中心</a>
                         </li>
                         <li>
-                            {{--<a href="{{ route('users.edit', Auth::user()->id) }}">编辑资料</a>--}}
-                            <a href="#}">编辑资料</a>
+                            <a href="{{ route('users.edit', Auth::user()->id) }}">编辑资料</a>
                         </li>
                         <li>
                             <a id="logout" href="#">
