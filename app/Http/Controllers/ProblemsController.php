@@ -8,14 +8,16 @@ use App\Models\Problem;
 
 class ProblemsController extends Controller
 {
+    public function create()
+    {
+        //$this->authorize('create');
+        return view('problems.create');
+    }
     public function show(Problem $problem)
     {
         return view('problems.show', compact('problem'));
     }
-    public function create()
-    {
-        return view('problems.create');
-    }
+
     public function store(Request $request)
     {
 //        $this->validate($request, [
@@ -23,6 +25,7 @@ class ProblemsController extends Controller
 //            'email' => 'required|email|unique:users|max:255',
 //            'password' => 'required|confirmed|min:6'
 //        ]);
+        $this->authorize('update');
         $problem = Problem::create([
             'Title' => $request->Title,
             'Description' => $request->Description,
@@ -47,7 +50,7 @@ class ProblemsController extends Controller
     }
 
     public function edit(Problem $problem)
-    {   //$this->authorize('update', $problem);
+    {  $this->authorize('update');
         return view('problems.edit', compact('problem'));
     }
     public function update(Problem $problem, Request $request)
@@ -56,7 +59,7 @@ class ProblemsController extends Controller
 //            'name' => 'required|max:50',
 //            'password' => 'nullable|confirmed|min:6'
 //        ]);
-        //$this->authorize('update', $user);
+        $this->authorize('update');
         $data = [];
         $data['Title'] = $request->Title;
         $data['Description'] = $request->Description;
@@ -72,4 +75,14 @@ class ProblemsController extends Controller
 
         return redirect()->route('problems.show', $problem->id);
    }
+//    public function destroy(Problem $problem)
+//    {   $this->authorize('is_admin');
+//        $problem->delete();
+//        session()->flash('success', '成功删除题目！');
+//        return back();
+//    }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

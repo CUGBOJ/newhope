@@ -44,7 +44,7 @@
         <textarea name="Hint" id="" cols="30" rows="10" form="editproblem">
              {{ $problem->Hint }}
         </textarea>
-        <label for="Author">Hint:</label>
+        <label for="Author">Author:</label>
         <textarea name="Author" id="" cols="30" rows="10" form="editproblem">
              {{ $problem->Author }}
         </textarea>

@@ -37,7 +37,6 @@
         </a>
         <a href="#">Submit</a>
         <a href="">discuss</a>
-
     </div>
 @stop
 
