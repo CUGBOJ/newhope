@@ -4,7 +4,8 @@
 @section('content')
     <div>
         @include('share._error')
-        <h1> {{$problem->title}}</h1>
+
+        <h1> Title:{{$problem->Title}}</h1>
         <div>
             <div>
                 <h3>Description</h3>
@@ -31,6 +32,12 @@
                 {{$problem->Hint}}
             </div>
         </div>
+        <a href="{{ route('problems.edit', $problem->id )}}">
+            修改题目
+        </a>
+        <a href="#">Submit</a>
+        <a href="">discuss</a>
+
     </div>
 @stop
 

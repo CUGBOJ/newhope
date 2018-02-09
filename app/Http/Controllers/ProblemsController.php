@@ -12,32 +12,64 @@ class ProblemsController extends Controller
     {
         return view('problems.show', compact('problem'));
     }
+    public function create()
+    {
+        return view('problems.create');
+    }
+    public function store(Request $request)
+    {
+//        $this->validate($request, [
+//            'name' => 'required|max:50',
+//            'email' => 'required|email|unique:users|max:255',
+//            'password' => 'required|confirmed|min:6'
+//        ]);
+        $problem = Problem::create([
+            'Title' => $request->Title,
+            'Description' => $request->Description,
+            'Input' =>  $request->Input,
+            'Output' => $request->Output,
+            'Sample_input' => $request->Sample_input,
+            'Sample_output' =>  $request->Sample_output,
+            'Hint' =>  $request->Hint,
+            'Author' => $request->Author,
+            'AC_number'=>0,
+            'Submit_number'=>0,
+            'AC_user_number'=>0,
+            'Submit_user_number'=>0,
+        ]);
+        session()->flash('success', '添加成功');
+        return redirect()->route('problems.show', [$problem]);
+    }
     public function index()
     {
         $problems = Problem::paginate(20);
         return view('problems.index', compact('problems'));
     }
 
-//    public function edit(User $user)
-//    {   $this->authorize('update', $user);
-//        return view('users.edit', compact('user'));
-//    }
-//    public function update(User $user, Request $request)
-//    {
+    public function edit(Problem $problem)
+    {   //$this->authorize('update', $problem);
+        return view('problems.edit', compact('problem'));
+    }
+    public function update(Problem $problem, Request $request)
+    {
 //        $this->validate($request, [
 //            'name' => 'required|max:50',
 //            'password' => 'nullable|confirmed|min:6'
 //        ]);
-//        $this->authorize('update', $user);
-//        $data = [];
-//        $data['name'] = $request->name;
-//        if ($request->password) {
-//            $data['password'] = bcrypt($request->password);
-//        }
-//        $user->update($data);
-//
-//        session()->flash('success', '个人资料更新成功！');
-//
-//        return redirect()->route('users.show', $user->id);
-//    }
+        //$this->authorize('update', $user);
+        $data = [];
+        $data['Title'] = $request->Title;
+        $data['Description'] = $request->Description;
+        $data['Input'] = $request->Input;
+        $data['Output'] = $request->Output;
+        $data['Sample_input'] = $request->Sample_input;
+        $data['Sample_output'] = $request->Sample_output;
+        $data['Hint'] = $request->Hint;
+
+        $problem->update($data);
+
+        session()->flash('success', '题目更新成功！');
+
+        return redirect()->route('problems.show', $problem->id);
+   }
 }
