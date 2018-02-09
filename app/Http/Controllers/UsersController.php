@@ -30,7 +30,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
         Auth::login($user);
-        session()->flash('success', '登陆成功');
+        session()->flash('success', '注册成功');
         return redirect()->route('users.show', [$user]);
     }
     public function edit(User $user)
