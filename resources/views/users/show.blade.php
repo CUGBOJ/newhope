@@ -16,6 +16,17 @@
     <p>
         his email id  <?php echo $user->email;?>
     </p>
+        <p>
+            <?php
+            if($user->is_admin==true)
+                {
+                    echo "he is a admin.";
+                }
+            else {
+                echo "he is not admin";
+            }
+            ?>
+        </p>
     </div>
 @stop
 
