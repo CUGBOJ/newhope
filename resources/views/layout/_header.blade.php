@@ -2,6 +2,7 @@
     <nav>
         <ul class="nav navbar-nav navbar-right">
             <li><a href= "{{ route('home') }}" >主页</a></li>
+            <li><a href= "{{ route('problems.index') }}" >问题</a></li>
             <li><a href="{{ route('help') }}">帮助</a></li>
             <li><a href="{{ route('about') }}">关于</a></li>
             <li><a href="{{ route('users.index') }}">用户列表</a></li>
