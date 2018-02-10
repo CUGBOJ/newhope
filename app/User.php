@@ -8,7 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -16,7 +19,7 @@ class User extends Authenticatable
      */
     //protected $table = 'users';
     protected $fillable = [
-        'name', 'email', 'password',
+        'nickname', 'email', 'password','school','username','last_login_ip','last_login_time','solved','submit'
     ];
 
     /**
@@ -25,6 +28,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','last_login_ip','last_login_time',
     ];
 }

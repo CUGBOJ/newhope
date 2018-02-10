@@ -20,12 +20,16 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:50',
-            'email' => 'required|email|unique:users|max:255',
+            'username' => 'required|max:50|unique:users',
+            'nickname' => 'required|max:50',
+            'school' => 'max:20',
+            'email' => 'email|max:255',
             'password' => 'required|confirmed|min:6'
         ]);
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->username,
+            'nickname' => $request->nickname,
+            'school'    => $request->school,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
@@ -40,12 +44,17 @@ class UsersController extends Controller
     public function update(User $user, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:50',
-            'password' => 'nullable|confirmed|min:6'
+            'nickname' => 'max:50',
+            'password' => 'nullable|confirmed|min:6',
+            'school' => 'max:20',
+            'email' => 'email|max:255',
         ]);
         $this->authorize('update', $user);
         $data = [];
-        $data['name'] = $request->name;
+        $data['username'] = $user->username;
+        $data['nickname'] = $request->nickname;
+        $data['school'] = $request->school;
+        $data['email'] = $request->email;
         if ($request->password) {
             $data['password'] = bcrypt($request->password);
         }
@@ -53,7 +62,7 @@ class UsersController extends Controller
 
         session()->flash('success', '个人资料更新成功！');
 
-        return redirect()->route('users.show', $user->id);
+        return redirect()->route('users.show', $user->username);
     }
     public function __construct()
     {

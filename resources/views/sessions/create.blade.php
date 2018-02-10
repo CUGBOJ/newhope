@@ -7,9 +7,9 @@
         @include('share._error')
         <form action="{{ route('login') }}"  method="POST" style="margin: 200px 600px">
             {{ csrf_field() }}
-            <input type="password"  name="password" id="password" >密码
+            <input type="text" name="username" id="username"  value="{{ old('username') }}">用户名
             <br>
-            <input type="email" name="email" id="email"  value="{{ old('email') }}">邮箱
+            <input type="password"  name="password" id="password" >密码
             <br>
             <button type="submit">登陆</button>
             <button type="reset">reset</button>

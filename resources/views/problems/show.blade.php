@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', '注册')
+@section('title', '题目展示')
 
 @section('content')
     <div>

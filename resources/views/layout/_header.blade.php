@@ -8,13 +8,13 @@
             <li><a href="{{ route('users.index') }}">用户列表</a></li>
             @if (Auth::check())
                 <li>
-                    <a href="#">{{ Auth::user()->name }}</a>
+                    <a href="#">{{ Auth::user()->username }}</a>
                     <ul>
                         <li>
-                            <a href="{{ route('users.show', Auth::user()->id) }}">个人中心</a>
+                            <a href="{{ route('users.show', Auth::user()->username) }}">个人中心</a>
                         </li>
                         <li>
-                            <a href="{{ route('users.edit', Auth::user()->id) }}">编辑资料</a>
+                            <a href="{{ route('users.edit', Auth::user()->username) }}">编辑资料</a>
                         </li>
                         <li>
                             <a id="logout" href="#">

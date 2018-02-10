@@ -15,7 +15,7 @@ class SessionsController extends Controller
     public function store(Request $request)
     {
         $credentials = $this->validate($request, [
-            'email' => 'required|email|max:255',
+            'username' => 'required|max:255',
             'password' => 'required'
         ]);
 
@@ -23,7 +23,7 @@ class SessionsController extends Controller
             session()->flash('success', '登陆成功');
             return redirect()->intended(route('users.show', [Auth::user()]));
         } else {
-            session()->flash('danger', '很抱歉，您的邮箱和密码不匹配');
+            session()->flash('danger', '很抱歉，您的用户名和密码不匹配');
             return redirect()->back();
         }
     }

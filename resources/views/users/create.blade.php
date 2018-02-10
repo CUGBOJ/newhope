@@ -15,14 +15,30 @@
         @include('share._error')
         <form action="{{ route('users.store') }}"  method="POST" style="margin: 200px 600px">
             {{ csrf_field() }}
-            <input type="text" name="name" id="name"  value="{{ old('name') }}">用户名
-            <br>
-            <input type="password"  name="password" id="password" >密码
-            <br>
-            <input type="password"  name="password_confirmation" id="password_confirmation">确认密码
-            <br>
-            <input type="email" name="email" id="email"  value="{{ old('email') }}">邮箱
-            <br>
+            <div>
+                <label for="username">用户名：</label>
+                <input type="text" name="username" class="form-control" value="{{ old('username') }}" >
+            </div>
+            <div>
+                <label for="nickname">昵称：</label>
+                <input type="text" name="nickname" class="form-control" value="{{ old('nickname') }}">
+            </div>
+            <div>
+                <label for="email">邮箱：</label>
+                <input type="text" name="email" class="form-control" value="{{ old('email') }}">
+            </div>
+            <div>
+                <label for="password">密码：</label>
+                <input type="password" name="password" class="form-control" value="{{ old('password') }}">
+            </div>
+            <div>
+                <label for="password_confirmation">确认密码：</label>
+                <input type="password" name="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}">
+            </div>
+            <div>
+                <label for="school">学校：</label>
+                <input type="text" name="school" class="form-control" value="{{ old('school') }}" >
+            </div>
             <button type="submit">注册</button>
             <button type="reset">reset</button>
 
