@@ -10,7 +10,7 @@ class ProblemsController extends Controller
 {
     public function create()
     {
-        //$this->authorize('create');
+        $this->authorize('is_admin',Problem::class);
         return view('problems.create');
     }
     public function show(Problem $problem)
@@ -25,7 +25,7 @@ class ProblemsController extends Controller
 //            'email' => 'required|email|unique:users|max:255',
 //            'password' => 'required|confirmed|min:6'
 //        ]);
-        $this->authorize('update');
+        $this->authorize('is_admin',Problem::class);
         $problem = Problem::create([
             'Title' => $request->Title,
             'Description' => $request->Description,
@@ -50,7 +50,7 @@ class ProblemsController extends Controller
     }
 
     public function edit(Problem $problem)
-    {  $this->authorize('update');
+    {  $this->authorize('is_admin',$problem);
         return view('problems.edit', compact('problem'));
     }
     public function update(Problem $problem, Request $request)
@@ -59,7 +59,7 @@ class ProblemsController extends Controller
 //            'name' => 'required|max:50',
 //            'password' => 'nullable|confirmed|min:6'
 //        ]);
-        $this->authorize('update');
+        $this->authorize('is_admin',$problem);
         $data = [];
         $data['Title'] = $request->Title;
         $data['Description'] = $request->Description;
@@ -81,8 +81,8 @@ class ProblemsController extends Controller
 //        session()->flash('success', '成功删除题目！');
 //        return back();
 //    }
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
 }

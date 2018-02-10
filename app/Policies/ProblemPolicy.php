@@ -8,17 +8,11 @@ use App\User;
 class ProblemPolicy
 {
     use HandlesAuthorization;
-
-    public function update(User $currentUser)
+    public function is_admin(User $currentUser)
     {
-        //return $currentUser->is_admin;
-        return true;
+        return $currentUser->is_admin;
+        //return true;
     }
 
-    public function create(User $currentUser)
-    {
-        //return $currentUser->is_admin;
-        return true;
-    }
 
 }
