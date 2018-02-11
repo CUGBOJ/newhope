@@ -8,7 +8,7 @@
             <li><a href="{{ route('statuses') }}">提交记录</a></li>
             <li><a href="{{ route('users.index') }}">用户列表</a></li>
             <?php
-                
+
             ?>
             @if (Auth::check())
                 <li>

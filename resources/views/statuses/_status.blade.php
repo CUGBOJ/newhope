@@ -34,6 +34,10 @@ $langs=[
     echo $results[$status->Result];
     ?>
     ||
+    {{$status->Username}}
+    ||
+    {{$status->Problem_id}}
+    ||
     {{ $status->Time }}
     ||
     {{ $status->Memory }}
