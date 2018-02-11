@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\User;
+use App\Models\User;
 
 class UserPolicy
 {
