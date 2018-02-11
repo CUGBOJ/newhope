@@ -28,4 +28,5 @@ Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
 Route::resource('problems', 'ProblemsController');
 Route::get('statuses', 'StatusesController@index')->name('statuses');
+Route::resource('topics', 'TopicsController');
 
