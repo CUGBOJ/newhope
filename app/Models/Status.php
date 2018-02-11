@@ -11,12 +11,12 @@ class Status extends Model
 
     public function user()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(User::class);
     }
 
     public function problem()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Problem::class);
     }
 
 

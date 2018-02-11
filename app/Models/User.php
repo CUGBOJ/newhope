@@ -29,4 +29,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token','last_login_ip','last_login_time',
     ];
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
 }

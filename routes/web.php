@@ -27,3 +27,4 @@ Route::post('login', 'SessionsController@store')->name('login');
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
 Route::resource('problems', 'ProblemsController');
+Route::get('statuses', 'StatusesController@index')->name('statuses');

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProblemsTableSeeder::class,
             UsersTableSeeder::class,
+            StatusesTableSeeder::class,
         ]);
 
         Model::reguard();

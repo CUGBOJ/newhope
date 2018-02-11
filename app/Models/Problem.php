@@ -25,4 +25,8 @@ class Problem extends Model
         'created_at',
         'updated_at',
     ];
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
 }
