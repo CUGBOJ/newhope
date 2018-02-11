@@ -9,10 +9,12 @@ use App\Models\Topic;
 class TopicsController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         $topics = Topic::paginate(10);
-        return view('topics.index', compact('topics'));
+        $username=$request->input('username');
+        $pro_id=$request->input('pro_id');
+        return view('topics.index', ['username'=>$username,'pro_id'=>$pro_id]);
     }
     public function show(Topic $topic)
     {

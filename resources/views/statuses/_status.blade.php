@@ -1,5 +1,4 @@
 <?php
-//include_once "lang_result_define.php";
 $results=[
     '',
     'Accepted',

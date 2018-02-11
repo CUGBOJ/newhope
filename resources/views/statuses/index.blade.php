@@ -17,13 +17,10 @@ if(empty($username)){
 }
 $statuses = DB::table('statuses')->where([
     ['Problem_id',$op[0], $pro_id],
-    ['Username', $op[0], $username],
-    ['Result',$op[0],$res],
-    ['Lang',$op[0],$lang],
+    ['Username', $op[1], $username],
+    ['Result',$op[2],$res],
+    ['Lang',$op[3],$lang],
 ])->get();
-if($pro_id){
-
-}
 ?>
 @extends('layout.default')
 @section('title', 'Statuses')

@@ -1,3 +1,19 @@
+<?php
+$op=['=','='];
+if(empty($pro_id)){
+    $op[0]='like';
+    $pro_id='%%';
+}
+if(empty($username)){
+    $op[1]='like';
+    $username='%%';
+}
+$topics = DB::table('topics')->where([
+    ['pro_id',$op[0], $pro_id],
+    ['username', $op[1], $username],
+])->get();
+?>
+
 @extends('layout.default')
 @section('title', 'Discuss')
 
@@ -9,6 +25,5 @@
                 @include('topics._topic')
             @endforeach
         </ul>
-        {!! $topics->render() !!}
     </div>
 @stop
