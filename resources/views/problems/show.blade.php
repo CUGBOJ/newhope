@@ -36,7 +36,7 @@
             修改题目
         </a>
         <a href="#">Submit</a>
-        <a href="">discuss</a>
+        <a href="{{route('topics.index')}}?pro_id={{$problem->id}}">discuss</a>
     </div>
 @stop
 

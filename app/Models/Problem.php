@@ -29,4 +29,8 @@ class Problem extends Model
     {
         return $this->hasMany(Status::class);
     }
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
 }
