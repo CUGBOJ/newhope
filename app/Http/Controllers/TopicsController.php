@@ -44,7 +44,6 @@ class TopicsController extends Controller
         ]);
 
         $username = Auth::user()->username;
-        echo $request->user()->username;
         $topic = Topic::create([
             'title' => $request->title,
             'body' => $request->body,

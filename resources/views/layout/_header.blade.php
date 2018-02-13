@@ -32,10 +32,19 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="{{ route('notifications.index') }}">
+
+                            <span class="badge badge-{{ Auth::user()->notification_count > 0 ? 'hint' : 'fade' }} " title="消息提醒">
+                               你有{{ Auth::user()->notification_count }}条消息未读
+                            </span>
+                    </a>
+                </li>
             @else
                 <li><a href="{{ route('signup') }}">注册</a></li>
                 <li><a href="{{ route('login') }}">登陆</a></li>
             @endif
+
         </ul>
     </nav>
 </header>

@@ -87,5 +87,4 @@ class UsersController extends Controller
         session()->flash('success', '成功删除用户！');
         return back();
     }
-
 }

@@ -3,10 +3,21 @@
 namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    public function messages($instance)
+    {
+        // 如果要通知的人是当前用户，就不必通知了！
+        if ($this->username == Auth::user()->username) {
+            return;
+        }
+        $this->increment('notification_count');
+        $this->notify($instance);
+    }
+
     public function getRouteKeyName()
     {
         return 'username';
@@ -48,4 +59,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reply::class);
     }
+    public function markAsRead()
+    {
+        $this->notification_count = 0;
+        $this->save();
+        $this->unreadNotifications->markAsRead();
+    }
+
 }

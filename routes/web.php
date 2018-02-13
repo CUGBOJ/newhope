@@ -30,4 +30,5 @@ Route::resource('problems', 'ProblemsController');
 Route::get('statuses', 'StatusesController@index')->name('statuses');
 Route::resource('topics', 'TopicsController');
 
-Route::resource('replies', 'RepliesController');
+Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
+Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
