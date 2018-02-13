@@ -43,16 +43,40 @@ class TopicsController extends Controller
             'pro_id' => 'required|exists:problems,id',
         ]);
 
-        $username=Auth::user()->username;
+        $username = Auth::user()->username;
         echo $request->user()->username;
         $topic = Topic::create([
             'title' => $request->title,
             'body' => $request->body,
-            'pro_id'=>$request->pro_id,
+            'pro_id' => $request->pro_id,
             'username' => $username,
             'last_reply_username' => $username,
         ]);
         session()->flash('success', '添加topic成功');
         return redirect()->route('topics.show', [$topic]);
+    }
+
+    public function destroy(Topic $topic)
+    {
+        $this->authorize('destroy', $topic);
+        $topic->delete();
+        return redirect()->route('topics.index')->with('success', '成功删除！');
+    }
+
+    public function update(Topic $topic,Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required|max:50|min:2',
+            'body' => 'required',
+        ]);
+        $topic->update($request->all());
+        session()->flash('success', '修改topic成功');
+        return redirect()->route('topics.show', [$topic]);
+    }
+
+    public function edit(Topic $topic)
+    {
+        $this->authorize('update', $topic);
+        return view('topics.edit', compact('topic'));
     }
 }

@@ -30,3 +30,4 @@ Route::resource('problems', 'ProblemsController');
 Route::get('statuses', 'StatusesController@index')->name('statuses');
 Route::resource('topics', 'TopicsController');
 
+Route::resource('replies', 'RepliesController');

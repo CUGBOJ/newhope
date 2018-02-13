@@ -37,4 +37,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Topic::class);
     }
+    public function isAuthorOf($model)
+    {
+        return $this->username == $model->username;
+    }
+    public  function idAdmin(){
+        return $this->is_admin;
+    }
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 }

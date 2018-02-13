@@ -14,9 +14,12 @@ class Topic extends Model
     {
         return $this->belongsTo(Problem::class);
     }
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 }

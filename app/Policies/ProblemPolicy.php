@@ -10,7 +10,7 @@ class ProblemPolicy
     use HandlesAuthorization;
     public function is_admin(User $currentUser)
     {
-        return $currentUser->is_admin;
+        return $currentUser->isAdmin();
         //return true;
     }
 

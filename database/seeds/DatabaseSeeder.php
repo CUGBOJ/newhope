@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             StatusesTableSeeder::class,
             TopicsTableSeeder::class,
+            ReplysTableSeeder::class,
         ]);
 
         Model::reguard();
