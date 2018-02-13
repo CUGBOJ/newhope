@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', '更新题目')
+@section('title', '更新讨论')
 @section('content')
     <h3>更新题目</h3>
     <div>

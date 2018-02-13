@@ -12,7 +12,6 @@ class AddNotificationCountToUsersTable extends Migration
             $table->integer('notification_count')->unsigned()->default(0);
         });
     }
-
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {

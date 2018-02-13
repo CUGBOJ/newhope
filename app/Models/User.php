@@ -11,9 +11,9 @@ class User extends Authenticatable
     public function messages($instance)
     {
         // 如果要通知的人是当前用户，就不必通知了！
-        if ($this->username == Auth::user()->username) {
-            return;
-        }
+//        if ($this->username == Auth::user()->username) {
+//            return;
+//        }
         $this->increment('notification_count');
         $this->notify($instance);
     }

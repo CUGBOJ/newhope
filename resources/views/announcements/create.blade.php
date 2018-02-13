@@ -4,21 +4,19 @@
 
 @section('content')
     <div>
-        <h1>创建题目</h1>
+        <h1>创建公告</h1>
         @include('share._error')
-        <form action="{{ route('topics.store') }}"  method="POST"  id="create_topic" >
+        <form action="{{ route('announcements.store') }}"  method="POST"  id="create_announcement" >
             {{ csrf_field() }}
             Title:<input type="text" name="title" id="title">
             <br>
-            Problem id:<input type="text" name="pro_id" id="pro_id">
-            <br>
             <button type="submit">提交</button>
         </form>
-        <textarea name="body" id="body" cols="30" rows="10" form="create_topic">
+        <textarea name="body" id="body" cols="30" rows="10" form="create_announcement">
 
         </textarea>
 
-        </div>
+    </div>
     </div>
 @stop
 

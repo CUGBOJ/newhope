@@ -16,4 +16,9 @@ class UserPolicy
     public function destroy(User $currentUser, User $user){
         return $currentUser->is_admin &&$currentUser->username!==$user->username;
     }
+    public function is_admin(User $currentUser)
+    {
+        return $currentUser->isAdmin();
+        //return true;
+    }
 }

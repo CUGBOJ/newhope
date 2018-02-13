@@ -20,10 +20,13 @@
 
                         <div class="notification-list">
                             @foreach ($notifications as $notification)
+                                <?php
+                                $arr = $notification->data;
+                                $data = json_decode($arr, true);
+                                ?>
                                 @include('notifications.types._' . snake_case(class_basename($notification->type)))
                             @endforeach
-
-                            {!! $notifications->render() !!}
+                            {{--{!! $notifications->render() !!}--}}
                         </div>
 
                     @else
