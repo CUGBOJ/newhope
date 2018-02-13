@@ -1,10 +1,5 @@
 <div>
     <div>
-        <a href="{{ route('users.show', $notification->data['username']) }}">
-            {{$notification->data['username']}}
-        </a>
-    </div>
-    <div>
         <div>
             <a href="{{ route('users.show', $notification->data['username']) }}">{{ $notification->data['username'] }}</a>
             在

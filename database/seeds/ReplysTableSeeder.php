@@ -14,7 +14,7 @@ class ReplysTableSeeder extends Seeder
         $faker = app(Faker\Generator::class);
 
         $replys = factory(Reply::class)
-            ->times(1000)
+            ->times(200)
             ->make()
             ->each(function ($reply, $index)
             use ($usernames, $topic_ids, $faker)
