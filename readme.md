@@ -16,10 +16,10 @@ cd /etc/php/7.0/fpm/
 vi php.ini
 # Cancel the comment of
 `
-;extension=extension=php_curl.dll
-;extension=extension=php_mbstring.dll
-;extension=extension=php_mysqli.dll
-;extension=extension=php_openssl.dll
+;extension=php_curl.dll
+;extension=php_mbstring.dll
+;extension=php_mysqli.dll
+;extension=php_openssl.dll
 `
 ```
 
@@ -48,10 +48,10 @@ please notice `PHP-Installation-Path` is a path
 cancel the comment of
 
 ```shell
-;extension=extension=php_curl.dll
-;extension=extension=php_mbstring.dll
-;extension=extension=php_mysqli.dll
-;extension=extension=php_openssl.dll
+;extension=php_curl.dll
+;extension=php_mbstring.dll
+;extension=php_mysqli.dll
+;extension=php_openssl.dll
 ```
 
 **macOS User:**
@@ -188,4 +188,12 @@ And update dependencies if the `composer.json` and `package.json` are modified.
 ```shell
 composer update
 npm install
+```
+
+### Test
+
+Run PHP tests
+
+```
+./vendor/phpunit/phpunit/phpunit
 ```
