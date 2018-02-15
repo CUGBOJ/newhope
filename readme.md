@@ -1,3 +1,7 @@
+# OJ_NG
+
+[![Build Status](https://travis-ci.org/CUGBOJ/newhope.svg?branch=master)](https://travis-ci.org/CUGBOJ/newhope)
+
 # Getting Started
 
 ## Setup
