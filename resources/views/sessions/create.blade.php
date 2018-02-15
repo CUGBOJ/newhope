@@ -3,17 +3,20 @@
 
 @section('content')
     <div>
-        <h1>这是登陆！！！</h1>
+        <h1>登录</h1>
         @include('share._error')
-        <form action="{{ route('login') }}"  method="POST" style="margin: 200px 600px">
+        <form action="{{ route('login') }}" method="POST" style="width: 50%;">
             {{ csrf_field() }}
-            <input type="text" name="username" id="username"  value="{{ old('username') }}">用户名
-            <br>
-            <input type="password"  name="password" id="password" >密码
-            <br>
-            <button type="submit">登陆</button>
-            <button type="reset">reset</button>
-
+            <i-input type="text" name="username" id="username" value="{{ old('username') }}" placeholder="Username">
+                <Icon type="ios-person-outline" slot="prepend"></Icon>
+            </i-input>
+            <i-input type="password" name="password" id="password" placeholder="Password">
+                <Icon type="ios-locked-outline" slot="prepend"></Icon>
+            </i-input>
+            <button-group>
+                <i-button html-type="submit">Login</i-button>
+                <i-button html-type="reset">Reset</i-button>
+            </button-group>
         </form>
     </div>
 @stop

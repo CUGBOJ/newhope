@@ -1,53 +1,66 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-    <nav>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href= "{{ route('home') }}" >主页</a></li>
-            <li><a href= "{{ route('problems.index') }}" >问题</a></li>
-            <li><a href="{{ route('help') }}">帮助</a></li>
-            <li><a href="{{ route('about') }}">关于</a></li>
-            <li><a href="{{ route('statuses') }}">提交记录</a></li>
-            <li><a href="{{ route('users.index') }}">用户列表</a></li>
-            <li><a href="{{ route('topics.index') }}">讨论区</a></li>
-            <li><a href="{{ route('announcements.index') }}">公告</a></li>
-            <?php
+<i-header :style="{position: 'fixed', width: '100%'}">
+    <i-menu mode="horizontal" theme="dark" active-name="1">
+        <div class="layout-logo" @click="this.window.location.href = '{{ route('home') }}'"></div>
+        <div class="layout-nav">
+            <button-group>
+                <i-button @click="this.window.location.href = '{{ route('problems.index') }}'">
+                    题目
+                </i-button>
+                <i-button @click="this.window.location.href = '{{ route('users.index') }}'">
+                    用户
+                </i-button>
+                <i-button @click="this.window.location.href = '{{ route('statuses') }}'">
+                    提交记录
+                </i-button>
+                <i-button @click="this.window.location.href = '{{ route('topics.index') }}'">
+                    讨论区
+                </i-button>
+                <i-button @click="this.window.location.href = '{{ route('announcements.index') }}'">
+                    公告
+                </i-button>
+                <i-button @click="this.window.location.href = '{{ route('help') }}'">
+                    帮助
+                </i-button>
+                <i-button @click="this.window.location.href = '{{ route('about') }}'">
+                    关于
+                </i-button>
+            </button-group>
+            <button-group>
+                @auth
+                    <i-button @click="this.window.location.href = '{{ route('users.show', Auth::user()->username) }}'">
+                        个人中心
+                    </i-button>
 
-            ?>
-            @if (Auth::check())
-                <li>
-                    <a href="#">{{ Auth::user()->username }}</a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('users.show', Auth::user()->username) }}">个人中心</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('users.edit', Auth::user()->username) }}">编辑资料</a>
-                        </li>
-                        <li>
-                            <a id="logout" href="#">
-                                <form action="{{ route('logout') }}" method="POST">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
-                                </form>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{{ route('notifications.index') }}">
+                    <i-button @click="this.window.location.href = '{{ route('users.edit', Auth::user()->username) }}'">
+                        编辑资料
+                    </i-button>
 
-                            <span class="badge badge-{{ Auth::user()->notification_count > 0 ? 'hint' : 'fade' }} " title="消息提醒">
-                               你有{{ Auth::user()->notification_count }}条消息未读
-                            </span>
+                    <i-button @click="this.document.getElementById('logout').submit()">
+                        退出
+                    </i-button>
+                    <form action="{{ route('logout') }}" method="POST" id="logout" hidden>
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <i-button class="btn btn-block btn-danger" html-type="submit" name="button">退出</i-button>
+                    </form>
+                @else
+                    <i-button @click="this.window.location.href = '{{ route('signup') }}'">
+                        注册
+                    </i-button>
+                    <i-button @click="this.window.location.href = '{{ route('login') }}'">
+                        登录
+                    </i-button>
+                @endif
+            </button-group>
+            @auth
+                <badge count="{{ Auth::user()->notification_count + 1 }}">
+                    <a href="{{ route('notifications.index') }}"
+                       style="width: 30px; height: 30px; background: #eee; border-radius: 6px; display: inline-block;">
+                        {{ Auth::user()->username }}
                     </a>
-                </li>
-            @else
-                <li><a href="{{ route('signup') }}">注册</a></li>
-                <li><a href="{{ route('login') }}">登陆</a></li>
-            @endif
-
-        </ul>
-    </nav>
-</header>
-
+                </badge>
+            @endauth
+        </div>
+    </i-menu>
+</i-header>
 

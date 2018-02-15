@@ -5,8 +5,8 @@
     <div>
         @include('share._error')
         <form method="POST" action="{{ route('users.update', $user->username )}}">
-        {{ method_field('PATCH') }}
-        {{ csrf_field() }}
+            {{ method_field('PATCH') }}
+            {{ csrf_field() }}
             <div>
                 <label for="username">用户名：</label>
                 <input type="text" name="username" class="form-control" value="{{ $user->username }}" disabled>
@@ -25,15 +25,14 @@
             </div>
             <div>
                 <label for="password_confirmation">确认密码：</label>
-                <input type="password" name="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}">
+                <input type="password" name="password_confirmation" class="form-control"
+                       value="{{ old('password_confirmation') }}">
             </div>
             <div>
                 <label for="school">学校：</label>
                 <input type="text" name="school" class="form-control" value="{{ $user->school }}">
             </div>
-
-
             <button type="submit" class="btn btn-primary">修改</button>
-
         </form>
     </div>
+@stop
