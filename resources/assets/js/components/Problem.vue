@@ -36,7 +36,7 @@ export default {
                                     },
                                     on: {
                                         click: () =>
-                                            (window.location.href = `http://127.0.0.1:8000/problems/${
+                                            (window.location.href = `/problems/${
                                                 params.row.id
                                             }`)
                                     }
@@ -52,7 +52,7 @@ export default {
                                     },
                                     on: {
                                         click: () =>
-                                            (window.location.href = `http://127.0.0.1:8000/problems/${
+                                            (window.location.href = `/problems/${
                                                 params.row.id
                                             }/edit`)
                                     }
