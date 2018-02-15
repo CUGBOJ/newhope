@@ -4,7 +4,16 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-window.Vue = require('vue')
+Vue = window.Vue = require('vue')
+
+/**
+ * Use iView
+ */
+import iView from 'iview'
+
+Vue.use(iView)
+
+import 'iview/dist/styles/iview.css';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

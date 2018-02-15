@@ -11,6 +11,24 @@ let mix = require('laravel-mix')
  |
  */
 
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                test: /\.vue$/,
+                use: [
+                    {
+                        loader: 'iview-loader',
+                        options: {
+                            prefix: true
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+})
+
 mix
     .js('resources/assets/js/app.js', 'public/js')
     .stylus('resources/assets/stylus/app.styl', 'public/css')
