@@ -34,15 +34,15 @@
                     <i-button @click="this.window.location.href = '{{ route('users.edit', Auth::user()->username) }}'">
                         编辑资料
                     </i-button>
-
-                    <i-button @click="this.document.getElementById('logout').submit()">
-                        退出
-                    </i-button>
                     <form action="{{ route('logout') }}" method="POST" id="logout" hidden>
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <i-button class="btn btn-block btn-danger" html-type="submit" name="button">退出</i-button>
                     </form>
+                    <i-button @click="this.document.getElementById('logout').submit()">
+                        退出
+                    </i-button>
+
                 @else
                     <i-button @click="this.window.location.href = '{{ route('signup') }}'">
                         注册
