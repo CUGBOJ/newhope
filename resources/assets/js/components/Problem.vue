@@ -1,16 +1,64 @@
 <template>
-  <Table stripe :columns="columns" :data="data" height="480"></Table>
+  <div>
+    <Table :loading="loading" stripe :columns="columns" :data="data" height="480"></Table>
+    <div style="float: right;">
+      <Page :page-size="perPage" :total="total" :current="1" @on-change="changePage"></Page>
+    </div>
+  </div>
 </template>
 <script>
 import axios from 'axios'
 
 export default {
+    mounted() {
+        this.changePage()
+    },
+    methods: {
+        changePage(p = 1) {
+            this.loading = true
+            axios
+                .get('/api/problem', {
+                    params: {
+                        page: p,
+                        perPage: this.perPage
+                    }
+                })
+                .then(res => {
+                    this.data = res.data.data
+                    this.total = res.data.total
+                    this.loading = false
+                })
+        }
+    },
     data() {
         return {
+            perPage: 10,
+            loading: true,
+            total: 0,
             columns: [
                 {
                     title: 'Title',
-                    key: 'Title'
+                    key: 'Title',
+                    render: (h, params) => {
+                        return h('div', [
+                            h(
+                                'Button',
+                                {
+                                    props: {
+                                        type: 'text',
+                                        size: 'small'
+                                    },
+                                    on: {
+                                        click: () =>
+                                            (window.location.href = `/problems/${
+                                                params.row.id
+                                            }`)
+                                    }
+                                },
+                                params.row.Title
+                            )
+                        ])
+                    }
                 },
                 {
                     title: 'Author',
@@ -38,22 +86,6 @@ export default {
                                         click: () =>
                                             (window.location.href = `/problems/${
                                                 params.row.id
-                                            }`)
-                                    }
-                                },
-                                'View'
-                            ),
-                            h(
-                                'Button',
-                                {
-                                    props: {
-                                        type: 'text',
-                                        size: 'small'
-                                    },
-                                    on: {
-                                        click: () =>
-                                            (window.location.href = `/problems/${
-                                                params.row.id
                                             }/edit`)
                                     }
                                 },
@@ -65,12 +97,6 @@ export default {
             ],
             data: []
         }
-    },
-    mounted() {
-        axios.get('/api/problem').then(res => {
-            console.log(res.data)
-            this.data = res.data
-        })
     }
 }
 </script>

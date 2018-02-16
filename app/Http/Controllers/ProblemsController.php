@@ -13,6 +13,7 @@ class ProblemsController extends Controller
         $this->authorize('is_admin',Problem::class);
         return view('problems.create');
     }
+
     public function show(Problem $problem)
     {
         return view('problems.show', compact('problem'));
@@ -38,22 +39,30 @@ class ProblemsController extends Controller
         session()->flash('success', '添加成功');
         return redirect()->route('problems.show', [$problem]);
     }
+
     public function index()
     {
-        $problems = Problem::paginate(20);
         return view('problems.index', compact('problems'));
     }
 
+    public function getProblems()
+    {
+        $perPage = request()->get('perPage') ?: 15;
+        $page = request()->get('page') ?: 1;
+
+        return Problem::getModel()->paginate($perPage,
+                ['id', 'Title', 'Author', 'Submit_number'],
+                '', $page);
+    }
+
     public function edit(Problem $problem)
-    {  $this->authorize('is_admin',$problem);
+    {
+        $this->authorize('is_admin',$problem);
         return view('problems.edit', compact('problem'));
     }
+
     public function update(Problem $problem, Request $request)
     {
-//        $this->validate($request, [
-//            'name' => 'required|max:50',
-//            'password' => 'nullable|confirmed|min:6'
-//        ]);
         $this->authorize('is_admin',$problem);
         $data = [];
         $data['Title'] = $request->Title;
@@ -70,14 +79,4 @@ class ProblemsController extends Controller
 
         return redirect()->route('problems.show', $problem->id);
    }
-//    public function destroy(Problem $problem)
-//    {   $this->authorize('is_admin');
-//        $problem->delete();
-//        session()->flash('success', '成功删除题目！');
-//        return back();
-//    }
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
 }

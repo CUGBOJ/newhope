@@ -17,6 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('problem', function () {
-    return \App\Models\Problem::all();
-});
+Route::get('problem', 'ProblemsController@getProblems');
