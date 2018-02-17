@@ -1,4 +1,4 @@
-<i-header :style="{position: 'fixed', width: '100%'}">
+<i-header :style="{position: 'fixed', width: '100%', top: '0'}">
     <i-menu mode="horizontal" theme="dark" active-name="1">
         <div class="layout-logo" @click="this.window.location.href = '{{ route('home') }}'"></div>
         <div class="layout-nav">

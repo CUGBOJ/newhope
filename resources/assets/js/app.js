@@ -23,8 +23,8 @@ import 'iview/dist/styles/iview.css'
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('problem', require('./components/Problem.vue'))
+Vue.component('code-editor', require('./components/CodeEditor'))
 
 /*eslint-disable no-unused-vars*/
 const app = new Vue({

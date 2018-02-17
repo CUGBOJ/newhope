@@ -10,9 +10,9 @@
     <div class="layout" id="app" v-cloak>
         <layout>
             @include('layout._header')
-            <i-content :style="{margin: '88px 20px 0', background: '#fff', minHeight: '500px'}">
+            <card style="height: 80vh; margin: 80px 30px 0;" dis-hover>
                 @yield('content')
-            </i-content>
+            </card>
             @include('layout._footer')
         </layout>
     </div>

@@ -4,7 +4,13 @@ module.exports = {
     rules: {
         strict: 0,
         semi: ['error', 'never'],
-        quotes: ['error', 'single']
+        quotes: ['error', 'single'],
+        'vue/no-parsing-error': [
+            'error',
+            {
+                'x-invalid-end-tag': false
+            }
+        ]
     },
     globals: {
         Vue: true
