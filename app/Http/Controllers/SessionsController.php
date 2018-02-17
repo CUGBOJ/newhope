@@ -20,6 +20,9 @@ class SessionsController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $user->last_login_ip = $request->ip();
+            $user->save();
             session()->flash('success', '登陆成功');
             return redirect()->intended(route('users.show', [Auth::user()]));
         } else {
