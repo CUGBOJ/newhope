@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table :loading="loading" stripe :columns="columns" :data="data" height="480"></Table>
+    <Table :loading="loading" stripe :columns="columns" :data="data" :height="tableHeight" style="margin: 10px 0;"></Table>
     <div style="float: right;">
       <Page :page-size="perPage" :total="total" :current="1" @on-change="changePage"></Page>
     </div>
@@ -12,6 +12,11 @@ import axios from 'axios'
 export default {
     mounted() {
         this.changePage()
+    },
+    computed: {
+        tableHeight() {
+            return window.innerHeight * 0.65
+        }
     },
     methods: {
         changePage(p = 1) {

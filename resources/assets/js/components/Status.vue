@@ -1,8 +1,9 @@
 <template>
   <div>
-    <Table :loading="loading" stripe :columns="columns" :data="data" height="480"></Table>
+    <Input v-model="searchText" @keyup.enter.native="fetchData" placeholder="Search for ID, Problem or User" style="width: 300px;" icon="ios-search"></Input>
+    <Table ref="table" :loading="loading" stripe :columns="columns" :data="data" :height="tableHeight" style="margin: 10px 0;"></Table>
     <div style="float: right;">
-      <Page :page-size="perPage" :total="total" :current="1" @on-change="changePage"></Page>
+      <Page ref="page" :page-size="perPage" :total="total" :current="1" @on-change="fetchData"></Page>
     </div>
   </div>
 </template>
@@ -10,7 +11,6 @@
 import axios from 'axios'
 const CONSTANT = {
     RESULT: [
-        '',
         'Accepted',
         'WA',
         'PE',
@@ -23,31 +23,51 @@ const CONSTANT = {
         'Queuing and Judging',
         'hh'
     ],
-    LANG: [
-        '',
-        'C',
-        'C++',
-        'JAVA',
-        'Python 2',
-        'Python 3',
-        'C#',
-        'Ruby',
-        'Pascal'
-    ]
+    LANG: ['C', 'C++', 'JAVA', 'Python 2', 'Python 3', 'C#', 'Ruby', 'Pascal']
 }
 export default {
     mounted() {
-        this.changePage()
+        this.fetchData()
+    },
+    computed: {
+        //Hack filter when page changed
+        cloneColumns() {
+            return this.$refs.table.cloneColumns
+        },
+        page() {
+            return this.$refs.page.currentPage
+        },
+        tableHeight() {
+            return window.innerHeight * 0.63
+        }
     },
     methods: {
-        changePage(p = 1) {
+        fetchData() {
             this.loading = true
+            let params = {
+                page: this.page,
+                perPage: this.perPage
+            }
+
+            if (this.searchText) {
+                params.search = this.searchText
+            }
+
+            if (this.cloneColumns[3]._filterChecked.length) {
+                params.lang = JSON.stringify(
+                    this.cloneColumns[3]._filterChecked.map(v => v + 1)
+                )
+            }
+
+            if (this.cloneColumns[4]._filterChecked.length) {
+                params.res = JSON.stringify(
+                    this.cloneColumns[4]._filterChecked.map(v => v + 1)
+                )
+            }
+
             axios
                 .get('/api/status', {
-                    params: {
-                        page: p,
-                        perPage: this.perPage
-                    }
+                    params
                 })
                 .then(res => {
                     this.data = res.data.data
@@ -58,6 +78,7 @@ export default {
     },
     data() {
         return {
+            searchText: '',
             perPage: 10,
             loading: true,
             total: 0,
@@ -102,7 +123,14 @@ export default {
                     key: 'Lang',
                     width: '10%',
                     render: (h, params) => {
-                        return h('div', CONSTANT.LANG[params.row.Lang])
+                        return h('div', CONSTANT.LANG[params.row.Lang - 1])
+                    },
+                    filters: CONSTANT.LANG.map((val, index) => ({
+                        label: val,
+                        value: index
+                    })),
+                    filterRemote() {
+                        this.fetchData()
                     }
                 },
                 {
@@ -110,7 +138,14 @@ export default {
                     key: 'Result',
                     width: '13%',
                     render: (h, params) => {
-                        return h('div', CONSTANT.RESULT[params.row.Result])
+                        return h('div', CONSTANT.RESULT[params.row.Result - 1])
+                    },
+                    filters: CONSTANT.RESULT.map((val, index) => ({
+                        label: val,
+                        value: index
+                    })),
+                    filterRemote() {
+                        this.fetchData()
                     }
                 },
                 {

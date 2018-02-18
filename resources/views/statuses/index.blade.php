@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'Statuses')
+@section('title', 'Status')
 
 @section('content')
     <status></status>
