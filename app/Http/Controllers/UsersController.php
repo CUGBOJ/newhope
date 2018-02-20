@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -13,10 +14,12 @@ class UsersController extends Controller
     {
         return view('users.create');
     }
+
     public function show(User $user)
     {
         return view('users.show', compact('user'));
     }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -29,7 +32,7 @@ class UsersController extends Controller
         $user = User::create([
             'username' => $request->username,
             'nickname' => $request->nickname,
-            'school'    => $request->school,
+            'school' => $request->school,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
@@ -37,10 +40,13 @@ class UsersController extends Controller
         session()->flash('success', '注册成功');
         return redirect()->route('users.show', [$user]);
     }
+
     public function edit(User $user)
-    {   $this->authorize('update', $user);
+    {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
+
     public function update(User $user, Request $request)
     {
         $this->validate($request, [
@@ -60,14 +66,18 @@ class UsersController extends Controller
         }
         $user->update($data);
 
+        //Update password_hash in the Session
+        Auth::login($user);
+
         session()->flash('success', '个人资料更新成功！');
 
         return redirect()->route('users.show', $user->username);
     }
+
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store','index']
+            'except' => ['show', 'create', 'store', 'index']
         ]);
 
         $this->middleware('guest', [
@@ -75,11 +85,13 @@ class UsersController extends Controller
         ]);
 
     }
+
     public function index()
     {
         $users = User::paginate(10);
         return view('users.index', compact('users'));
     }
+
     public function destroy(User $user)
     {
         $this->authorize('destroy', $user);
