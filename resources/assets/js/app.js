@@ -25,7 +25,8 @@ import 'iview/dist/styles/iview.css'
 
 Vue.component('problem', require('./components/Problem.vue'))
 Vue.component('status', require('./components/Status.vue'))
-Vue.component('code-editor', require('./components/CodeEditor'))
+Vue.component('code-editor', require('./components/CodeEditor.vue'))
+Vue.component('Login', require('./components/Login.vue'))
 
 /*eslint-disable no-unused-vars*/
 const app = new Vue({
