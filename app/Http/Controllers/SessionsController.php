@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
-
 class SessionsController extends Controller
 {
     public function create()
@@ -18,16 +15,23 @@ class SessionsController extends Controller
             'username' => 'required|max:255',
             'password' => 'required'
         ]);
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $user->last_login_ip = $request->ip();
-            $user->save();
-            session()->flash('success', '登陆成功');
-            return redirect()->intended(route('users.show', [Auth::user()]));
+        if ($request->expectsJson()) {
+            if (Auth::attempt($credentials)) {
+                return response()->json(['message' => "login successfully"], 200);
+            } else {
+                return response()->json(['message' => "login failed"], 401);
+            }
         } else {
-            session()->flash('danger', '很抱歉，您的用户名和密码不匹配');
-            return redirect()->back();
+            if (Auth::attempt($credentials)) {
+                $user = Auth::user();
+                $user->last_login_ip = $request->ip();
+                $user->save();
+                session()->flash('success', '登陆成功');
+                return redirect()->intended(route('users.show', [Auth::user()]));
+            } else {
+                session()->flash('danger', '很抱歉，您的用户名和密码不匹配');
+                return redirect()->back();
+            }
         }
     }
     public function destroy()
@@ -41,6 +45,5 @@ class SessionsController extends Controller
         $this->middleware('guest', [
             'only' => ['create']
         ]);
-
     }
 }
