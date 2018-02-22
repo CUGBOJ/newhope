@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof ValidationException) {
             if ($request->wantsJson()) {
-                return response()->json(['message' => $exception->getMessage()], 422);
+                return response()->json(['message' => $exception->getMessage()], $exception->status);
             } else {
                 return abort(422, $exception->getMessage());
             }
