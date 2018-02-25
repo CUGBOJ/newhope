@@ -14,6 +14,9 @@
 Route::get('/', 'StaticPagesController@home')->name('home');
 Route::get('/help', 'StaticPagesController@help')->name('help');
 Route::get('/about', 'StaticPagesController@about')->name('about');
+Route::get('submit','StaticPagesController@submit_by_file')->name('submit');
+Route::any('judge','StaticPagesController@judge')->name('judge');
+
 
 Route::get('signup', 'UsersController@create')->name('signup');
 Route::resource('users', 'UsersController');
