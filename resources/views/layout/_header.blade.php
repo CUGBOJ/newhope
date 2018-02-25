@@ -53,7 +53,7 @@
                 @endif
             </button-group>
             @auth
-                <badge count="{{ Auth::user()->notification_count + 1 }}">
+                <badge count="{{ Auth::user()->notification_count  }}">
                     <a href="{{ route('notifications.index') }}"
                        style="width: 30px; height: 30px; background: #eee; border-radius: 6px; display: inline-block;">
                         {{ Auth::user()->username }}

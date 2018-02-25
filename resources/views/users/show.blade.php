@@ -13,6 +13,7 @@
     <div>
         @include('share._error')
     <h2>this is imformation of  {{$user->username}}</h2>
+        <img  src="{{ $user->avatar }}" width="300px" height="300px">
     <p>
         his email is  {{$user->email}}
     </p>

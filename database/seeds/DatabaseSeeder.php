@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
-
         Model::unguard();
         $this->call([
             ProblemsTableSeeder::class,
@@ -23,7 +22,6 @@ class DatabaseSeeder extends Seeder
             ReplysTableSeeder::class,
             AnnouncementsTableSeeder::class,
         ]);
-
         Model::reguard();
     }
 }
