@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', $_SERVER["SERVER_NAME"]),
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------

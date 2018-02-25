@@ -8,8 +8,8 @@ class CreateRepliesTable extends Migration
 	public function up()
 	{
 		Schema::create('replies', function(Blueprint $table) {
-            $table->increments('id');
-            $table->integer('topic_id')->default(0)->index();
+            $table->integer('id',1);
+            $table->integer('topic_id')->index();
             $table->string('username')->index();
             $table->text('content');
             $table->timestamps();
