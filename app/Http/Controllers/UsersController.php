@@ -61,16 +61,12 @@ class UsersController extends Controller
             $data['password'] = bcrypt($request->password);
         }
         if ($request->avatar) {
-            $result = $uploader->save($request->avatar, 'avatars', $user->id);
+            $result = $uploader->save($request->avatar, 'avatars', $user->username);
             if ($result) {
                 $data['avatar'] = $result['path'];
             }
         }
         $user->update($data);
-
-        //Update password_hash in the Session
-        Auth::login($user);
-
         session()->flash('success', '个人资料更新成功！');
 
         return redirect()->route('users.show', $user->username);
