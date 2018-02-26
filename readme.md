@@ -119,6 +119,7 @@ If you are a Linux user please notice you must have the permission to write `You
 Set up the HTTP server in http://127.0.0.1:8000
 
 ```
+php artisan key:generate
 php artisan serve
 ```
 
