@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 class User extends Authenticatable
 {
     use Notifiable;
+    const CREATED_AT = 'register_time';
+    const UPDATED_AT = 'last_login_time';
     public function messages($instance)
     {
         // 如果要通知的人是当前用户，就不必通知了！
@@ -29,7 +31,7 @@ class User extends Authenticatable
      */
     //protected $table = 'users';
     protected $fillable = [
-        'avatar','nickname', 'email', 'password','school','username','last_login_ip','last_login_time','solved','submit'
+        'avatar','nickname', 'email', 'password','school','username','last_login_ip','last_login_time','register_time','solved','submit'
     ];
 
     /**
@@ -38,7 +40,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','last_login_ip','last_login_time',
+        'password', 'remember_token','last_login_ip','last_login_time','register_time'
     ];
     public function statuses()
     {
