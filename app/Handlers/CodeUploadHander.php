@@ -16,7 +16,6 @@ class CodeUploadHandler
         $extension=$ext[$lang];
 
         $filename = $username . '_' .$pro_id. '_' .time().'_'.$langs[$lang]. '.' . $extension;
-        // 将图片移动到我们的目标存储路径中
         $file->move($upload_path, $filename);
         return [
             'path' => config('app.url') . "/$filename"
