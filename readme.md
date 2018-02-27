@@ -13,22 +13,16 @@ OJ_NG
     * [NodeJS & NPM](#nodejs-npm)
     * [Composer](#composer)
     * [Http server](#http_server)
-<br>
 * [相关配置](#相关配置)
     * [换源](#换源)
     * [Clone项目](#clone项目)
     * [项目配置](#项目配置)
-    * [Http_server配置](#Http_server配置)
+    * [Http_server配置](#http_server配置)
     * [安装第三方包与依赖](#安装第三方包与依赖)
-
-<br>
-
 * [开发约定](#开发约定)
     * [数据库结构](#数据库结构)
     * [表单验证规则](#表单验证规则)
-<br>
 * [Test](#test)
-<br>
 * [其他](#其他)
 
 
@@ -38,10 +32,10 @@ OJ_NG
 
 ####该项目依赖与以下环境，请自行检查是否已经安装以及版本符合要求
 
->Mysql Server
-PHP （>=7.0）
-nodejs&npm (>???)
-composer
+>Mysql Server<br>
+PHP （>=7.0）<br>
+nodejs&npm (>???)<br>
+composer<br>
 Http server
 
 
