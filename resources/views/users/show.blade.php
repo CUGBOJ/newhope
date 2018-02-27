@@ -30,10 +30,7 @@
             his last_login_time is  {{$user->last_login_time}}
         </p>
         <p>
-            his created_at is  {{$user->created_at}}
-        </p>
-        <p>
-            his updated_at is  {{$user->updated_at}}
+            his created_at is  {{$user->register_time}}
         </p>
         <p>
             his solved is  {{$user->solved}}

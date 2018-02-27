@@ -21,11 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('school');
             $table->timestamp('last_login_time');
+            $table->timestamp('register_time')->nullable();
             $table->ipAddress('last_login_ip')->default('1.1.1.1');
             $table->integer('submit')->default(0);
             $table->integer('solved')->default(0);
             $table->rememberToken();
-            $table->timestamps();
         });
     }
 
