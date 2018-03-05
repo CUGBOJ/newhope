@@ -24,16 +24,17 @@ class CreateProblemsTable extends Migration
             $table->text('Sample_output')->nullable();
             $table->text('Hint')->nullable();
 
+
             $table->string('Author', 100)->nullable();
 
             $table->integer('Time_limit')->nullable();
+            $table->integer('Hide')->default(0);// 3 state for 0.not hide 1.hide 2.used in contest
             $table->integer('Memory_limit')->nullable();
             $table->integer('AC_number')->nullable();
             $table->integer('Submit_number')->nullable();
             $table->integer('AC_user_number')->nullable();
             $table->integer('Submit_user_number')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

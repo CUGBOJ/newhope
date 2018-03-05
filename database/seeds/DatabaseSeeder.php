@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             TopicsTableSeeder::class,
             ReplysTableSeeder::class,
             AnnouncementsTableSeeder::class,
+            ContestsTableSeeder::class,
         ]);
         Model::reguard();
     }
