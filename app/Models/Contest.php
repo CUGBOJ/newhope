@@ -22,4 +22,14 @@ class Contest extends Model
     protected $hidden = [
         'password'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User');
+    }
+
+    public function problems()
+    {
+        return $this->hasMany(Problem::class);
+    }
 }

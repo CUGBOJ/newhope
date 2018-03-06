@@ -14,7 +14,7 @@ class CreateContestsTable extends Migration
     public function up()
     {
         Schema::create('contests', function (Blueprint $table) {
-            $table->increments('cid');
+            $table->integer('id',1)->index();
             $table->timestamp('create_time')->useCurrent();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
@@ -31,7 +31,6 @@ class CreateContestsTable extends Migration
 
             //$table->timestamps();
         });
-        DB::statement("ALTER TABLE contests AUTO_INCREMENT = 1;");
     }
 
     /**
