@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContestRequest;
 use Illuminate\Http\Request;
 use App\Models\Contest;
 use Illuminate\Support\Facades\Auth;
@@ -35,9 +36,9 @@ class ContestsController extends Controller
 
     }
 
-    public function storage()
+    public function store(ContestRequest $request)
     {
-
+        var_dump($request);
     }
 
     public function __construct()
