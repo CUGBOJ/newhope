@@ -3,8 +3,6 @@
 use Faker\Generator as Faker;
 
 $factory->define(\App\Models\Contest::class, function (Faker $faker) {
-    static $password;
-
     $end_time = $faker ->dateTimeThisMonth();
     $start_time = $faker ->dateTimeThisMonth($end_time);
     $isprivate = $faker -> boolean;

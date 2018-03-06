@@ -51,7 +51,6 @@ class UsersController extends Controller
 
     public function update(User $user,UserRequest $request, ImageUploadHandler $uploader)
     {
-
         $this->authorize('update', $user);
         $data = [];
         $data['nickname'] = $request->nickname;
