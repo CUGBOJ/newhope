@@ -9,11 +9,14 @@
             {{ csrf_field() }}
             Title: <input type="text" name="title">
             <br>
-            Start_time <input type="datetime-local" name="start_time">
+            Start_time
+            <input type="text" name="start_time" placeholder="eg: 2016-12-31 23:59:59">
             <br>
-            End_time <input type="datetime-local" name="end_time">
+            End_time
+            <input type="text" name="end_time" placeholder="eg: 2016-12-31 23:59:59">
             <br>
-            Lock_board_time <input type="datetime-local" name="lock_board_time">
+            Lock_board_time
+            <input type="text" name="lock_board_time" placeholder="eg: 2016-12-31 23:59:59">
             <br>
             公开？
             <input type="radio" name="is_private" value="1" checked>公开
