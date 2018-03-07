@@ -19,6 +19,7 @@ class ContestsController extends Controller
 
     public function create()
     {
+        $this->authorize('is_admin', Contest::class);
         return view('contests.create');
     }
 
@@ -29,16 +30,18 @@ class ContestsController extends Controller
 
     public function edit(Contest $contest)
     {
+        $this->authorize('is_admin', Contest::class);
         return view('contests.edit', compact('contest'));
     }
 
     public function update()
     {
-
+        $this->authorize('is_admin', Contest::class);
     }
 
     public function store(ContestRequest $request)
     {
+        $this->authorize('is_admin', Contest::class);
         $contest=Contest::create([
             'title'=>$request->title,
             'start_time'=>$request->start_time,

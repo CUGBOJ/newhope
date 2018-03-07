@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contest extends Model
 {
+
     public $timestamps = false;
     protected $fillable = [
         'create_time',
