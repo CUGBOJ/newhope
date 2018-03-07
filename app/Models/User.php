@@ -33,7 +33,17 @@ class User extends Authenticatable
      */
     //protected $table = 'users';
     protected $fillable = [
-        'avatar', 'nickname', 'email', 'password', 'school', 'username', 'last_login_ip', 'last_login_time', 'register_time', 'solved', 'submit'
+        'avatar', 
+        'nickname', 
+        'email', 
+        'password', 
+        'school', 
+        'username', 
+        'last_login_ip', 
+        'last_login_time', 
+        'register_time', 
+        'solved', 
+        'submit',
     ];
 
     /**
@@ -42,7 +52,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'last_login_ip', 'last_login_time', 'register_time'
+        'password', 
+        'remember_token', 
+        'last_login_ip', 
+        'last_login_time', 
+        'register_time',
     ];
 
     public function statuses()

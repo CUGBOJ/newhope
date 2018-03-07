@@ -17,11 +17,11 @@ class Contest extends Model
         'password',
         'title',
         'description',
-        'isprivate',
-        'hide_other'
+        'private',
+        'hide_other',
     ];
     protected $hidden = [
-        'password'
+        'password',
     ];
 
     public function users()

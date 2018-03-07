@@ -10,7 +10,7 @@ class ContestPolicy
 {
     use HandlesAuthorization;
 
-    public function cant_go(User $currentUser, Contest $contest)
+    public function check_permission(User $currentUser, Contest $contest)
     {
         if($currentUser->isAdmin())
         {

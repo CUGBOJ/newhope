@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     protected $fillable = [
-        'username', 'pro_id', 'reply_count','view_count','title','body','last_reply_username','order',
+        'username', 
+        'pro_id', 
+        'reply_count',
+        'view_count',
+        'title',
+        'body',
+        'last_reply_username',
+        'order',
     ];
     //protected $fillable = ['title', 'body', 'pro_id',];
     public function problem()

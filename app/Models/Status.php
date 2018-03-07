@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model
 {
 
-    protected $fillable = ['Result','Time','Memory','Length','Lang','Submit_time'];
+    protected $fillable = [
+        'Result',
+        'Time',
+        'Memory',
+        'Length',
+        'Lang',
+        'Submit_time'
+    ];
 
     public function user()
     {
