@@ -25,7 +25,7 @@ export default {
                 })
                 .then(res => {
                     this.$Message.success(res.data.message)
-                    setTimeout(err => {
+                    setTimeout(() => {
                         window.location.reload();
                     }, 1000)
                 })
