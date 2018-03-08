@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->ipAddress('last_login_ip')->default('1.1.1.1');
             $table->integer('submit')->default(0);
             $table->integer('solved')->default(0);
+            $table->integer('role_id')->unsigned()->default(4);
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->rememberToken();
         });
     }

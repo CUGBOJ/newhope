@@ -90,12 +90,12 @@ export default {
                 },
                 {
                     title: 'Username',
-                    key: 'Username',
+                    key: 'username',
                     width: '18%'
                 },
                 {
                     title: 'Problem',
-                    key: 'Problem_id',
+                    key: 'problem_id',
                     width: '8%',
                     render: (h, params) => {
                         return h('div', [
@@ -109,21 +109,22 @@ export default {
                                     on: {
                                         click: () =>
                                             (window.location.href = `/problems/${
-                                                params.row.Problem_id
+                                                params.row.problem_id
                                             }`)
                                     }
                                 },
-                                params.row.Problem_id
+                                params.row.problem_id
                             )
                         ])
                     }
                 },
                 {
                     title: 'Language',
-                    key: 'Lang',
+                    key: 'l' +
+                'ang',
                     width: '10%',
                     render: (h, params) => {
-                        return h('div', CONSTANT.LANG[params.row.Lang - 1])
+                        return h('div', CONSTANT.LANG[params.row.lang - 1])
                     },
                     filters: CONSTANT.LANG.map((val, index) => ({
                         label: val,
@@ -135,10 +136,10 @@ export default {
                 },
                 {
                     title: 'Result',
-                    key: 'Result',
+                    key: 'result',
                     width: '13%',
                     render: (h, params) => {
-                        return h('div', CONSTANT.RESULT[params.row.Result - 1])
+                        return h('div', CONSTANT.RESULT[params.row.result - 1])
                     },
                     filters: CONSTANT.RESULT.map((val, index) => ({
                         label: val,
@@ -150,22 +151,22 @@ export default {
                 },
                 {
                     title: 'Time',
-                    key: 'Time',
+                    key: 'time',
                     width: '8%'
                 },
                 {
                     title: 'Memory',
-                    key: 'Memory',
+                    key: 'memory',
                     width: '8%'
                 },
                 {
                     title: 'Length',
-                    key: 'Length',
+                    key: 'length',
                     width: '8%'
                 },
                 {
                     title: 'Submit Time',
-                    key: 'Submit_time'
+                    key: 'submit_time'
                 }
             ],
             data: []

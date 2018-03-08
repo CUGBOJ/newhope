@@ -1,7 +1,7 @@
 <li>
     <a href="{{ route('users.show', $user->username )}}" class="username">{{ $user->username }}</a>
 
-    @can('destroy', $user)
+    @can('user_destroy', $user)
         <form action="{{ route('users.destroy', $user->username) }}" method="post">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}

@@ -1,13 +1,13 @@
 <li>
-    <a href="{{ route('problems.show', $problem->id )}}" >{{ $problem->Title }}
+    <a href="{{ route('problems.show', $problem->id )}}" >{{ $problem->title }}
     ||
-        {{ $problem->AC_number }}
+        {{ $problem->aC_number }}
     ||
-        {{ $problem->Submit_number }}
+        {{ $problem->submit_number }}
     ||
-        {{ $problem->AC_user_number }}
+        {{ $problem->aC_user_number }}
     ||
-        {{ $problem->Submit_user_number }}
+        {{ $problem->submit_user_number }}
 
     </a>
 

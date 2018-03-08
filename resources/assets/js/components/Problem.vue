@@ -43,7 +43,7 @@ export default {
             columns: [
                 {
                     title: 'Title',
-                    key: 'Title',
+                    key: 'title',
                     render: (h, params) => {
                         return h('div', [
                             h(
@@ -60,18 +60,18 @@ export default {
                                             }`)
                                     }
                                 },
-                                params.row.Title
+                                params.row.title
                             )
                         ])
                     }
                 },
                 {
                     title: 'Author',
-                    key: 'Author'
+                    key: 'author'
                 },
                 {
                     title: 'Submit Number',
-                    key: 'Submit_number'
+                    key: 'submit_number'
                 },
                 {
                     title: 'Action',

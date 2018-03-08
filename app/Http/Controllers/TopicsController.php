@@ -25,6 +25,7 @@ class TopicsController extends Controller
 
     public function create()
     {
+        $this->authorize('topic_create');
         return view('topics.create');
     }
 
@@ -37,6 +38,7 @@ class TopicsController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('topic_create');
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',
@@ -57,13 +59,14 @@ class TopicsController extends Controller
 
     public function destroy(Topic $topic)
     {
-        $this->authorize('destroy', $topic);
+        $this->authorize('topic_destroy');
         $topic->delete();
         return redirect()->route('topics.index')->with('success', 'Delete topic success.');
     }
 
     public function update(Topic $topic,Request $request)
     {
+        $this->authorize('topic_edit');
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',
@@ -75,7 +78,7 @@ class TopicsController extends Controller
 
     public function edit(Topic $topic)
     {
-        $this->authorize('update', $topic);
+        $this->authorize('topic_edit');
         return view('topics.edit', compact('topic'));
     }
 }

@@ -8,30 +8,30 @@
         <row>
             <i-col span="12">
                 <div style="height: 70vh; overflow: scroll">
-                    <h1> {{$problem->Title}}</h1>
+                    <h1> {{$problem->title}}</h1>
                     <div>
                         <h3>Description</h3>
-                        {{$problem->Description}}
+                        {{$problem->description}}
                     </div>
                     <div>
                         <h3>Input</h3>
-                        {{$problem->Input}}
+                        {{$problem->input}}
                     </div>
                     <div>
                         <h3>Output</h3>
-                        {{$problem->Output}}
+                        {{$problem->output}}
                     </div>
                     <div>
-                        <h3>Sample_input</h3>
-                        {{$problem->Sample_input}}
+                        <h3>sample_input</h3>
+                        {{$problem->sample_input}}
                     </div>
                     <div>
-                        <h3>Sample_output</h3>
-                        {{$problem->Sample_output}}
+                        <h3>sample_output</h3>
+                        {{$problem->sample_output}}
                     </div>
                     <div>
-                        <h3>Hint</h3>
-                        {{$problem->Hint}}
+                        <h3>hint</h3>
+                        {{$problem->hint}}
                     </div>
                 </div>
                 <i-button @click="this.window.location.href = '{{ route('problems.edit', $problem->id ) }}'">

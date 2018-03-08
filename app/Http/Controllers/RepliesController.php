@@ -16,6 +16,7 @@ class RepliesController extends Controller
 
     public function store(Request $request, Reply $reply)
     {
+        $this->authorize('reply_create');
         $reply->content = $request->contents;
         $reply->username = Auth::user()->username;
         $reply->topic_id = $request->topic_id;
@@ -26,6 +27,7 @@ class RepliesController extends Controller
 
     public function destroy(Reply $reply)
     {
+        $this->authorize('reply_destroy');
         $this->authorize('destroy', $reply);
         $reply->delete();
         session()->flash('success', 'Delete reply success');

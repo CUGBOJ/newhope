@@ -91,7 +91,10 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
-        $this->authorize('destroy', $user);
+        $this->authorize('user_destroy');
+        if($user->id==Auth::user()->id){
+            abort(403);
+        }
         $user->delete();
         session()->flash('success', 'Delete user success.');
         return back();

@@ -10,7 +10,7 @@ class ProblemsController extends Controller
 {
     public function create()
     {
-        $this->authorize('is_admin',Problem::class);
+        $this->authorize('problem_create');
         return view('problems.create');
     }
 
@@ -21,7 +21,7 @@ class ProblemsController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize('is_admin',Problem::class);
+        $this->authorize('problem_create');
         $problem = Problem::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -58,13 +58,13 @@ class ProblemsController extends Controller
 
     public function edit(Problem $problem)
     {
-        $this->authorize('is_admin',$problem);
+        $this->authorize('problem_edit');
         return view('problems.edit', compact('problem'));
     }
 
     public function update(Problem $problem, Request $request)
     {
-        $this->authorize('is_admin',$problem);
+        $this->authorize('problem_edit');
         $data = [];
         $data['title'] = $request->title;
         $data['description'] = $request->description;

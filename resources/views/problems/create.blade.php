@@ -11,44 +11,44 @@
             <button type="submit">提交</button>
         </form>
         <div>
-            <label for="Title">Title：</label>
-            <textarea name="Title" id="" cols="30" rows="10" form="createproblem">
+            <label for="title">Title：</label>
+            <textarea name="title" id="" cols="30" rows="10" form="createproblem">
 
         </textarea>
             <br>
-            <label for="Description">Description：</label>
-            <textarea name="Description" id="" cols="30" rows="10" form="createproblem">
+            <label for="description">Description：</label>
+            <textarea name="description" id="" cols="30" rows="10" form="createproblem">
 
         </textarea>
             <br>
 
-            <label for="Input">Input：</label>
-            <textarea name="Input" id="" cols="30" rows="10" form="createproblem">
+            <label for="input">Input：</label>
+            <textarea name="input" id="" cols="30" rows="10" form="createproblem">
 
         </textarea>
             <br>
-            <label for="Output">Output：</label>
-            <textarea name="Output" id="" cols="30" rows="10" form="createproblem">
+            <label for="output">Output：</label>
+            <textarea name="output" id="" cols="30" rows="10" form="createproblem">
 
         </textarea>
             <br>
-            <label for="Sample_input">Sample Input:</label>
-            <textarea name="Sample_input" id="" cols="30" rows="10" form="createproblem">
+            <label for="sample_input">Sample Input:</label>
+            <textarea name="sample_input" id="" cols="30" rows="10" form="createproblem">
 
         </textarea>
             <br>
-            <label for="Sample_output">Sample Output:</label>
-            <textarea name="Sample_output" id="" cols="30" rows="10" form="createproblem">
+            <label for="sample_output">Sample Output:</label>
+            <textarea name="sample_output" id="" cols="30" rows="10" form="createproblem">
 
         </textarea>
             <br>
-            <label for="Hint">Hint:</label>
-            <textarea name="Hint" id="" cols="30" rows="10" form="createproblem">
+            <label for="hint">Hint:</label>
+            <textarea name="hint" id="" cols="30" rows="10" form="createproblem">
 
         </textarea>
             <br>
-        <label for="Author">Author:</label>
-        <textarea name="Author" id="" cols="30" rows="10" form="createproblem">
+        <label for="author">Author:</label>
+        <textarea name="author" id="" cols="30" rows="10" form="createproblem">
 
         </textarea>
         </div>

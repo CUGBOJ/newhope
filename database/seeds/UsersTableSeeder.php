@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
         $user->school = 'CUGB';
         $user->password = bcrypt('password');
         $user->is_admin = true;
+        $user->role_id = 1;
         $user->save();
 
         $user = User::find(1);
@@ -31,6 +32,7 @@ class UsersTableSeeder extends Seeder
         $user->school = 'all';
         $user->password = bcrypt('never');
         $user->is_admin = true;
+        $user->role_id = 2;
         $user->save();
     }
 }

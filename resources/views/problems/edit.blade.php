@@ -9,43 +9,43 @@
             {{ csrf_field() }}
             <button type="submit" class="btn btn-primary">修改</button>
         </form>
-        <label for="Title">Title：</label>
-        <textarea name="Title" id="" cols="30" rows="10" form="editproblem">
-             {{ $problem->Title }}
+        <label for="title">Title：</label>
+        <textarea name="title" id="" cols="30" rows="10" form="editproblem">
+             {{ $problem->title }}
         </textarea>
         <br>
-        <label for="Description">Description：</label>
-        <textarea name="Description" id="" cols="30" rows="10" form="editproblem">
-             {{ $problem->Description }}
+        <label for="description">Description：</label>
+        <textarea name="description" id="" cols="30" rows="10" form="editproblem">
+             {{ $problem->description }}
         </textarea>
         <br>
 
-        <label for="Input">Input：</label>
-        <textarea name="Input" id="" cols="30" rows="10" form="editproblem">
-             {{ $problem->Input }}
+        <label for="input">Input：</label>
+        <textarea name="input" id="" cols="30" rows="10" form="editproblem">
+             {{ $problem->input }}
         </textarea>
         <br>
-        <label for="Output">Output：</label>
-        <textarea name="Output" id="" cols="30" rows="10" form="editproblem">
-             {{ $problem->Output }}
+        <label for="output">Output：</label>
+        <textarea name="output" id="" cols="30" rows="10" form="editproblem">
+             {{ $problem->output }}
         </textarea>
         <br>
-        <label for="Sample_input">Sample Input:</label>
-        <textarea name="Sample_input" id="" cols="30" rows="10" form="editproblem">
-             {{ $problem->Sample_input }}
+        <label for="sample_input">Sample Input:</label>
+        <textarea name="sample_input" id="" cols="30" rows="10" form="editproblem">
+             {{ $problem->sample_input }}
         </textarea>
         <br>
-        <label for="Sample_output">Sample Output:</label>
-        <textarea name="Sample_output" id="" cols="30" rows="10" form="editproblem">
-             {{ $problem->Sample_output }}
+        <label for="sample_output">Sample Output:</label>
+        <textarea name="sample_output" id="" cols="30" rows="10" form="editproblem">
+             {{ $problem->sample_output }}
         </textarea>
         <br>
-        <label for="Hint">Hint:</label>
-        <textarea name="Hint" id="" cols="30" rows="10" form="editproblem">
-             {{ $problem->Hint }}
+        <label for="hint">Hint:</label>
+        <textarea name="hint" id="" cols="30" rows="10" form="editproblem">
+             {{ $problem->hint }}
         </textarea>
-        <label for="Author">Author:</label>
-        <textarea name="Author" id="" cols="30" rows="10" form="editproblem">
+        <label for="author">Author:</label>
+        <textarea name="author" id="" cols="30" rows="10" form="editproblem">
              {{ $problem->Author }}
         </textarea>
         <br>

@@ -30,7 +30,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
+        try {
+            foreach (\App\Models\Permission::all() as $permission) {
+                Gate::define($permission['name'], function ($user) use ($permission) {
+                    return in_array($user['role_id'], array_column($permission->Role->toArray(), 'id'));
+                });
+            }
+        }
+        catch(\Exception $e){
+            return;
+        }
     }
 }
