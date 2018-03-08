@@ -28,7 +28,7 @@ class RepliesController extends Controller
     {
         $this->authorize('destroy', $reply);
         $reply->delete();
-        session()->flash('success', 'Delete success');
+        session()->flash('success', 'Delete reply success');
         return redirect()->route('topics.show',$reply->topic);
     }
 }
