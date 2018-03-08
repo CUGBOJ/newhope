@@ -50,7 +50,7 @@ class AnnouncementsController extends Controller
     {
         $this->authorize('is_admin', $announcement);
         $announcement->delete();
-        return redirect()->route('announcements.index')->with('success', 'Delete announcements success.');
+        return redirect()->route('announcements.index')->with('success', 'Delete announcement success.');
     }
 
     public function update(Announcement $announcement,Request $request)

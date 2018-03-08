@@ -30,6 +30,7 @@ class ProblemsController extends Controller
             'sample_input' => $request->sample_input,
             'sample_output' =>  $request->sample_output,
             'hint' =>  $request->hint,
+            'hide' =>  $request->hide,
             'author' => $request->author,
             'ac_number'=>0,
             'submit_number'=>0,

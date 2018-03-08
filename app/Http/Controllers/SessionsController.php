@@ -48,7 +48,7 @@ class SessionsController extends Controller
     public function destroy()
     {
         Auth::logout();
-        session()->flash('success', 'logout success.');
+        session()->flash('success', 'Logout success.');
         return redirect('login');
     }
 

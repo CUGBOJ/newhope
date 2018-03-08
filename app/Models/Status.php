@@ -14,7 +14,7 @@ class Status extends Model
         'contest_belong',
         'length',
         'lang',
-        'submit_time'
+        'submit_time',
     ];
 
     public function user()
