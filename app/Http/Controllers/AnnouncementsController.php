@@ -42,7 +42,7 @@ class AnnouncementsController extends Controller
             'body' => $request->body,
         ]);
         $this->authorize('is_admin',Announcement::class);
-        session()->flash('success', '添加announcement成功');
+        session()->flash('success', 'Add announcement success.');
         return redirect()->route('announcements.show', [$announcement]);
     }
 
@@ -50,7 +50,7 @@ class AnnouncementsController extends Controller
     {
         $this->authorize('is_admin', $announcement);
         $announcement->delete();
-        return redirect()->route('announcements.index')->with('success', '成功删除！');
+        return redirect()->route('announcements.index')->with('success', 'Delete announcement success.');
     }
 
     public function update(Announcement $announcement,Request $request)
@@ -61,7 +61,7 @@ class AnnouncementsController extends Controller
         ]);
         $this->authorize('is_admin',Announcement::class);
         $announcement->update($request->all());
-        session()->flash('success', '修改announcement成功');
+        session()->flash('success', 'Modify announcement success.');
         return redirect()->route('announcements.show', [$announcement]);
     }
 

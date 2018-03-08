@@ -15,14 +15,15 @@ class CreateStatusesTable extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->integer('id',1);
-            $table->string('Username')->index('username');
-            $table->integer('Problem_id')->index('pro_id');
-            $table->integer('Result');
-            $table->integer('Time');
-            $table->integer('Memory');
-            $table->integer('Length');
-            $table->integer('Lang');
-            $table->timestamp('Submit_time');
+            $table->string('username')->index('username');
+            $table->integer('problem_id')->index('pro_id');
+            $table->integer('contest_belong')->nullable()->default(null);
+            $table->integer('result');
+            $table->integer('time');
+            $table->integer('memory');
+            $table->integer('length');
+            $table->integer('lang');
+            $table->timestamp('submit_time');
         });
     }
 

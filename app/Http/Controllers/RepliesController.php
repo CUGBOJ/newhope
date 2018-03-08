@@ -20,7 +20,7 @@ class RepliesController extends Controller
         $reply->username = Auth::user()->username;
         $reply->topic_id = $request->topic_id;
         $reply->save();
-        session()->flash('success', '添加reply成功');
+        session()->flash('success', 'Add reply success.');
         return redirect()->route('topics.show', [$reply->topic]);
     }
 
@@ -28,7 +28,7 @@ class RepliesController extends Controller
     {
         $this->authorize('destroy', $reply);
         $reply->delete();
-        session()->flash('success', '删除成功');
+        session()->flash('success', 'Delete reply success');
         return redirect()->route('topics.show',$reply->topic);
     }
 }

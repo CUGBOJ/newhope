@@ -51,7 +51,7 @@ class TopicsController extends Controller
             'username' => $username,
             'last_reply_username' => $username,
         ]);
-        session()->flash('success', '添加topic成功');
+        session()->flash('success', 'Add topic success.');
         return redirect()->route('topics.show', [$topic]);
     }
 
@@ -59,7 +59,7 @@ class TopicsController extends Controller
     {
         $this->authorize('destroy', $topic);
         $topic->delete();
-        return redirect()->route('topics.index')->with('success', '成功删除！');
+        return redirect()->route('topics.index')->with('success', 'Delete topic success.');
     }
 
     public function update(Topic $topic,Request $request)
@@ -69,7 +69,7 @@ class TopicsController extends Controller
             'body' => 'required',
         ]);
         $topic->update($request->all());
-        session()->flash('success', '修改topic成功');
+        session()->flash('success', 'Change topic success.');
         return redirect()->route('topics.show', [$topic]);
     }
 

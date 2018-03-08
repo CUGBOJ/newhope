@@ -22,22 +22,22 @@ class StatusesController extends Controller
         if ($request->get('search')) {
             $search = '%'.$request->get('search').'%';
             $status = $status->orWhere('id', 'like', $search);
-            $status = $status->orWhere('Username', 'like', $search);
-            $status = $status->orWhere('Problem_id', 'like', $search);
+            $status = $status->orWhere('username', 'like', $search);
+            $status = $status->orWhere('problem_id', 'like', $search);
         }
 
         if ($request->get('user')) {
-            $status = $status->where('Username', $request->get('username'));
+            $status = $status->where('username', $request->get('username'));
         }
 
         if ($request->get('prob')) {
-            $status = $status->where('Problem_id', $request->get('prob'));
+            $status = $status->where('problem_id', $request->get('prob'));
         }
 
         if ($request->get('res')) {
             $res = json_decode($request->get('res'));
             if (count($res)) {
-                $status = $status->whereIn('Result', $res);
+                $status = $status->whereIn('result', $res);
             }
         }
 

@@ -23,20 +23,21 @@ class ProblemsController extends Controller
     {
         $this->authorize('is_admin',Problem::class);
         $problem = Problem::create([
-            'Title' => $request->Title,
-            'Description' => $request->Description,
-            'Input' =>  $request->Input,
-            'Output' => $request->Output,
-            'Sample_input' => $request->Sample_input,
-            'Sample_output' =>  $request->Sample_output,
-            'Hint' =>  $request->Hint,
-            'Author' => $request->Author,
-            'AC_number'=>0,
-            'Submit_number'=>0,
-            'AC_user_number'=>0,
-            'Submit_user_number'=>0,
+            'title' => $request->title,
+            'description' => $request->description,
+            'input' =>  $request->input,
+            'output' => $request->output,
+            'sample_input' => $request->sample_input,
+            'sample_output' =>  $request->sample_output,
+            'hint' =>  $request->hint,
+            'hide' =>  $request->hide,
+            'author' => $request->author,
+            'ac_number'=>0,
+            'submit_number'=>0,
+            'ac_user_number'=>0,
+            'submit_user_number'=>0,
         ]);
-        session()->flash('success', '添加成功');
+        session()->flash('success', 'Problem add success.');
         return redirect()->route('problems.show', [$problem]);
     }
 
@@ -51,7 +52,7 @@ class ProblemsController extends Controller
         $page = request()->get('page') ?: 1;
 
         return Problem::getModel()->paginate($perPage,
-                ['id', 'Title', 'Author', 'Submit_number'],
+                ['id', 'title', 'author', 'submit_number'],
                 '', $page);
     }
 
@@ -65,17 +66,17 @@ class ProblemsController extends Controller
     {
         $this->authorize('is_admin',$problem);
         $data = [];
-        $data['Title'] = $request->Title;
-        $data['Description'] = $request->Description;
-        $data['Input'] = $request->Input;
-        $data['Output'] = $request->Output;
-        $data['Sample_input'] = $request->Sample_input;
-        $data['Sample_output'] = $request->Sample_output;
-        $data['Hint'] = $request->Hint;
+        $data['title'] = $request->title;
+        $data['description'] = $request->description;
+        $data['input'] = $request->input;
+        $data['output'] = $request->output;
+        $data['sample_input'] = $request->sample_input;
+        $data['sample_output'] = $request->sample_output;
+        $data['hint'] = $request->hint;
 
         $problem->update($data);
 
-        session()->flash('success', '题目更新成功！');
+        session()->flash('success', 'Problem update success.');
 
         return redirect()->route('problems.show', $problem->id);
    }
