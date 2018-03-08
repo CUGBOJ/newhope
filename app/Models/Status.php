@@ -8,12 +8,13 @@ class Status extends Model
 {
 
     protected $fillable = [
-        'Result',
-        'Time',
-        'Memory',
-        'Length',
-        'Lang',
-        'Submit_time'
+        'result',
+        'time',
+        'memory',
+        'contest_belong',
+        'length',
+        'lang',
+        'submit_time'
     ];
 
     public function user()

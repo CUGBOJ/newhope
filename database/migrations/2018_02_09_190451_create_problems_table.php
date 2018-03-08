@@ -15,25 +15,25 @@ class CreateProblemsTable extends Migration
     {
         Schema::create('problems', function (Blueprint $table) {
             $table->integer('id',1);
-            $table->string('Title', 100)->unique();
+            $table->string('title', 100)->unique();
 
-            $table->text('Description')->nullable();
-            $table->text('Input')->nullable();
-            $table->text('Output')->nullable();
-            $table->text('Sample_input')->nullable();
-            $table->text('Sample_output')->nullable();
-            $table->text('Hint')->nullable();
+            $table->text('description')->nullable();
+            $table->text('input')->nullable();
+            $table->text('output')->nullable();
+            $table->text('sample_input')->nullable();
+            $table->text('sample_output')->nullable();
+            $table->text('hint')->nullable();
 
+            $table->string('author', 100)->nullable();
 
-            $table->string('Author', 100)->nullable();
+            $table->boolean('hide')->default(0);
 
-            $table->integer('Time_limit')->nullable();
-            $table->integer('Hide')->default(0);// 3 state for 0.not hide 1.hide 2.used in contest
-            $table->integer('Memory_limit')->nullable();
-            $table->integer('AC_number')->nullable();
-            $table->integer('Submit_number')->nullable();
-            $table->integer('AC_user_number')->nullable();
-            $table->integer('Submit_user_number')->nullable();
+            $table->integer('time_limit')->nullable();
+            $table->integer('memory_limit')->nullable();
+            $table->integer('ac_number')->nullable();
+            $table->integer('submit_number')->nullable();
+            $table->integer('ac_user_number')->nullable();
+            $table->integer('submit_user_number')->nullable();
             $table->timestamps();
         });
     }

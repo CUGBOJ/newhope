@@ -23,20 +23,20 @@ class ProblemsController extends Controller
     {
         $this->authorize('is_admin',Problem::class);
         $problem = Problem::create([
-            'Title' => $request->Title,
-            'Description' => $request->Description,
-            'Input' =>  $request->Input,
-            'Output' => $request->Output,
-            'Sample_input' => $request->Sample_input,
-            'Sample_output' =>  $request->Sample_output,
-            'Hint' =>  $request->Hint,
-            'Author' => $request->Author,
-            'AC_number'=>0,
-            'Submit_number'=>0,
-            'AC_user_number'=>0,
-            'Submit_user_number'=>0,
+            'title' => $request->Title,
+            'description' => $request->Description,
+            'input' =>  $request->Input,
+            'output' => $request->Output,
+            'sample_input' => $request->Sample_input,
+            'sample_output' =>  $request->Sample_output,
+            'hint' =>  $request->Hint,
+            'author' => $request->Author,
+            'ac_number'=>0,
+            'submit_number'=>0,
+            'ac_user_number'=>0,
+            'submit_user_number'=>0,
         ]);
-        session()->flash('success', '添加成功');
+        session()->flash('success', 'Problem add success.');
         return redirect()->route('problems.show', [$problem]);
     }
 
@@ -75,7 +75,7 @@ class ProblemsController extends Controller
 
         $problem->update($data);
 
-        session()->flash('success', '题目更新成功！');
+        session()->flash('success', 'Problem update success.');
 
         return redirect()->route('problems.show', $problem->id);
    }

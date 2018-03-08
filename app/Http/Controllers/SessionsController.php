@@ -26,9 +26,9 @@ class SessionsController extends Controller
                 $user = Auth::user();
                 $user->last_login_ip = $request->ip();
                 $user->save();
-                return response()->json(['message' => "login successfully"], 200);
+                return response()->json(['message' => "Sign in successfully"], 200);
             } else {
-                return response()->json(['message' => "login failed"], 401);
+                return response()->json(['message' => "Sign in failed"], 401);
             }
 
         } else {
@@ -36,10 +36,10 @@ class SessionsController extends Controller
                 $user = Auth::user();
                 $user->last_login_ip = $request->ip();
                 $user->save();
-                session()->flash('success', '登陆成功');
+                session()->flash('success', 'Sign in success.');
                 return redirect()->intended(route('users.show', [Auth::user()]));
             } else {
-                session()->flash('danger', '很抱歉，您的用户名和密码不匹配');
+                session()->flash('danger', 'The passwords you typed do not match. Retype the trust password');
                 return redirect()->back();
             }
         }
@@ -48,7 +48,7 @@ class SessionsController extends Controller
     public function destroy()
     {
         Auth::logout();
-        session()->flash('success', '您已成功退出！');
+        session()->flash('success', 'Sign out success.');
         return redirect('login');
     }
 

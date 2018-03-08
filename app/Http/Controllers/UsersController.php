@@ -39,7 +39,7 @@ class UsersController extends Controller
             'last_login_ip' => $request->ip()
         ]);
         Auth::login($user);
-        session()->flash('success', '注册成功');
+        session()->flash('success', 'Register success.');
         return redirect()->route('users.show', [$user]);
     }
 
@@ -67,7 +67,7 @@ class UsersController extends Controller
         }
         $user->update($data);
         Auth::login($user);
-        session()->flash('success', '个人资料更新成功！');
+        session()->flash('success', 'Update user profile success.');
 
         return redirect()->route('users.show', $user->username);
     }
@@ -93,7 +93,7 @@ class UsersController extends Controller
     {
         $this->authorize('destroy', $user);
         $user->delete();
-        session()->flash('success', '成功删除用户！');
+        session()->flash('success', 'Delete user success.');
         return back();
     }
 }
