@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Reply;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class RepliesController extends Controller
 {
@@ -27,10 +28,13 @@ class RepliesController extends Controller
 
     public function destroy(Reply $reply)
     {
-        $this->authorize('reply_destroy');
-        $this->authorize('destroy', $reply);
+        if (Gate::denies('reply_destroy')) {
+            if ($reply->username != Auth::user()->username) {
+                abort(403);
+            }
+        }
         $reply->delete();
         session()->flash('success', 'Delete reply success');
-        return redirect()->route('topics.show',$reply->topic);
+        return redirect()->route('topics.show', $reply->topic);
     }
 }

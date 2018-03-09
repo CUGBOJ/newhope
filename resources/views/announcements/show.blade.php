@@ -11,13 +11,15 @@
             时间：{{$announcement->created_at}}
         </div>
     </div>
-    @can('is_admin', $announcement)
+    @can('announcement_edit')
         <div class="operate">
-            <hr>
             <a href="{{ route('announcements.edit', $announcement->id) }}" role="button">
                 <i></i> 编辑
             </a>
-
+            </div>
+        @endcan
+    @can('announcement_destroy')
+    <div>
             <form action="{{ route('announcements.destroy', $announcement->id) }}" method="post">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}

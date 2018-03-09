@@ -20,7 +20,7 @@ class StatusesController extends Controller
         $status = Status::getModel();
 
         if ($request->get('search')) {
-            $search = '%'.$request->get('search').'%';
+            $search = '%' . $request->get('search') . '%';
             $status = $status->orWhere('id', 'like', $search);
             $status = $status->orWhere('username', 'like', $search);
             $status = $status->orWhere('problem_id', 'like', $search);

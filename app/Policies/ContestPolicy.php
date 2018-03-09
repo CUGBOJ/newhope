@@ -26,9 +26,4 @@ class ContestPolicy
         }
         return false;
     }
-    public function is_admin(User $currentUser)
-    {
-        return $currentUser->isAdmin();
-        //return true;
-    }
 }

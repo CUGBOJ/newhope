@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Topic;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
 class TopicsController extends Controller
@@ -59,14 +60,22 @@ class TopicsController extends Controller
 
     public function destroy(Topic $topic)
     {
-        $this->authorize('topic_destroy');
+        if (Gate::denies('topic_destroy')) {
+            if ($topic->username != Auth::user()->username) {
+                abort(403);
+            }
+        }
         $topic->delete();
         return redirect()->route('topics.index')->with('success', 'Delete topic success.');
     }
 
-    public function update(Topic $topic,Request $request)
+    public function update(Topic $topic, Request $request)
     {
-        $this->authorize('topic_edit');
+        if (Gate::denies('topic_edit')) {
+            if ($topic->username != Auth::user()->username) {
+                abort(403);
+            }
+        }
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',
@@ -78,7 +87,11 @@ class TopicsController extends Controller
 
     public function edit(Topic $topic)
     {
-        $this->authorize('topic_edit');
+        if (Gate::denies('topic_edit')) {
+            if ($topic->username != Auth::user()->username) {
+                abort(403);
+            }
+        }
         return view('topics.edit', compact('topic'));
     }
 }

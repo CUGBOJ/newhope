@@ -42,19 +42,19 @@ class ContestsController extends Controller
     public function store(ContestRequest $request)
     {
         $this->authorize('contest_create');
-        $contest=Contest::create([
-            'title'=>$request->title,
-            'start_time'=>$request->start_time,
-            'end_time'=>$request->end_time,
-            'lock_board_time'=>$request->lock_board_time,
-            'owner'=>Auth::user()->username,
-            'isprivate'=>$request->is_private==2?true:false,
-            'hide_other'=>$request->hide_other==2?true:false,
-            'password'=>$request->is_private==2?bcrypt($request->password):null,
-            'description'=>$request->description,
-            'create_time'=>now(),
+        $contest = Contest::create([
+            'title' => $request->title,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'lock_board_time' => $request->lock_board_time,
+            'owner' => Auth::user()->username,
+            'isprivate' => $request->is_private == 2 ? true : false,
+            'hide_other' => $request->hide_other == 2 ? true : false,
+            'password' => $request->is_private == 2 ? bcrypt($request->password) : null,
+            'description' => $request->description,
+            'create_time' => now(),
         ]);
-        return redirect()->route('contests.show',$contest->id);
+        return redirect()->route('contests.show', $contest->id);
     }
 
     public function __construct()

@@ -25,17 +25,17 @@ class ProblemsController extends Controller
         $problem = Problem::create([
             'title' => $request->title,
             'description' => $request->description,
-            'input' =>  $request->input,
+            'input' => $request->input,
             'output' => $request->output,
             'sample_input' => $request->sample_input,
-            'sample_output' =>  $request->sample_output,
-            'hint' =>  $request->hint,
-            'hide' =>  $request->hide,
+            'sample_output' => $request->sample_output,
+            'hint' => $request->hint,
+            'hide' => $request->hide,
             'author' => $request->author,
-            'ac_number'=>0,
-            'submit_number'=>0,
-            'ac_user_number'=>0,
-            'submit_user_number'=>0,
+            'ac_number' => 0,
+            'submit_number' => 0,
+            'ac_user_number' => 0,
+            'submit_user_number' => 0,
         ]);
         session()->flash('success', 'Problem add success.');
         return redirect()->route('problems.show', [$problem]);
@@ -52,8 +52,8 @@ class ProblemsController extends Controller
         $page = request()->get('page') ?: 1;
 
         return Problem::getModel()->paginate($perPage,
-                ['id', 'title', 'author', 'submit_number'],
-                '', $page);
+            ['id', 'title', 'author', 'submit_number'],
+            '', $page);
     }
 
     public function edit(Problem $problem)
@@ -79,5 +79,5 @@ class ProblemsController extends Controller
         session()->flash('success', 'Problem update success.');
 
         return redirect()->route('problems.show', $problem->id);
-   }
+    }
 }

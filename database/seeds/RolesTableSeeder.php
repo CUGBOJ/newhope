@@ -17,7 +17,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'Root',
             'description' => 'Highest Authority',
         ]);
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 16; $i++) {
             $role->Permission()->attach($i);
         }
 
@@ -25,10 +25,9 @@ class RolesTableSeeder extends Seeder
             'name' => 'Admin',
             'description' => 'Highest Authority not about User',
         ]);
-        for ($i = 2; $i <= 12; $i++) {
+        for ($i = 2; $i <= 15; $i++) {
             $role->Permission()->attach($i);
         }
-
 
         $role = Role::create([
             'name' => 'Topic Admin',
@@ -39,14 +38,12 @@ class RolesTableSeeder extends Seeder
         $role->Permission()->attach(7);
         $role->Permission()->attach(9);
 
-
         $role = Role::create([
             'name' => 'Normal',
             'description' => 'Normal user',
         ]);
         $role->Permission()->attach(5);
         $role->Permission()->attach(8);
-
 
     }
 }

@@ -82,5 +82,31 @@ class PermissionsTableSeeder extends Seeder
             'name' =>'contest_destroy',
             'description'=> 'Contest Model Destroy'
         ]);
+
+        //==========Announcement==========
+
+        $permission = Permission::create([
+            'name' =>'announcement_create',
+            'description'=> 'Announcement Model Create'
+        ]);
+
+        $permission = Permission::create([
+            'name' =>'announcement_edit',
+            'description'=> 'Announcement Model Edit'
+        ]);
+
+        $permission = Permission::create([
+            'name' =>'announcement_destroy',
+            'description'=> 'Announcement Model Destroy'
+        ]);
+
+        //=======Permission_Manage=======
+
+        $permission = Permission::create([
+            'name' =>'permission_manage',
+            'description'=> 'manage roles permission',
+        ]);
+
+
     }
 }

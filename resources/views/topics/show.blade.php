@@ -13,23 +13,21 @@
             时间：{{$topic->created_at}}
         </div>
     </div>
-    @can('update', $topic)
-        <div class="operate">
-            <hr>
-            <a href="{{ route('topics.edit', $topic->id) }}" role="button">
-                <i></i> 编辑
-            </a>
+    <div class="operate">
+        <hr>
+        <a href="{{ route('topics.edit', $topic->id) }}" role="button">
+            <i></i> 编辑
+        </a>
 
-            <form action="{{ route('topics.destroy', $topic->id) }}" method="post">
-                {{ csrf_field() }}
-                {{ method_field('DELETE') }}
-                <button type="submit" style="margin-left: 6px">
-                    <i></i>
-                    删除
-                </button>
-            </form>
-        </div>
-    @endcan
+        <form action="{{ route('topics.destroy', $topic->id) }}" method="post">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+            <button type="submit" style="margin-left: 6px">
+                <i></i>
+                删除
+            </button>
+        </form>
+    </div>
     <div class="replys">
         <div>
             @includeWhen(Auth::check(), 'topics._reply_box', ['topic' => $topic])

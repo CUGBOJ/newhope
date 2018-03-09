@@ -45,13 +45,17 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        $this->authorize('update', $user);
+        if (Auth::user()->id != $user->id) {
+            abort(403);
+        }
         return view('users.edit', compact('user'));
     }
 
-    public function update(User $user,UserRequest $request, ImageUploadHandler $uploader)
+    public function update(User $user, UserRequest $request, ImageUploadHandler $uploader)
     {
-        $this->authorize('update', $user);
+        if (Auth::user()->id != $user->id) {
+            abort(403);
+        }
         $data = [];
         $data['nickname'] = $request->nickname;
         $data['school'] = $request->school;
@@ -92,7 +96,7 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('user_destroy');
-        if($user->id==Auth::user()->id){
+        if ($user->id == Auth::user()->id) {
             abort(403);
         }
         $user->delete();
