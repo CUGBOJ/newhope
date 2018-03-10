@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     public function topics()
     {
-        return $this->hasMany(Topic::class);
+        return $this->hasMany(Topic::class,'username','username');
     }
 
     public function contests()

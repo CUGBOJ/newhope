@@ -26,6 +26,18 @@
         </Card>
         <Card :bordered="false"> 
             <p slot="title">Discussions</p>
+            <Collapse v-if="user.topics.length">
+                <Panel v-for="topic in user.topics" :key="topic.id">
+                    {{topic.title}}
+                        <a :href="'/topics/' + topic.id" style="float: right; margin-right: 20px"> 
+                            <Icon type="link"></Icon>
+                        </a>
+                    <p slot="content">{{topic.body}}</p>
+                </Panel>
+            </Collapse>
+            <p v-else>
+                Not any topics.
+            </p>
         </Card>
         <Card :bordered="false"> 
             <p slot="title">Activities</p>

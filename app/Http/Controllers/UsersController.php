@@ -25,6 +25,7 @@ class UsersController extends Controller
     {
         if ($request->wantsJson()) {
             $user = User::where('username', $username)->get()->first();
+            $user->topics;
             return response()->json($user);
         }
         else {
