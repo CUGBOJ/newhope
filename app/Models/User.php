@@ -96,4 +96,9 @@ class User extends Authenticatable
         $this->unreadNotifications->markAsRead();
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
 }

@@ -39,16 +39,9 @@
             his submit is  {{$user->submit}}
         </p>
         <p>
-            <?php
-            if($user->is_admin==true)
-                {
-                    echo "he is a admin.";
-                }
-            else {
-                echo "he is not admin";
-            }
-            ?>
+            his role is  {{$user->role->id}}
         </p>
+
     </div>
 @stop
 
