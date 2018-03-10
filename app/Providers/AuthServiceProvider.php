@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         try {
             foreach (\App\Models\Permission::all() as $permission) {
                 Gate::define($permission['name'], function ($user) use ($permission) {
-                    return in_array($user['role_id'], array_column($permission->Role->toArray(), 'id'));
+                    return in_array($user['role_id'], array_column($permission->roles->toArray(), 'id'));
                 });
             }
         }

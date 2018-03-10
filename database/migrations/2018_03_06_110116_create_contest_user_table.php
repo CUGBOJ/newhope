@@ -16,10 +16,10 @@ class CreateContestUserTable extends Migration
         Schema::create('contest_user', function (Blueprint $table) {
             $table->integer('id',1)->index();
             $table->integer('contest_id')->index();
-            $table->integer('user_id')->index();
+            $table->string('username')->index();
 
             $table->foreign('contest_id')->references('id')->on('contests')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('username')->references('username')->on('users')->onDelete('cascade');
         });
     }
 

@@ -53,14 +53,14 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 
-        'remember_token', 
+        'remember_token',
         'last_login_ip', 
         'register_time',
     ];
 
     public function statuses()
     {
-        return $this->hasMany(Status::class);
+        return $this->hasMany(Status::class,'username','username');
     }
 
     public function topics()
@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function contests()
     {
-        return $this->belongsToMany('App\Models\Contest');
+        return $this->belongsToMany('App\Models\Contest','contests_users','username','contest_id');
     }
 
     public function isAuthorOf($model)
@@ -80,7 +80,7 @@ class User extends Authenticatable
 
     public function replies()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class,'username','username');
     }
 
     public function markAsRead()

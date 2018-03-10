@@ -26,11 +26,11 @@ class Contest extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany('App\Models\User','contests_users','contest_id','username');
     }
 
     public function problems()
-    {
+    { 
         return $this->hasMany(Problem::class);
     }
 }

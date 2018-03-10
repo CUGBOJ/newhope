@@ -22,7 +22,7 @@ class ContestPolicy
         {
             return true;
         }
-        $data=\DB::table('contest_user')->where('contest_id', '=', $contest->id)->where('user_id', '=', $currentUser->id)->get();
+        $data=\DB::table('contest_user')->where('contest_id', '=', $contest->id)->where('username', '=', $currentUser->username)->get();
         if (!$data->isEmpty()) {
             return true;
         }
