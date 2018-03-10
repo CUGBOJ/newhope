@@ -8,7 +8,7 @@ class Role extends Model
 {
     public $timestamps = false;
 
-    public function Permission()
+    public function permissions()
     {
         return $this->belongsToMany('App\Models\Permission', 'roles_permissions', 'role_id', 'permission_id');
     }

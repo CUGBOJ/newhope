@@ -78,11 +78,6 @@ class User extends Authenticatable
         return $this->username == $model->username;
     }
 
-    public function isAdmin()
-    {
-        return $this->is_admin;
-    }
-
     public function replies()
     {
         return $this->hasMany(Reply::class);

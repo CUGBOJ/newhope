@@ -12,7 +12,9 @@ class ContestPolicy
 
     public function check_permission(User $currentUser, Contest $contest)
     {
-        if($currentUser->isAdmin())
+        $permissions=$currentUser->role->permissions->toArray();
+        $names = array_column($permissions, 'name');
+        if(array_search('contest_show',$names,true))
         {
             return true;
         }
