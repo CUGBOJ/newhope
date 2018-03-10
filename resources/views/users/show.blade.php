@@ -5,6 +5,5 @@
     <div>
         @include('share._error')
         <profile></profile>
-        {{$user->topics}}
     </div>
 @stop

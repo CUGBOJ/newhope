@@ -6,35 +6,22 @@
 
 @section('content')
     <div class="container">
-        <div>
-            <div>
-
-                <div>
-
-                    <h3>
-                        <span aria-hidden="true"></span> 我的通知
-                    </h3>
-                    <hr>
-
-                    @if ($notifications->count())
-
-                        <div class="notification-list">
-                            @foreach ($notifications as $notification)
-                                <?php
-                                $arr = $notification->data;
-                                $data = json_decode($arr, true);
-                                ?>
-                                @include('notifications.types._' . snake_case(class_basename($notification->type)))
-                            @endforeach
-                            {{--{!! $notifications->render() !!}--}}
-                        </div>
-
-                    @else
-                        <div class="empty-block">没有消息通知！</div>
-                    @endif
-
-                </div>
+        <h3>
+            我的通知
+        </h3>
+        <hr>
+        @if ($notifications->count())
+            <div class="notification-list">
+                @foreach ($notifications as $notification)
+                    <?php
+                    $arr = $notification->data;
+                    $data = json_decode($arr, true);
+                    ?>
+                    @include('notifications.types._' . snake_case(class_basename($notification->type)))
+                @endforeach
             </div>
-        </div>
+        @else
+            <div class="empty-block">没有消息通知！</div>
+        @endif
     </div>
 @stop
