@@ -21,6 +21,17 @@ class UsersController extends Controller
         return view('users.show', compact('user'));
     }
 
+    public function api_profile(Request $request, string $username)
+    {
+        if ($request->wantsJson()) {
+            $user = User::where('username', $username)->get()->first();
+            return response()->json($user);
+        }
+        else {
+            abort(404);
+        }
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

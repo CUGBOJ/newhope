@@ -109,7 +109,7 @@ class PermissionsTableSeeder extends Seeder
 
         $permission = Permission::create([
             'name' =>'permission_manage',
-            'description'=> 'manage roles permission',
+            'description'=> 'Manage Roles Permission',
         ]);
 
 

@@ -1,0 +1,66 @@
+<template>
+  <Spin size="large" fix v-if="loading"></Spin>
+  <div v-else>
+      <Row type="flex" justify="center">
+      <Col span="5">
+        <img :src="user.avatar" width="200px" height="200px" class="rounded"></img>
+        <h1>{{user.nickname}}</h1>
+        <h2>{{user.username}}</h2>
+        <p>
+            <Icon type="ios-people"></Icon>
+            {{'@' + user.school}}
+        </p>
+        <p>
+            <Icon type="email"></Icon>
+            <a :href="'mailto:' + user.email">{{user.email}}</a>
+        </p>
+      </Col>
+      <Col span="12" offset="2" class="cards">
+        <Card :bordered="false"> 
+            <p slot="title">Contests</p>
+        </Card>
+        <Card :bordered="false"> 
+            <p slot="title">Problems</p>
+            <p>Total submit: {{user.submit}}</p>
+            <p>Total solve: {{user.solved}}</p>
+        </Card>
+        <Card :bordered="false"> 
+            <p slot="title">Discussions</p>
+        </Card>
+        <Card :bordered="false"> 
+            <p slot="title">Activities</p>
+            <p>Last login time: {{user.last_login_time}}</p>
+        </Card>
+      </Col>
+      </Row>
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+export default {
+    data() {
+        return {
+            loading: true,
+            user: null
+        }
+    },
+    mounted() {
+        this.fetchData()
+    },
+    methods: {
+        fetchData() {
+            this.loading = true
+            let username = window.location.href.split('/').pop()
+            axios.get(`/api/user/${username}`).then(res => {
+                this.user = res.data
+                this.loading = false
+            })
+        }
+    }
+}
+</script>
+<style lang="stylus" scoped>
+.cards>.ivu-card
+    margin-bottom 10px
+</style>

@@ -55,7 +55,6 @@ class User extends Authenticatable
         'password', 
         'remember_token', 
         'last_login_ip', 
-        'last_login_time', 
         'register_time',
     ];
 

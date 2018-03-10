@@ -16,3 +16,4 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('login', 'SessionsController@store');
+Route::get('user/{username}', 'UsersController@api_profile');
