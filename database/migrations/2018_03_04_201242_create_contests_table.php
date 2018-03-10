@@ -22,7 +22,7 @@ class CreateContestsTable extends Migration
 
             $table->string('owner',255);
             $table->string('password',2048)->nullable();
-            $table->string('title',255)->unique();
+            $table->string('title',255);
 
             $table->longText('description')->nullable();
             $table->boolean('isprivate')->default(0);//if private only user in table contest_user can view.
