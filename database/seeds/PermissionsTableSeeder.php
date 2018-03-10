@@ -83,6 +83,11 @@ class PermissionsTableSeeder extends Seeder
             'description'=> 'Contest Model Destroy'
         ]);
 
+        $permission = Permission::create([
+            'name' =>'contest_show',
+            'description'=> 'Show All Contest'
+        ]);
+
         //==========Announcement==========
 
         $permission = Permission::create([

@@ -80,4 +80,11 @@ class ProblemsController extends Controller
 
         return redirect()->route('problems.show', $problem->id);
     }
+
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['show', 'index','getProblems']
+        ]);
+    }
 }

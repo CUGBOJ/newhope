@@ -34,3 +34,5 @@ Route::resource('notifications', 'NotificationsController', ['only' => ['index',
 Route::resource('announcements', 'AnnouncementsController');
 Route::resource('contests', 'ContestsController');
 Route::post('/contests/{contest}','ContestsController@add_user')->name('contests.add_user');
+
+Route::get('permission','StaticPagesController@permission')->name('permission');
