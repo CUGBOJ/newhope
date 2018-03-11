@@ -25,40 +25,48 @@
                     关于
                 </i-button>
             </button-group>
-            <button-group>
-                @auth
-                    <i-button @click="this.window.location.href = '{{ route('users.show', Auth::user()->username) }}'">
-                        个人中心
-                    </i-button>
+            @guest
+                <button-group>
 
-                    <i-button @click="this.window.location.href = '{{ route('users.edit', Auth::user()->username) }}'">
-                        编辑资料
-                    </i-button>
-                    <form action="{{ route('logout') }}" method="POST" id="logout" hidden>
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        <i-button class="btn btn-block btn-danger" html-type="submit" name="button">退出</i-button>
-                    </form>
-                    <i-button @click="this.document.getElementById('logout').submit()">
-                        退出
-                    </i-button>
 
-                @else
                     <i-button @click="this.window.location.href = '{{ route('signup') }}'">
                         注册
                     </i-button>
                     <i-button @click="this.window.location.href = '{{ route('login') }}'">
                         登录
                     </i-button>
-                @endif
-            </button-group>
+                </button-group>
+            @endguest
+
             @auth
-                <badge count="{{ Auth::user()->notification_count  }}">
-                    <a href="{{ route('notifications.index') }}"
-                       style="width: 30px; height: 30px; background: #eee; border-radius: 6px; display: inline-block;">
-                        {{ Auth::user()->username }}
+                <dropdown trigger="click">
+                    <a href="javascript:void(0)">
+                        <badge count="{{ Auth::user()->notification_count  }}" style="margin: 0 15px">
+                            <Avatar shape="square" src="{{Auth::user()->avatar}}" size="large"/>
+                        </badge>
                     </a>
-                </badge>
+                    <dropdown-menu slot="list">
+                        <dropdown-item @click.native="this.window.location.href = '{{ route('notifications.index') }}'">
+                            消息中心
+                        </dropdown-item>
+                        <dropdown-item
+                                @click.native="this.window.location.href = '{{ route('users.show', Auth::user()->username) }}'">
+                            个人中心
+                        </dropdown-item>
+                        <dropdown-item
+                                @click.native="this.window.location.href = '{{ route('users.edit', Auth::user()->username) }}'">
+                            编辑资料
+                        </dropdown-item>
+                        <dropdown-item @click.native="this.document.getElementById('logout').submit()">
+                            <form action="{{ route('logout') }}" method="POST" id="logout" hidden>
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <i-button class="btn btn-block btn-danger" html-type="submit" name="button"></i-button>
+                            </form>
+                            退出
+                        </dropdown-item>
+                    </dropdown-menu>
+                </dropdown>
             @endauth
         </div>
     </i-menu>

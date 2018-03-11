@@ -1,6 +1,9 @@
 <template>
   <Spin size="large" fix v-if="loading"></Spin>
   <div v-else>
+      <Row>
+          <Button type="primary" @click="this.window.location.href = '/topics/create'">New topic</Button>
+      </Row>
       <ul>
           <li v-for="discussion in discussions" :key="discussion.id">
               <a :href="'/topics/' + discussion.id"><div class="title">{{discussion.title}}</div></a>
@@ -34,7 +37,6 @@ export default {
         fetchData() {
             this.loading = true
             let params = {}
-            console.log(this.problem)
 
             if (this.problem) {
                 params.prob = this.problem
