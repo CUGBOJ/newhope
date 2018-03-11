@@ -10,18 +10,40 @@ use Illuminate\Support\Facades\Auth;
 
 class TopicsController extends Controller
 {
-    //
-    public function index(Request $request)
+    public function index()
     {
-        $topics = Topic::paginate(10);
-        $username = $request->input('username');
-        $pro_id = $request->input('pro_id');
-        return view('topics.index', ['username' => $username, 'pro_id' => $pro_id]);
+        return view('topics.index');
     }
 
     public function show(Topic $topic)
     {
         return view('topics.show', compact('topic'));
+    }
+
+    public function api_topics(Request $request)
+    {
+        if (!$request->wantsJson()) {
+            abort(404);
+        }
+
+        $topic = Topic::getModel();
+
+        if ($request->get('search')) {
+            $search = '%' . $request->get('search') . '%';
+            $topic = $topic->orWhere('id', 'like', $search);
+            $topic = $topic->orWhere('username', 'like', $search);
+            $topic = $topic->orWhere('problem_id', 'like', $search);
+        }
+
+        if ($request->get('user')) {
+            $topic = $topic->where('username', $request->get('username'));
+        }
+
+        if ($request->get('prob')) {
+            $topic = $topic->where('problem_id', $request->get('prob'));
+        }
+
+        return $topic->get();
     }
 
     public function create()
@@ -33,7 +55,7 @@ class TopicsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'index',]
+            'except' => ['show', 'index', 'api_topics']
         ]);
     }
 
@@ -43,14 +65,14 @@ class TopicsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',
-            'pro_id' => 'required|exists:problems,id',
+            'problem_id' => 'required|exists:problems,id',
         ]);
 
         $username = Auth::user()->username;
         $topic = Topic::create([
             'title' => $request->title,
             'body' => $request->body,
-            'pro_id' => $request->pro_id,
+            'problem_id' => $request->problem_id,
             'username' => $username,
             'last_reply_username' => $username,
         ]);

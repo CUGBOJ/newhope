@@ -31,7 +31,7 @@ class StaticPagesController extends Controller
 
     public function judge(JudgeRequest $request, CodeUploadHandler $uploader)
     {
-        $uploader->save($request->file('code'), Auth::user()->username, $request->pro_id, $request->lang);
+        $uploader->save($request->file('code'), Auth::user()->username, $request->problem_id, $request->lang);
         return redirect()->route('statuses');
     }
 

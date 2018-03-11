@@ -10,7 +10,7 @@
             {{ csrf_field() }}
             Title:<input type="text" name="title" id="title">
             <br>
-            Problem id:<input type="text" name="pro_id" id="pro_id">
+            Problem id:<input type="text" name="problem_id" id="problem_id">
             <br>
             <button type="submit">提交</button>
         </form>

@@ -19,6 +19,12 @@ class ProblemsController extends Controller
         return view('problems.show', compact('problem'));
     }
 
+    public function show_topics(Problem $problem)
+    {
+        $problem_id = $problem->id;
+        return view('topics.index', compact('problem_id'));
+    }
+
     public function store(Request $request)
     {
         $this->authorize('problem_create');
@@ -46,7 +52,7 @@ class ProblemsController extends Controller
         return view('problems.index', compact('problems'));
     }
 
-    public function getProblems()
+    public function get_problems()
     {
         $perPage = request()->get('perPage') ?: 15;
         $page = request()->get('page') ?: 1;
@@ -84,7 +90,7 @@ class ProblemsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'index','getProblems']
+            'except' => ['show', 'index', 'get_problems', 'show_topics']
         ]);
     }
 }

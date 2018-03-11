@@ -34,10 +34,11 @@
                         {{$problem->hint}}
                     </div>
                 </div>
-                <i-button @click="this.window.location.href = '{{ route('problems.edit', $problem->id ) }}'">
+                <i-button @click="this.window.location.href = '{{ route('problems.edit', $problem->id) }}'">
                     修改题目
                 </i-button>
-                <i-button type="text" @click="this.window.location.href = '{{route('topics.index')}}?pro_id={{$problem->id}}'">
+                <i-button type="text"
+                          @click="this.window.location.href = '{{ route('problem.topics', $problem->id) }}'">
                     Discuss
                 </i-button>
                 <i-button type="primary">

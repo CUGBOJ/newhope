@@ -8,7 +8,7 @@ class Topic extends Model
 {
     protected $fillable = [
         'username', 
-        'pro_id', 
+        'problem_id',
         'reply_count',
         'view_count',
         'title',
@@ -16,7 +16,6 @@ class Topic extends Model
         'last_reply_username',
         'order',
     ];
-    //protected $fillable = ['title', 'body', 'pro_id',];
     public function problem()
     {
         return $this->belongsTo(Problem::class);

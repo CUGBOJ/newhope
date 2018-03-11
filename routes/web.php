@@ -26,6 +26,8 @@ Route::post('login', 'SessionsController@store')->name('login');
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
 Route::resource('problems', 'ProblemsController');
+Route::get('problems/{problem}/topics', 'ProblemsController@show_topics')->name('problem.topics');
+
 Route::get('statuses', 'StatusesController@index')->name('statuses');
 Route::resource('topics', 'TopicsController');
 
