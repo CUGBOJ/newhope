@@ -33,6 +33,11 @@ Route::resource('topics', 'TopicsController');
 
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
 Route::resource('notifications', 'NotificationsController', ['only' => ['index',]]);
+Route::post('notifications', 'NotificationsController@read_all')->name('notifications.read_all');
+
+
+Route::post('notifications/{notification}', 'NotificationsController@read_one')->name('notifications.read_one');
+
 Route::resource('announcements', 'AnnouncementsController');
 Route::resource('contests', 'ContestsController');
 Route::post('/contests/{contest}','ContestsController@add_user')->name('contests.add_user');

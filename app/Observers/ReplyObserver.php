@@ -11,9 +11,7 @@ class ReplyObserver
     public function created(Reply $reply)
     {
         $topic = $reply->topic;
-        $topic->increment('reply_count', 1);
         $test=new TopicReplied($reply);
-
         $topic->user->messages(new TopicReplied($reply));
     }
     public function deleted(Reply $reply)

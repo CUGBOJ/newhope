@@ -6,4 +6,7 @@
     {!! $data['reply_content'] !!}
 </div>
 <span title="{{ $notification->created_at }}"></span>
-
+<form action="{{route('notifications.read_one',$notification->id)}}" method="post">
+    {{ csrf_field() }}
+    <button type="submit">阅读该条</button>
+    </form>

@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Announcement;
 
-class AnnouncementReplied extends Notification
+class AnnouncementReplied extends Notification implements ShouldQueue
 {
     use Queueable;
 

@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Reply;
 
-class TopicReplied extends Notification
+class TopicReplied extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -29,7 +29,6 @@ class TopicReplied extends Notification
     public function toDatabase($notifiable)
     {
         $topic = $this->reply->topic;
-
         // 存入数据库里的数据
         return [
             'reply_id' => $this->reply->id,
