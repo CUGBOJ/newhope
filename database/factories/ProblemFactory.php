@@ -26,10 +26,6 @@ $factory->define(App\Models\Problem::class, function (Faker $faker) {
         'hint'=>$faker->sentence,
         'hide'=>$faker->boolean,
 
-        'ac_number'=>0,
-        'submit_number'=>0,
-        'ac_user_number'=>0,
-        'submit_user_number'=>0,
         'time_limit'=>1000,
         'memory_limit'=>65535,
         'created_at' => $date_time,
