@@ -35,10 +35,13 @@ class ProblemsController extends Controller
             'output' => $request->output,
             'sample_input' => $request->sample_input,
             'sample_output' => $request->sample_output,
-            'special_judege' =>$request->specail_judege,
             'hint' => $request->hint,
             'hide' => $request->hide,
             'author' => $request->author,
+            'ac_number' => 0,
+            'submit_number' => 0,
+            'ac_user_number' => 0,
+           'submit_user_number' => 0,
         ]);
         session()->flash('success', 'Problem add success.');
         return redirect()->route('problems.show', [$problem]);
