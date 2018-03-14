@@ -41,7 +41,7 @@ class ProblemsController extends Controller
             'ac_number' => 0,
             'submit_number' => 0,
             'ac_user_number' => 0,
-            'submit_user_number' => 0,
+           'submit_user_number' => 0,
         ]);
         session()->flash('success', 'Problem add success.');
         return redirect()->route('problems.show', [$problem]);
@@ -58,7 +58,7 @@ class ProblemsController extends Controller
         $page = request()->get('page') ?: 1;
 
         return Problem::getModel()->paginate($perPage,
-            ['id', 'title', 'author', 'submit_number'],
+            ['id', 'title', 'author', 'total_submit'],
             '', $page);
     }
 

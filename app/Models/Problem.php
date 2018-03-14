@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Problem extends Model
 {
-    //
     protected $fillable = [
         'title',
         'description',
@@ -14,15 +13,17 @@ class Problem extends Model
         'output',
         'sample_input',
         'sample_output',
+        'hint',
+        'source',
         'author',
         'hide',
-        'hint',
-        'ac_number',
-        'submit_number',
-        'ac_user_number',
-        'submit_user_number',
+        'special_judge',
         'time_limit',
         'memory_limit',
+        'total_ac',
+        'total_submit',
+        'total_ac_user',
+        'total_submit_user',
         'created_at',
         'updated_at',
     ];
