@@ -12,6 +12,6 @@ class ProblemsTableSeeder extends Seeder
      */
     public function run()
     {
-        $problems = factory(Problem::class, 50)->create();
+        //$problems = factory(Problem::class, 50)->create();
     }
 }
