@@ -31,6 +31,7 @@ class CreateProblemsTable extends Migration
             $table->boolean('special_judge')->default(0);
 
             $table->unsignedInteger('time_limit')->nullable()->default(1000);
+            $table->unsignedInteger('case_time_limit')->nullalbe()->default(1000);
             $table->unsignedInteger('memory_limit')->nullable()->default(0);
             $table->unsignedInteger('total_ac')->nullable()->default(0);
             $table->unsignedInteger('total_submit')->nullable()->default(0);

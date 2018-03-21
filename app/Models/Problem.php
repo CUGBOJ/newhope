@@ -20,6 +20,7 @@ class Problem extends Model
         'hide',
         'special_judge',
         'time_limit',
+        'case_time_limit',
         'memory_limit',
         'total_ac',
         'total_submit',

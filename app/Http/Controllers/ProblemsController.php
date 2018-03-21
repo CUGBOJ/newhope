@@ -35,7 +35,10 @@ class ProblemsController extends Controller
             'output' => $request->output,
             'sample_input' => $request->sample_input,
             'sample_output' => $request->sample_output,
-            'special_judege' =>$request->specail_judege,
+            'special_judge' =>$request->specail_judge,
+            'time_limit' => $request->time_limit,
+            'case_time_limit' => $request->case_time_limit,
+            'memory_limit' => $request->memory_limit,
             'hint' => $request->hint,
             'hide' => $request->hide,
             'author' => $request->author,
@@ -75,8 +78,13 @@ class ProblemsController extends Controller
         $data['output'] = $request->output;
         $data['sample_input'] = $request->sample_input;
         $data['sample_output'] = $request->sample_output;
+        $data['special_judge'] = $request->special_judge;
+        $data['time_limit'] = $request->time_limit;
+        $data['case_time_limit'] = $request->case_time_limit;
+        $data['memory_limit'] = $request->memory_limit;
         $data['hint'] = $request->hint;
-
+        $data['hide'] = $request->hide;
+        $data['author'] = $request->author;
         $problem->update($data);
 
         session()->flash('success', 'Problem update success.');
