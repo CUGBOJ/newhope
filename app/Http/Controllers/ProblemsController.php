@@ -21,8 +21,8 @@ class ProblemsController extends Controller
 
     public function show_topics(Problem $problem)
     {
-        $problem_id = $problem->id;
-        return view('topics.index', compact('problem_id'));
+        $pid = $problem->id;
+        return view('topics.index', compact('pid'));
     }
 
     public function store(Request $request)

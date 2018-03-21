@@ -11,7 +11,7 @@ class AddReferences extends Migration
         Schema::table('topics', function (Blueprint $table) {
 
             $table->foreign('username')->references('username')->on('users')->onDelete('cascade');
-            $table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');
+            $table->foreign('pid')->references('id')->on('problems')->onDelete('cascade');
 
         });
 
@@ -26,7 +26,7 @@ class AddReferences extends Migration
     {
         Schema::table('topics', function (Blueprint $table) {
             $table->dropForeign(['username']);
-            $table->dropForeign(['problem_id']);
+            $table->dropForeign(['pid']);
         });
 
         Schema::table('replies', function (Blueprint $table) {

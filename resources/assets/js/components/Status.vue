@@ -95,7 +95,7 @@ export default {
                 },
                 {
                     title: 'Problem',
-                    key: 'problem_id',
+                    key: 'pid',
                     width: '8%',
                     render: (h, params) => {
                         return h('div', [
@@ -109,11 +109,11 @@ export default {
                                     on: {
                                         click: () =>
                                             (window.location.href = `/problems/${
-                                                params.row.problem_id
+                                                params.row.pid
                                             }`)
                                     }
                                 },
-                                params.row.problem_id
+                                params.row.pid
                             )
                         ])
                     }

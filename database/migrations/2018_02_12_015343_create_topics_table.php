@@ -16,7 +16,7 @@ class CreateTopicsTable extends Migration
         Schema::create('topics', function (Blueprint $table) {
             $table->integer('id',1);
             $table->string('username')->index('username');
-            $table->integer('problem_id')->index('problem_id');
+            $table->integer('pid')->index('pid');
             $table->string('title')->index('title');
             $table->text('body');
             $table->integer('reply_count')->index('reply_count')->default(0);

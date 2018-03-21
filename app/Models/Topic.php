@@ -8,7 +8,7 @@ class Topic extends Model
 {
     protected $fillable = [
         'username', 
-        'problem_id',
+        'pid',
         'reply_count',
         'view_count',
         'title',

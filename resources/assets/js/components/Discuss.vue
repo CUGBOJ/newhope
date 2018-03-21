@@ -8,7 +8,7 @@
           <li v-for="discussion in discussions" :key="discussion.id">
               <a :href="'/topics/' + discussion.id"><div class="title">{{discussion.title}}</div></a>
               <div>
-              {{`#${discussion.id} for problem #${discussion.problem_id} by ${discussion.username}`}}
+              {{`#${discussion.id} for problem #${discussion.pid} by ${discussion.username}`}}
               </div>
           </li>
       </ul>

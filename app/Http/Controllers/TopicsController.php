@@ -32,7 +32,7 @@ class TopicsController extends Controller
             $search = '%' . $request->get('search') . '%';
             $topic = $topic->orWhere('id', 'like', $search);
             $topic = $topic->orWhere('username', 'like', $search);
-            $topic = $topic->orWhere('problem_id', 'like', $search);
+            $topic = $topic->orWhere('pid', 'like', $search);
         }
 
         if ($request->get('user')) {
@@ -40,7 +40,7 @@ class TopicsController extends Controller
         }
 
         if ($request->get('prob')) {
-            $topic = $topic->where('problem_id', $request->get('prob'));
+            $topic = $topic->where('pid', $request->get('prob'));
         }
 
         return $topic->get();
@@ -65,14 +65,14 @@ class TopicsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',
-            'problem_id' => 'required|exists:problems,id',
+            'pid' => 'required|exists:problems,id',
         ]);
 
         $username = Auth::user()->username;
         $topic = Topic::create([
             'title' => $request->title,
             'body' => $request->body,
-            'problem_id' => $request->problem_id,
+            'pid' => $request->pid,
             'username' => $username,
             'last_reply_username' => $username,
         ]);

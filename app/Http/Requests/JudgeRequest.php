@@ -15,7 +15,7 @@ class JudgeRequest extends FormRequest
     public function rules()
     {
         return [
-            'problem_id' => 'required|exists:problems,id',
+            'pid' => 'required|exists:problems,id',
             'lang' => 'required|between:1,8',
             'code' => 'required',
         ];
@@ -23,8 +23,8 @@ class JudgeRequest extends FormRequest
     public function messages()
     {
         return [
-            'problem_id.exists'=>'there is no id in problems',
-            'problem_id.required'=>'must have problem id',
+            'pid.exists'=>'there is no id in problems',
+            'pid.required'=>'must have problem id',
             'code'=>'must have code file',
         ];
     }

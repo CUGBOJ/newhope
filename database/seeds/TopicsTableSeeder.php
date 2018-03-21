@@ -16,7 +16,7 @@ class TopicsTableSeeder extends Seeder
     {
 
         $usernames = User::all()->pluck('username')->toArray();
-        $problem_ids = Problem::all()->pluck('id')->toArray();
+        $pids = Problem::all()->pluck('id')->toArray();
 
         // 获取 Faker 实例
         $faker = app(Faker\Generator::class);
@@ -25,14 +25,14 @@ class TopicsTableSeeder extends Seeder
             ->times(100)
             ->make()
             ->each(function ($topic, $index)
-            use ($usernames, $problem_ids, $faker)
+            use ($usernames, $pids, $faker)
             {
                 // 从用户 ID 数组中随机取出一个并赋值
                 $topic->username = $faker->randomElement($usernames);
                 $topic->last_reply_username=$topic->username;
 
                 // 话题分类，同上
-                $topic->problem_id = $faker->randomElement($problem_ids);
+                $topic->pid = $faker->randomElement($pids);
             });
 
         // 将数据集合转换为数组，并插入到数据库中
