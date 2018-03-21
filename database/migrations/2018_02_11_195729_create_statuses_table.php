@@ -18,7 +18,9 @@ class CreateStatusesTable extends Migration
             $table->string('username')->index('username');
             $table->integer('pid')->index('pid');
             $table->integer('contest_belong')->nullable()->default(null);
-            $table->integer('result');
+
+            $table->string('result');
+
             $table->integer('time');
             $table->integer('memory');
             $table->integer('length');
