@@ -11,27 +11,27 @@
                     <h1> {{$problem->title}}</h1>
                     <div>
                         <h3>Description</h3>
-                        {{$problem->description}}
+                        {!! $problem->description !!}
                     </div>
                     <div>
                         <h3>Input</h3>
-                        {{$problem->input}}
+                        {!! $problem->input !!}
                     </div>
                     <div>
                         <h3>Output</h3>
-                        {{$problem->output}}
+                        {!! $problem->output !!}
                     </div>
                     <div>
                         <h3>sample_input</h3>
-                        {{$problem->sample_input}}
+                        {!! $problem->sample_input !!}
                     </div>
                     <div>
                         <h3>sample_output</h3>
-                        {{$problem->sample_output}}
+                        {!! $problem->sample_output !!}
                     </div>
                     <div>
                         <h3>hint</h3>
-                        {{$problem->hint}}
+                        {!! $problem->hint !!}
                     </div>
                 </div>
                 <i-button @click="this.window.location.href = '{{ route('problems.edit', $problem->id) }}'">
