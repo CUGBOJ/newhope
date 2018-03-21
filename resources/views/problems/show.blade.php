@@ -11,15 +11,15 @@
                     <h1> {{$problem->title}}</h1>
                     <div>
                         <h3>Description</h3>
-                        {!! $problem->description !!}
+                        {!! nl2br($problem->description) !!}
                     </div>
                     <div>
                         <h3>Input</h3>
-                        {!! $problem->input !!}
+                        {!! nl2br($problem->input) !!}
                     </div>
                     <div>
                         <h3>Output</h3>
-                        {!! $problem->output !!}
+                        {!! nl2br($problem->output) !!}
                     </div>
                     <div>
                         <h3>sample_input</h3>
@@ -31,7 +31,7 @@
                     </div>
                     <div>
                         <h3>hint</h3>
-                        {!! $problem->hint !!}
+                        {!! nl2br($problem->hint) !!}
                     </div>
                 </div>
                 <i-button @click="this.window.location.href = '{{ route('problems.edit', $problem->id) }}'">
