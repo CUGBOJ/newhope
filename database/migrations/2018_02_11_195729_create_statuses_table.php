@@ -16,7 +16,7 @@ class CreateStatusesTable extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->integer('id',1);
             $table->string('username')->index('username');
-            $table->integer('problem_id')->index('problem_id');
+            $table->integer('pid')->index('pid');
             $table->integer('contest_belong')->nullable()->default(null);
             $table->integer('result');
             $table->integer('time');

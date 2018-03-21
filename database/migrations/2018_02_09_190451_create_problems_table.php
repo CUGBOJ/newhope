@@ -24,6 +24,7 @@ class CreateProblemsTable extends Migration
             $table->text('sample_output')->nullable();
             $table->text('hint')->nullable();
             $table->text('source')->nullable();
+            $table->string('v_name')->default('CUGB');
 
             $table->string('author', 100)->nullable();
 

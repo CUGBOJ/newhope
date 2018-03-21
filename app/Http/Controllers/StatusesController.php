@@ -23,7 +23,7 @@ class StatusesController extends Controller
             $search = '%' . $request->get('search') . '%';
             $status = $status->orWhere('id', 'like', $search);
             $status = $status->orWhere('username', 'like', $search);
-            $status = $status->orWhere('problem_id', 'like', $search);
+            $status = $status->orWhere('pid', 'like', $search);
         }
 
         if ($request->get('user')) {
@@ -31,7 +31,7 @@ class StatusesController extends Controller
         }
 
         if ($request->get('prob')) {
-            $status = $status->where('problem_id', $request->get('prob'));
+            $status = $status->where('pid', $request->get('prob'));
         }
 
         if ($request->get('res')) {

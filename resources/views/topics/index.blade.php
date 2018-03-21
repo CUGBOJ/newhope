@@ -2,5 +2,5 @@
 @section('title', 'Discuss')
 
 @section('content')
-    <discuss :problem="{{$problem_id ?? 0}}"></discuss>
+    <discuss :problem="{{$pid ?? 0}}"></discuss>
 @stop

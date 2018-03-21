@@ -7,7 +7,7 @@
         {{ method_field('PATCH') }}
         {{ csrf_field() }}
         问题id
-        <input type="text" name="problem_id" id="problem_id" value="{{ isset($problem_id)?$problem_id:null}}">
+        <input type="text" name="pid" id="pid" value="{{ isset($pid)?$pid:null}}">
         <br>语言选择
         <select name="lang">
             <option value="1">c</option>

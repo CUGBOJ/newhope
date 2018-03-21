@@ -5,7 +5,7 @@ namespace App\Handlers;
 class CodeUploadHandler
 {
 
-    public function save($file, $username, $problem_id, $lang)
+    public function save($file, $username, $pid, $lang)
     {
 
         $upload_path = public_path() . '/uploads/code/judging';
@@ -15,7 +15,7 @@ class CodeUploadHandler
 
         $extension = $ext[$lang];
 
-        $filename = $username . '_' . $problem_id . '_' . time() . '_' . $langs[$lang] . '.' . $extension;
+        $filename = $username . '_' . $pid . '_' . time() . '_' . $langs[$lang] . '.' . $extension;
         $file->move($upload_path, $filename);
         return [
             'path' => config('app.url') . "/$filename"
