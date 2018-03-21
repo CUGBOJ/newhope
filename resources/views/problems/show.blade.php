@@ -23,11 +23,11 @@
                     </div>
                     <div>
                         <h3>sample_input</h3>
-                        {!! $problem->sample_input !!}
+                        {!! nl2br($problem->sample_input) !!}
                     </div>
                     <div>
                         <h3>sample_output</h3>
-                        {!! $problem->sample_output !!}
+                        {!! nl2br($problem->sample_output) !!}
                     </div>
                     <div>
                         <h3>hint</h3>
