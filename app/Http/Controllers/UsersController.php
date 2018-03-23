@@ -10,7 +10,6 @@ use App\Handlers\ImageUploadHandler;
 
 class UsersController extends Controller
 {
-
     public function create()
     {
         return view('users.create');
@@ -26,9 +25,9 @@ class UsersController extends Controller
         if ($request->wantsJson()) {
             $user = User::where('username', $username)->get()->first();
             $user->topics;
+
             return response()->json($user);
-        }
-        else {
+        } else {
             abort(404);
         }
     }
@@ -40,7 +39,7 @@ class UsersController extends Controller
             'nickname' => 'required|max:50',
             'school' => 'max:20',
             'email' => 'email|max:255',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
         ]);
         $user = User::create([
             'username' => $request->username,
@@ -48,10 +47,11 @@ class UsersController extends Controller
             'school' => $request->school,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'last_login_ip' => $request->ip()
+            'last_login_ip' => $request->ip(),
         ]);
         Auth::login($user);
         session()->flash('success', 'Register success.');
+
         return redirect()->route('users.show', [$user]);
     }
 
@@ -60,6 +60,7 @@ class UsersController extends Controller
         if (Auth::user()->id != $user->id) {
             abort(403);
         }
+
         return view('users.edit', compact('user'));
     }
 
@@ -91,17 +92,18 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store', 'index']
+            'except' => ['show', 'create', 'store', 'index', 'api_profile'],
         ]);
 
         $this->middleware('guest', [
-            'only' => ['create']
+            'only' => ['create'],
         ]);
     }
 
     public function index()
     {
         $users = User::paginate(10);
+
         return view('users.index', compact('users'));
     }
 
@@ -113,6 +115,7 @@ class UsersController extends Controller
         }
         $user->delete();
         session()->flash('success', 'Delete user success.');
+
         return back();
     }
 }
