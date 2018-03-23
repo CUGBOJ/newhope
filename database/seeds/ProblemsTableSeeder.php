@@ -7,11 +7,9 @@ class ProblemsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
-        //$problems = factory(Problem::class, 50)->create();
+        $problems = factory(Problem::class, 50)->create();
     }
 }
