@@ -15,15 +15,16 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Status::class, function (Faker $faker) {
     $time = $faker->dateTimeThisMonth();
+    $code = $faker->text;
 
     return [
         'result' => $faker->numberBetween(1, 11),
         'time' => $faker->numberBetween(0, 2500),
+        'code' => $code,
         'memory' => $faker->numberBetween(0, 65535),
-        'length' => $faker->numberBetween(100, 3000),
-        'lang' => $faker->numberBetween(1, 8),
+        'length' => strlen($code),
+        'lang' => $faker->numberBetween(1, 9),
         'submit_time' => $time,
-        'code' => $faker->text,
         'be_judged' => true,
     ];
 });

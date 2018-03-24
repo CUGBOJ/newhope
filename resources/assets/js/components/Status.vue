@@ -12,18 +12,19 @@ import axios from 'axios'
 const CONSTANT = {
     RESULT: [
         'Accepted',
-        'WA',
-        'PE',
-        'TLE',
-        'RE',
-        'MLE',
+        'Wrong Answer',
+        'Presentation Error',
+        'Time Limit Exceed',
+        'Runtime Error',
+        'Memory Limit Exceed',
         'Output limit',
         'Unknown error',
-        'CE',
+        'Compile Error',
+        'Restricted Function',
+        'Judge Error',
         'Queuing and Judging',
-        'hh'
     ],
-    LANG: ['C', 'C++', 'JAVA', 'Python 2', 'Python 3', 'C#', 'Ruby', 'Pascal']
+    LANG: ['C', 'C++', 'JAVA', 'C#' ,'Python 2', 'Python 3', 'Javascript','Ruby', 'Pascal',]
 }
 export default {
     mounted() {
