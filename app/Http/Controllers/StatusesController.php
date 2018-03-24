@@ -57,7 +57,7 @@ class StatusesController extends Controller
         $status = Status::create([
             'username' => Auth::user()->username,
             'pid' => $request->pid,
-            'result' => 9,
+            'result' => 12,
             'lang' => $request->lang,
             'submit_time' => now(),
             'code' => $request->code,

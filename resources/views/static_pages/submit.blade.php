@@ -16,8 +16,9 @@
             <option value="4">c#</option>
             <option value="5">python2</option>
             <option value="6">python3</option>
-            <option value="7">ruby</option>
-            <option value="8">pascal</option>
+            <option value="7">javascript</option>
+            <option value="8">ruby</option>
+            <option value="9">pascal</option>
         </select>
         <div class="form-group">
             <label >上传代码</label>
