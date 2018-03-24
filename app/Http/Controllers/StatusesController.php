@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Status;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class StatusesController extends Controller
         $status = Status::getModel();
 
         if ($request->get('search')) {
-            $search = '%' . $request->get('search') . '%';
+            $search = '%'.$request->get('search').'%';
             $status = $status->orWhere('id', 'like', $search);
             $status = $status->orWhere('username', 'like', $search);
             $status = $status->orWhere('pid', 'like', $search);
@@ -49,5 +50,27 @@ class StatusesController extends Controller
         }
 
         return $status->orderByDesc('id')->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function store(Request $request)
+    {
+        $status = Status::create([
+            'username' => Auth::user()->username,
+            'pid' => $request->pid,
+            'result' => 9,
+            'lang' => $request->lang,
+            'submit_time' => now(),
+            'code' => $request->code,
+            'length' => strlen($request->code),
+        ]);
+
+        return response()->json(['message' => 'successful submit'], 200);
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['show',  'index'],
+        ]);
     }
 }

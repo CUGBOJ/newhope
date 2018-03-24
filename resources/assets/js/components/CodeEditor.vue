@@ -67,6 +67,7 @@ import 'codemirror/theme/base16-light.css'
 import 'codemirror/theme/monokai.css'
 import 'codemirror/theme/neat.css'
 
+
 const CONSTANT = {
     LANG: {
         'text/x-csrc': {
@@ -75,7 +76,8 @@ const CONSTANT = {
 int main()
 {
     return 0;
-}`
+}`,          
+            index: 1,
         },
         'text/x-c++src': {
             name: 'C++',
@@ -83,14 +85,19 @@ int main()
 using namespace std;
 int main(){
     return 0;
-}`
+}`,          
+            index: 2,
         },
-        'text/x-java': { name: 'Java' },
-        'text/x-csharp': { name: 'C#' },
-        'text/x-python': { name: 'Python' },
+        'text/x-java': { name: 'Java' ,          
+            index: 3,},
+        'text/x-csharp': { name: 'C#' ,          
+            index: 4,},
+        'text/x-python': { name: 'Python' ,          
+            index: 5,},
         'text/javascript': {
             name: 'JavaScript',
-            code: 'let a = 1'
+            code: 'let a = 1',          
+            index: 6,
         }
     },
     THEME: {
@@ -107,6 +114,8 @@ int main(){
         default: 'Default'
     }
 }
+
+import axios from 'axios'
 
 export default {
     components: {
@@ -150,11 +159,26 @@ export default {
     computed: {
         codemirror() {
             return this.$refs.pCm.codemirror
+        },
+        getLang(){
+            return this.CONSTANT.LANG[this.cmOptions.mode].index;
         }
     },
     mounted() {},
     created() {
         this.CONSTANT = CONSTANT
+        let self = this
+        window.bus.$on('submit', function () {
+            axios.post('/codesubmit',{
+                pid: window.location.href.split('/').pop(),
+                code: self.code,
+                lang: self.getLang,
+            }).then(res => {
+                console.log(res.data)
+            }).catch(err => {
+                console.log(err.response.data)
+            })
+        })
     }
 }
 </script>

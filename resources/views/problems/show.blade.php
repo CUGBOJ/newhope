@@ -41,12 +41,18 @@
                           @click="this.window.location.href = '{{ route('problem.topics', $problem->id) }}'">
                     Discuss
                 </i-button>
-                <i-button type="primary">
-                    提交
-                </i-button>
+               
+                <form action="{{route('codesubmit')}}" method="POST"  id="codeform">
+                    {{ csrf_field() }}
+               
+                        <i-button type="primary" @click.native="this.window.bus.$emit('submit')">
+                            提交
+                        </i-button>
+                </form>
             </i-col>
             <i-col span="12">
-                <code-editor></code-editor>
+                <code-editor>
+                </code-editor>
             </i-col>
         </row>
     </div>

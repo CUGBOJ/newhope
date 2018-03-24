@@ -31,6 +31,9 @@ Vue.component('login', require('./components/Login.vue'))
 Vue.component('profile', require('./components/Profile.vue'))
 
 /*eslint-disable no-unused-vars*/
+const bus = new Vue()
+window.bus = bus
+console.log("bus created")
 const app = new Vue({
     el: '#app'
 })
