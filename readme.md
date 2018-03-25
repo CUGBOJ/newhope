@@ -12,7 +12,7 @@ OJ_NG
     * [PHP](#php)
     * [NodeJS & NPM](#nodejs-npm)
     * [Composer](#composer)
-    * [HTTP Server](#HTTP Server)
+    * [HTTP Server](#http-server)
 * [相关配置](#相关配置)
     * [Clone项目](#clone项目)
     * [项目配置](#项目配置)
@@ -23,7 +23,7 @@ OJ_NG
 * [Test](#test)
 * [其他](#其他)
     * [更换软件源](#换源)
-    * [HTTP Server配置](#HTTP Server配置)
+    * [HTTP Server配置](#http-server配置)
 
 
 ----
@@ -148,7 +148,7 @@ composer update
 composer dump-autoload
 php artisan migrate:refresh --seed
 npm install
-npm run dev #npm run watch 可以监控js代码变化，实时编译
+npm run dev #npm run watch 可以监控js代码变化，实时编译
 ```
 
 每次从上游获取代码后，需再次运行上述命令以重新安装相关依赖、迁移数据库、部署数据库模式的最新更改。
@@ -159,7 +159,7 @@ npm run dev #npm run watch 可以监控js代码变化，实时编译
 php artisan serve
 ```
 
-打开 http://127.0.0.1:8000 即可看到部署成功的网站
+打开 http://127.0.0.1:8000 即可看到部署成功的网站
 
 可以增加`--port=80`参数来指定端口，默认为8000 
 
@@ -177,7 +177,7 @@ Run PHP tests
 
 ### 换源
 
-更换Composer软件源到国内源，可以有效提升速度与稳定性。
+更换Composer软件源到国内源，可以有效提升速度与稳定性。
 ```shell
 composer config -g repo.packagist composer https://packagist.phpcomposer.com
 ```
