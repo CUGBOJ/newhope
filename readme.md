@@ -130,7 +130,7 @@ git clone https://github.com/CUGBOJ/newhope.git
 
 ### 项目配置
 
-复制项目中的`.env.example` 为 `.env`。打开`.env`，根据本地环境填写相关配置`DB_DATABASE`, `DB_USERNAME` , `DB_PASSWORD`等字段。
+复制项目中的`.env.example` 为 `.env`。打开`.env`，根据本地环境填写相关配置`DB_DATABASE`, `DB_USERNAME` , `DB_PASSWORD`等字段。
 
 需在数据库中预先创建好对应的Database。
 
