@@ -47,165 +47,168 @@
 </template>
  
 <script>
-import { codemirror } from "vue-codemirror";
+import { codemirror } from 'vue-codemirror'
 
-import "codemirror/addon/display/autorefresh.js";
+import 'codemirror/addon/display/autorefresh.js'
 
-import "codemirror/keymap/emacs.js";
-import "codemirror/keymap/sublime.js";
-import "codemirror/keymap/vim.js";
+import 'codemirror/keymap/emacs.js'
+import 'codemirror/keymap/sublime.js'
+import 'codemirror/keymap/vim.js'
 
-import "codemirror/mode/javascript/javascript.js";
-import "codemirror/mode/clike/clike.js";
-import "codemirror/mode/python/python.js";
+import 'codemirror/mode/javascript/javascript.js'
+import 'codemirror/mode/clike/clike.js'
+import 'codemirror/mode/python/python.js'
+import 'codemirror/mode/pascal/pascal.js'
+import 'codemirror/mode/ruby/ruby.js'
 
-import "codemirror/lib/codemirror.css";
+import 'codemirror/lib/codemirror.css'
 
-import "codemirror/theme/solarized.css";
-import "codemirror/theme/base16-dark.css";
-import "codemirror/theme/base16-light.css";
-import "codemirror/theme/monokai.css";
-import "codemirror/theme/neat.css";
+import 'codemirror/theme/solarized.css'
+import 'codemirror/theme/base16-dark.css'
+import 'codemirror/theme/base16-light.css'
+import 'codemirror/theme/monokai.css'
+import 'codemirror/theme/neat.css'
 
 const CONSTANT = {
-  LANG: {
-    "text/x-csrc": {
-      name: "C",
-      code: `#include <stdio.h>
+    LANG: {
+        'text/x-csrc': {
+            name: 'C',
+            code: `#include <stdio.h>
 int main()
 {
     return 0;
 }`,
-      index: 1
-    },
-    "text/x-c++src": {
-      name: "C++",
-      code: `#include <iostream>
+            index: 1
+        },
+        'text/x-c++src': {
+            name: 'C++',
+            code: `#include <iostream>
 using namespace std;
 int main(){
     return 0;
 }`,
-      index: 2
+            index: 2
+        },
+        'text/x-java': {
+            name: 'Java',
+            index: 3
+        },
+        'text/x-csharp': {
+            name: 'C#',
+            index: 4
+        },
+        'text/x-python': {
+            name: 'Python2',
+            index: 5
+        },
+        'text/x-python': {
+            name: 'Python3',
+            index: 6
+        },
+        'text/javascript': {
+            name: 'JavaScript',
+            code: 'let a = 1',
+            index: 7
+        },
+        'text/x-ruby': {
+            name: 'Ruby',
+            index: 8
+        },
+        'text/x-pascal': {
+            name: 'Pascal',
+            index: 9
+        }
     },
-    "text/x-java": {
-      name: "Java",
-      index: 3
+    THEME: {
+        solarized: 'Solarized',
+        'base16-dark': 'Base16 Dark',
+        'base16-light': 'Base16 Light',
+        monokai: 'Monokai',
+        neat: 'Neat'
     },
-    "text/x-csharp": {
-      name: "C#",
-      index: 4
-    },
-    "text/x-python2": {
-      name: "Python2",
-      index: 5
-    },
-    "text/x-python3": {
-      name: "Python3",
-      index: 6
-    },
-    "text/javascript": {
-      name: "JavaScript",
-      code: "let a = 1",
-      index: 7
-    },
-    "text/ruby": {
-      name: "Ruby",
-      index: 8
-    },
-    "text/x-ppascal": {
-      name: "Pascal",
-      index: 9
+    KEYMAP: {
+        vim: 'Vim',
+        emacs: 'Emacs',
+        sublime: 'Sublime',
+        default: 'Default'
     }
-  },
-  THEME: {
-    solarized: "Solarized",
-    "base16-dark": "Base16 Dark",
-    "base16-light": "Base16 Light",
-    monokai: "Monokai",
-    neat: "Neat"
-  },
-  KEYMAP: {
-    vim: "Vim",
-    emacs: "Emacs",
-    sublime: "Sublime",
-    default: "Default"
-  }
-};
+}
 
-import axios from "axios";
+import axios from 'axios'
 
 export default {
-  components: {
-    codemirror
-  },
-  data() {
-    return {
-      code: "const a = 10",
-      cmOptions: {
-        tabSize: 4,
-        indentUnit: 4,
-        mode: "text/javascript",
-        theme: "base16-dark",
-        keyMap: "default",
-        lineNumbers: true,
-        line: true,
-        autoRefresh: {
-          delay: 500
+    components: {
+        codemirror
+    },
+    data() {
+        return {
+            code: '',
+            cmOptions: {
+                tabSize: 4,
+                indentUnit: 4,
+                mode: 'text/x-c++src',
+                theme: 'solarized',
+                keyMap: 'default',
+                lineNumbers: true,
+                line: true,
+                autoRefresh: {
+                    delay: 500
+                }
+            }
         }
-      }
-    };
-  },
-  methods: {
-    onCmReady() {},
-    onCmFocus() {},
-    onCmCodeChange(newCode) {
-      this.code = newCode;
     },
-    onTmClick(name) {
-      this.cmOptions.theme = name;
+    methods: {
+        onCmReady() {},
+        onCmFocus() {},
+        onCmCodeChange(newCode) {
+            this.code = newCode
+        },
+        onTmClick(name) {
+            this.cmOptions.theme = name
+        },
+        onKmClick(name) {
+            this.cmOptions.keyMap = name
+        },
+        onLmClick(name) {
+            this.cmOptions.mode = name
+            let code = this.CONSTANT.LANG[name].code
+            this.code = code ? code : ''
+        }
     },
-    onKmClick(name) {
-      this.cmOptions.keyMap = name;
+    computed: {
+        codemirror() {
+            return this.$refs.pCm.codemirror
+        },
+        getLang() {
+            return this.CONSTANT.LANG[this.cmOptions.mode].index
+        }
     },
-    onLmClick(name) {
-      this.cmOptions.mode = name;
-      let code = this.CONSTANT.LANG[name].code;
-      this.code = code ? code : "";
-    }
-  },
-  computed: {
-    codemirror() {
-      return this.$refs.pCm.codemirror;
+    mounted() {
+        this.onLmClick(this.cmOptions.mode)
     },
-    getLang() {
-      return this.CONSTANT.LANG[this.cmOptions.mode].index;
-    }
-  },
-  mounted() {},
-  created() {
-    this.CONSTANT = CONSTANT;
-    let self = this;
-    window.bus.$on("submit", function() {
-      axios
-        .post("/codesubmit", {
-          pid: window.location.href.split("/").pop(),
-          code: self.code,
-          lang: self.getLang
+    created() {
+        this.CONSTANT = CONSTANT
+        let self = this
+        window.bus.$on('submit', function() {
+            axios
+                .post('/codesubmit', {
+                    pid: window.location.href.split('/').pop(),
+                    code: self.code,
+                    lang: self.getLang
+                })
+                .then(res => {
+                    self.$Message.success(res.data.message)
+                })
+                .catch(err => {
+                    self.$Message.error(err.response.data.message)
+                })
         })
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(err => {
-          console.log(err.response.data);
-        });
-    });
-  }
-};
+    }
+}
 </script>
 
 <style lang="stylus">
-.CodeMirror {
-    font-size: 18px;
-    height: 70vh;
-}
+.CodeMirror
+  font-size 18px
+  height 70vh
 </style>

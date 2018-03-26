@@ -5,10 +5,16 @@
     <div style="float: right;">
       <Page ref="page" :page-size="perPage" :total="total" :current="1" @on-change="fetchData"></Page>
     </div>
+    <Modal v-model="codeModal.show" v-if="this.codeModal.data" :title="'Code for ' + this.codeModal.data.id" width="750" ok-text="Copy" @on-ok="copyCode">
+        <pre v-html="codeModal.codeHTML"></pre>
+        <button v-if="codeModal.data" id="copy-code" :data-clipboard-text="codeModal.data.code" hidden></button>
+    </Modal>
+    <Modal v-model="ceModal.show" v-if="this.ceModal.data" :title="'Compile Error Info for ' + this.ceModal.data.id">
+        {{this.ceModal.data.ce_info || "Empty Info" }}
+    </Modal>
   </div>
 </template>
 <script>
-import axios from 'axios'
 const CONSTANT = {
     RESULT: [
         'Accepted',
@@ -17,18 +23,55 @@ const CONSTANT = {
         'Time Limit Exceed',
         'Runtime Error',
         'Memory Limit Exceed',
-        'Output limit',
+        'Output limit Exceed',
         'Unknown error',
         'Compile Error',
         'Restricted Function',
         'Judge Error',
-        'Queuing and Judging',
+        'Queuing and Judging'
     ],
-    LANG: ['C', 'C++', 'JAVA', 'C#' ,'Python 2', 'Python 3', 'Javascript','Ruby', 'Pascal',]
+    LANG: [
+        'C',
+        'C++',
+        'JAVA',
+        'C#',
+        'Python 2',
+        'Python 3',
+        'Javascript',
+        'Ruby',
+        'Pascal'
+    ],
+    PRISM_LANG: [
+        'c',
+        'cpp',
+        'java',
+        'csharp',
+        'python',
+        'python',
+        'javascript',
+        'ruby',
+        'pascal'
+    ]
 }
+
+import axios from 'axios'
+const Prism = require('prismjs')
+const Clipboard = require('clipboard')
+const loadLanguages = require('prismjs/components/index.js')
+loadLanguages(CONSTANT.PRISM_LANG)
+
 export default {
     mounted() {
         this.fetchData()
+
+        // Initialize Clipboard
+        let Cb = new Clipboard('#copy-code')
+        Cb.on('success', () => {
+            this.$Message.success('Copied')
+        })
+        Cb.on('error', () => {
+            this.$Message.error('Copy error')
+        })
     },
     computed: {
         //Hack filter when page changed
@@ -75,10 +118,32 @@ export default {
                     this.total = res.data.total
                     this.loading = false
                 })
+        },
+        showCodeModal(data) {
+            this.codeModal.data = data
+            this.codeModal.show = true
+            let prismLang = CONSTANT.PRISM_LANG[this.codeModal.data.lang - 1]
+            this.codeModal.codeHTML = Prism.highlight(
+                this.codeModal.data.code,
+                Prism.languages[prismLang],
+                prismLang
+            )
+        },
+        copyCode() {
+            document.getElementById('copy-code').click()
         }
     },
     data() {
         return {
+            codeModal: {
+                show: false,
+                codeHTML: '',
+                data: null
+            },
+            ceModal: {
+                show: false,
+                data: null
+            },
             searchText: '',
             perPage: 10,
             loading: true,
@@ -121,8 +186,7 @@ export default {
                 },
                 {
                     title: 'Language',
-                    key: 'l' +
-                'ang',
+                    key: 'lang',
                     width: '10%',
                     render: (h, params) => {
                         return h('div', CONSTANT.LANG[params.row.lang - 1])
@@ -140,7 +204,37 @@ export default {
                     key: 'result',
                     width: '13%',
                     render: (h, params) => {
-                        return h('div', CONSTANT.RESULT[params.row.result - 1])
+                        let res = CONSTANT.RESULT[params.row.result - 1]
+                        let className =
+                            'judge-result-' +
+                            res
+                                .toLowerCase()
+                                .split(' ')
+                                .join('-')
+                        return h(
+                            'div',
+                            {
+                                class: className + ' judge-result'
+                            },
+                            [
+                                res === 'Compile Error'
+                                    ? h(
+                                        'a',
+                                        {
+                                            on: {
+                                                click: () => {
+                                                    this.ceModal.data =
+                                                          params.row
+                                                    this.ceModal.show = true
+                                                    console.log(this.ceModal)
+                                                }
+                                            }
+                                        },
+                                        res
+                                    )
+                                    : res
+                            ]
+                        )
                     },
                     filters: CONSTANT.RESULT.map((val, index) => ({
                         label: val,
@@ -163,7 +257,20 @@ export default {
                 {
                     title: 'Length',
                     key: 'length',
-                    width: '8%'
+                    width: '8%',
+                    render: (h, params) => {
+                        return h(
+                            'a',
+                            {
+                                on: {
+                                    click: () => {
+                                        this.showCodeModal(params.row)
+                                    }
+                                }
+                            },
+                            params.row.length
+                        )
+                    }
                 },
                 {
                     title: 'Submit Time',
@@ -175,3 +282,26 @@ export default {
     }
 }
 </script>
+<style lang="stylus" scoped>
+pre
+    font-size 16px
+    white-space pre-wrap
+    word-wrap break-word
+
+>>> .judge-result
+    font-weight bold
+
+// Use deep selectors for dynamic rendered child components
+>>> .judge-result-
+    &accepted
+        color green
+
+    &presentation-error, &compile-error, &output-limit-exceed
+        color blue
+
+    &memory-limit-exceed, &time-limit-exceed, &wrong-answer, &runtime-error
+        color red
+
+    &restricted-function, &unknown-error, &judge-error
+        color darkblue
+</style>
