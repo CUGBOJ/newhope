@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateStatusesTable extends Migration
 {
@@ -24,6 +24,7 @@ class CreateStatusesTable extends Migration
             $table->timestamp('submit_time');
             $table->text('code');
             $table->boolean('be_judged')->default(false);
+            $table->text('ce_info')->nullable();
         });
     }
 
