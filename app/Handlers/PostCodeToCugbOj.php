@@ -55,7 +55,7 @@ class PostCodeToCugbOj
                 'Restricted Function' => 10,
             );
             $result = json_decode(substr($res, 3))->info;
-            $status = new Status;
+            $ce_info = $result[3];
             $status = Status::create([
                 'username' => Auth::user()->username,
                 'pid' => $request->pid,
@@ -66,6 +66,7 @@ class PostCodeToCugbOj
                 'length' => strlen($request->code),
                 'time' => $result[1],
                 'memory' => $result[2],
+                'ce_info' => $ce_info,
             ]);
             $info = $res;
         }
