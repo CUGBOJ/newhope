@@ -19,6 +19,7 @@ class Status extends Model
         'pid',
         'be_judged',
         'code',
+        'ce_info',
     ];
 
     public function user()
