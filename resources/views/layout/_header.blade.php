@@ -42,7 +42,7 @@
                 <dropdown trigger="click">
                     <a href="javascript:void(0)">
                         <badge count="{{ Auth::user()->notification_count  }}" style="margin: 0 15px">
-                            <Avatar shape="square" src="{{Auth::user()->avatar}}" size="large"/>
+                            <Avatar shape="square" src="{{url(route('home')).Auth::user()->avatar}}" size="large"/>
                         </badge>
                     </a>
                     <dropdown-menu slot="list">

@@ -12,7 +12,7 @@
                 <input type="file" name="avatar">
                 @if($user->avatar)
                     <br>
-                    <img  src="{{ $user->avatar }}" width="200" />
+                    <img  src="{{ url(route('home')).$user->avatar }}" width="200" />
                 @endif
             </div>
             <div>
