@@ -10,7 +10,7 @@ class ImageUploadHandler
     public function save($file, $folder, $file_prefix)
     {
         // 构建存储的文件夹规则，值如：uploads/images/avatars/201709/21/
-        $folder_name = "uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+        $folder_name = "uploads/images/$folder/" . date("Ym", time()) . '/' . date("d", time()) . '/';
 
         // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径。
         // 值如：/home/vagrant/Code/larabbs/public/uploads/images/avatars/201709/21/
@@ -24,7 +24,7 @@ class ImageUploadHandler
         $filename = $file_prefix . '_' . time() . '_' . str_random(10) . '.' . $extension;
 
         // 如果上传的不是图片将终止操作
-        if ( ! in_array($extension, $this->allowed_ext)) {
+        if (!in_array($extension, $this->allowed_ext)) {
             return false;
         }
 
@@ -32,7 +32,7 @@ class ImageUploadHandler
         $file->move($upload_path, $filename);
 
         return [
-            'path' => config('app.url') . "/$folder_name/$filename"
+            'path' => "/$folder_name/$filename",
         ];
     }
 }
