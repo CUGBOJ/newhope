@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Reply::observe(\App\Observers\ReplyObserver::class);
         \App\Models\Topic::observe(\App\Observers\TopicObserver::class);
         \App\Models\Announcement::observe(\App\Observers\AnnouncementObserver::class);
+        \App\Models\Status::observe(\App\Observers\StatusObserver::class);
     }
 
     /**
