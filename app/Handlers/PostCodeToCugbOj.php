@@ -26,7 +26,7 @@ class PostCodeToCugbOj
     public function post_to_cugb_oj($request)
     {
         $lang_change = array(
-            0, 2, 1, 3, 6, 5, 16, 0, 9, 7,
+            0, 2, 1, 3, 6, 5, 16, 0, 9, 4,
         );
         $lang = $lang_change[$request->lang];
         if ($lang == 0) {

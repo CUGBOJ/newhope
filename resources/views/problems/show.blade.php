@@ -7,7 +7,7 @@
 
         <row>
             <i-col span="12">
-                <div style="height: 70vh; overflow: scroll">
+                <div style="height: 70vh; overflow: auto">
                     <h1> {{$problem->title}}</h1>
                     <div>
                         <h3>Description</h3>
