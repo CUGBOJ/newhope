@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
-use Notification;
 
 class User extends Authenticatable
 {
@@ -19,7 +18,7 @@ class User extends Authenticatable
         if ($this->username == Auth::user()->username) {
             return;
         }
-        $this->increment('notification_count',1);
+        $this->increment('notification_count', 1);
         $this->notify($instance);
     }
 
@@ -34,16 +33,16 @@ class User extends Authenticatable
      */
     //protected $table = 'users';
     protected $fillable = [
-        'avatar', 
-        'nickname', 
-        'email', 
-        'password', 
-        'school', 
-        'username', 
-        'last_login_ip', 
-        'last_login_time', 
-        'register_time', 
-        'solved', 
+        'avatar',
+        'nickname',
+        'email',
+        'password',
+        'school',
+        'username',
+        'last_login_ip',
+        'last_login_time',
+        'register_time',
+        'solved',
         'submit',
     ];
 
@@ -53,25 +52,25 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 
+        'password',
         'remember_token',
-        'last_login_ip', 
+        'last_login_ip',
         'register_time',
     ];
 
     public function statuses()
     {
-        return $this->hasMany(Status::class,'username','username');
+        return $this->hasMany(Status::class, 'username', 'username');
     }
 
     public function topics()
     {
-        return $this->hasMany(Topic::class,'username','username');
+        return $this->hasMany(Topic::class, 'username', 'username');
     }
 
     public function contests()
     {
-        return $this->belongsToMany('App\Models\Contest','contests_users','username','contest_id');
+        return $this->belongsToMany('App\Models\Contest', 'contests_users', 'username', 'contest_id');
     }
 
     public function isAuthorOf($model)
@@ -81,7 +80,7 @@ class User extends Authenticatable
 
     public function replies()
     {
-        return $this->hasMany(Reply::class,'username','username');
+        return $this->hasMany(Reply::class, 'username', 'username');
     }
 
     public function markAsRead()
