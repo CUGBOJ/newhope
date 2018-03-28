@@ -4,7 +4,7 @@ module.exports = {
     rules: {
         strict: 0,
         semi: ['error', 'never'],
-        indent: ["error", 4],
+        indent: ['error', 4],
         quotes: ['error', 'single'],
         'vue/no-parsing-error': [
             'error',

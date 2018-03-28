@@ -34,21 +34,19 @@
                         {!! nl2br($problem->hint) !!}
                     </div>
                 </div>
-                <i-button @click="this.window.location.href = '{{ route('problems.edit', $problem->id) }}'">
-                    修改题目
-                </i-button>
+                <form action="{{route('codesubmit')}}" method="POST"  id="codeform" style="display: inline-block;">
+                    {{ csrf_field() }}
+                    <i-button type="primary" @click.native="this.window.bus.$emit('submit')">
+                        提交
+                    </i-button>
+                </form>
                 <i-button type="text"
                           @click="this.window.location.href = '{{ route('problem.topics', $problem->id) }}'">
                     Discuss
                 </i-button>
-               
-                <form action="{{route('codesubmit')}}" method="POST"  id="codeform">
-                    {{ csrf_field() }}
-               
-                        <i-button type="primary" @click.native="this.window.bus.$emit('submit')">
-                            提交
-                        </i-button>
-                </form>
+                <i-button @click="this.window.location.href = '{{ route('problems.edit', $problem->id) }}'">
+                    修改题目
+                </i-button>
             </i-col>
             <i-col span="12">
                 <code-editor>
