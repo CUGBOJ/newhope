@@ -1,0 +1,31 @@
+{
+    // See http://go.microsoft.com/fwlink/?LinkId=827846
+    // for the documentation about the extensions.json format
+
+    "recommendations": [
+        // npm
+        "christian-kohler.npm-intellisense",
+
+        // js lint
+
+        // "prettier.eslintIntegration": true
+
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+
+        // stylus
+
+        // "stylusSupremacy.insertBraces": false,
+        // "stylusSupremacy.insertColons": false,
+        // "stylusSupremacy.insertSemicolons": false,
+
+        "thisismanta.stylus-supremacy",
+        "sysoev.language-stylus",
+
+        // vue
+
+        // "vetur.validation.template": false
+
+        "octref.vetur"
+    ]
+}
