@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
 
 class UserRequest extends FormRequest
 {
@@ -19,18 +18,18 @@ class UserRequest extends FormRequest
             'email' => 'email',
             'password' => 'nullable|confirmed|min:6',
             'school' => 'max:20',
-            'avatar' => 'mimes:jpeg,bmp,png,gif|dimensions:min_width=200,min_height=200',
+            'avatar' => 'mimes:jpeg,bmp,png,gif|dimensions:min_width=200,min_height=200,max_width=1200,max_height=1200',
         ];
     }
     public function messages()
     {
         return [
-            'avatar.mimes' =>'头像必须是 jpeg, bmp, png, gif 格式的图片',
-            'avatar.dimensions' => '图片的清晰度不够，宽和高需要 200px 以上',
+            'avatar.mimes' => '头像必须是 jpeg, bmp, png, gif 格式的图片',
+            'avatar.dimensions' => '图片的清晰度不符合要求，宽和高需要 200px-1200px',
             'nickname.regex' => '用户名只支持中英文、数字、横杆和下划线。',
             'nickname.between' => '用户名必须介于 3 - 25 个字符之间。',
-            'password.confirmed' =>'密码与确认密码必须一致',
-            'password.min' =>'密码至少6位',
+            'password.confirmed' => '密码与确认密码必须一致',
+            'password.min' => '密码至少6位',
         ];
     }
 }
