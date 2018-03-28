@@ -14,9 +14,13 @@ class ProblemsController extends Controller
         return view('problems.create');
     }
 
-    public function show(Problem $problem)
+    public function show(Request $request, Problem $problem)
     {
-        return view('problems.show', compact('problem'));
+        if ($request->wantsJson()) {
+            return response()->json($problem);
+        } else {
+            return view('problems.show', compact('problem'));
+        }
     }
 
     public function show_topics(Problem $problem)

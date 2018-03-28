@@ -23,7 +23,8 @@ import 'iview/dist/styles/iview.css'
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('problem', require('./components/Problem.vue'))
+Vue.component('problem-table', require('./components/ProblemTable.vue'))
+Vue.component('practice', require('./components/Practice.vue'))
 Vue.component('status', require('./components/Status.vue'))
 Vue.component('discuss', require('./components/Discuss.vue'))
 Vue.component('code-editor', require('./components/CodeEditor.vue'))
@@ -31,9 +32,11 @@ Vue.component('login', require('./components/Login.vue'))
 Vue.component('profile', require('./components/Profile.vue'))
 
 /*eslint-disable no-unused-vars*/
-const bus = new Vue()
-window.bus = bus
-console.log("bus created")
+window.bus = new Vue()
+
+import router from './router'
+
 const app = new Vue({
+    router,
     el: '#app'
 })

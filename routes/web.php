@@ -24,7 +24,11 @@ Route::get('login', 'SessionsController@create')->name('login');
 Route::post('login', 'SessionsController@store')->name('login');
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
-Route::resource('problems', 'ProblemsController');
+Route::resource('problems', 'ProblemsController', ['except' => [
+    'show'
+]]);
+Route::get('practice', 'ProblemsController@show');
+Route::get('practice/{_}', 'ProblemsController@show');
 Route::get('problems/{problem}/topics', 'ProblemsController@show_topics')->name('problem.topics');
 
 Route::get('statuses', 'StatusesController@index')->name('statuses');

@@ -18,3 +18,4 @@ Route::middleware('auth')->group(function () {
 Route::post('login', 'SessionsController@store');
 Route::get('user/{username}', 'UsersController@api_profile');
 Route::get('topics', 'TopicsController@api_topics');
+Route::get('problem/{problem}', 'ProblemsController@show');
