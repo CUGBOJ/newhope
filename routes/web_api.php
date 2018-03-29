@@ -15,7 +15,7 @@ Route::middleware('auth')->group(function () {
     // These APIs can be used after authentication
 });
 
-Route::post('login', 'SessionsController@store');
+Route::post('login', 'SessionsController@store')->name('login');
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
 Route::post('codesubmit', 'StatusesController@store')->name('codesubmit');
 

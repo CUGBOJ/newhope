@@ -28,18 +28,8 @@ class SessionsController extends Controller
             } else {
                 return response()->json(['message' => "Login fail."], 401);
             }
-
         } else {
-            if (Auth::attempt($credentials)) {
-                $user = Auth::user();
-                $user->last_login_ip = $request->ip();
-                $user->save();
-                session()->flash('success', 'Login success.');
-                return redirect()->intended(route('users.show', [Auth::user()]));
-            } else {
-                session()->flash('danger', 'The passwords you typed do not match. Retype the trust password');
-                return redirect()->back();
-            }
+            abort(404);
         }
     }
 
