@@ -1,8 +1,9 @@
 <template>
-  <div v-if="loading">
-      <Spin size="large"></Spin>
-  </div>
-  <div v-else>
+    <div v-if="loading">
+        <Spin size="large" fix></Spin>
+    </div>
+    <div v-else>
+        <h1>{{ this.problem.allData.title }}</h1>
         <div>
             <h3>Description</h3>
             {{ this.problem.allData.description }}
@@ -27,7 +28,7 @@
             <h3>hint</h3>
             {{ this.problem.allData.hint }}
         </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -51,10 +52,11 @@ export default {
                     vm.loading = false
                 })
             })
-            .catch(() => {})
+            .catch(() => {
+                next(false)
+            })
     },
     beforeRouteUpdate(to, from, next) {
-        this.problem.allData = null
         this.loading = true
         axios
             .get(`/api/problem/${to.params.problemId}`)
@@ -63,7 +65,12 @@ export default {
                 this.loading = false
                 next()
             })
-            .catch(() => {})
+            .catch(() => {
+                next(false)
+                this.$Loading.error()
+                this.$Notice.error({ title: '无法获取题目' })
+                this.loading = false
+            })
     },
     computed: {
         problemId() {

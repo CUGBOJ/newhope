@@ -1,48 +1,59 @@
 <template>
-  <div>
+    <div>
         <Row>
             <Col span="12">
-                <div style="height: 70vh; overflow: auto">
-                    ID: <Input v-model="problemIdInput" style="width:80px" @keyup.enter.native="changeProblem"></Input>
-                    <router-view></router-view>
-                </div>
-                <i-button type="primary" @click.native="submitCode">
-                    提交
-                </i-button>
+            <div style="height: 70vh; overflow: auto">
+                ID: {{problemId}}
+                <AutoComplete 
+                    icon="ios-search" 
+                    :data="problemSearchData" 
+                    v-model.lazy="problemSearchText" 
+                    style="width:80px"
+                >
+                </AutoComplete>
+                <router-view></router-view>
+            </div>
+            <i-button type="primary" @click.native="submitCode">
+                提交
+            </i-button>
             </Col>
             <Col span="12">
-                <code-editor/>
+            <CodeEditor/>
             </Col>
         </Row>
-  </div>
+    </div>
 </template>
 
 <script>
 export default {
+    components: {
+        CodeEditor: () => import('./CodeEditor.vue')
+    },
     data() {
         return {
-            problemIdInput: this.$route.params.problemId
+            problemSearchText: null,
+            problemSearchData: []
         }
     },
     methods: {
         submitCode() {
             window.bus.$emit('submit')
         },
-        goBack() {
-            window.history.length > 1
-                ? this.$router.go(-1)
-                : this.$router.push('/')
-        },
         changeProblem() {
             this.$router.push({
                 name: 'problem',
-                params: { problemId: this.problemIdInput }
+                params: { problemId: this.problemSearchText }
             })
         }
     },
     computed: {
         problemId() {
             return this.$route.params.problemId
+        }
+    },
+    watch: {
+        $route(to) {
+            this.problemSearchText = to.params.problemId
         }
     }
 }

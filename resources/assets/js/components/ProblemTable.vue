@@ -55,9 +55,12 @@ export default {
                                     },
                                     on: {
                                         click: () =>
-                                            (window.location.href = `/problems/${
-                                                params.row.id
-                                            }`)
+                                            this.$router.push({
+                                                name: 'problem',
+                                                params: {
+                                                    problemId: params.row.id
+                                                }
+                                            })
                                     }
                                 },
                                 params.row.title
@@ -71,7 +74,7 @@ export default {
                 },
                 {
                     title: 'Submit Number',
-                    key: 'submit_number'
+                    key: 'total_submit'
                 },
                 {
                     title: 'Action',

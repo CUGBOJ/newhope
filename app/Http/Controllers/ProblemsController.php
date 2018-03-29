@@ -56,14 +56,24 @@ class ProblemsController extends Controller
         return view('problems.index', compact('problems'));
     }
 
-    public function get_problems()
+    public function get_problems(Request $request)
     {
-        $perPage = request()->get('perPage') ?: 15;
-        $page = request()->get('page') ?: 1;
-
-        return Problem::getModel()->paginate($perPage,
-            ['id', 'title', 'author', 'total_submit'],
-            '', $page);
+        $problem = Problem::getModel();
+        if ($request->get('search')) {
+            $search = '%' . $request->get('search') . '%';
+            $problem = $problem->orWhere('id', 'like', $search);
+            $problem = $problem->orWhere('title', 'like', $search);
+            $problem = $problem->orWhere('author', 'like', $search);
+            $problem = $problem->get(['id', 'title', 'author']);
+        }
+        else {
+            $perPage = request()->get('perPage') ?: 15;
+            $page = request()->get('page') ?: 1;
+            $problem = $problem->paginate($perPage,
+                ['id', 'title', 'author', 'total_submit'],
+                '', $page);
+        }
+        return response()->json($problem);
     }
 
     public function edit(Problem $problem)

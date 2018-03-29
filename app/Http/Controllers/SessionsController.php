@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use Auth;
+use Illuminate\Http\Request;
 
 class SessionsController extends Controller
 {
@@ -13,12 +12,11 @@ class SessionsController extends Controller
         return view('sessions.create');
     }
 
-
     public function store(Request $request)
     {
         $credentials = $this->validate($request, [
             'username' => 'required|max:255',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
         if ($request->expectsJson()) {
@@ -49,15 +47,13 @@ class SessionsController extends Controller
     {
         Auth::logout();
         session()->flush();
-        session()->flash('success', 'Logout success.');
-        return redirect('login');
+        return response()->json('Logout success');
     }
 
     public function __construct()
     {
         $this->middleware('guest', [
-            'only' => ['create']
+            'only' => ['create'],
         ]);
-
     }
 }

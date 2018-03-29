@@ -1,6 +1,6 @@
 <template>
   <Spin size="large" fix v-if="loading"></Spin>
-  <div v-else>
+  <div v-else-if="user">
       <Row type="flex" justify="center">
       <Col span="5">
         <img :src="user.avatar" width="200px" height="200px" class="rounded"></img>
@@ -63,11 +63,16 @@ export default {
     methods: {
         fetchData() {
             this.loading = true
-            let username = window.location.href.split('/').pop()
-            axios.get(`/api/user/${username}`).then(res => {
-                this.user = res.data
-                this.loading = false
-            })
+            let username = this.$route.params.username || ''
+            axios
+                .get(`/api/user/${username}`)
+                .then(res => {
+                    this.user = res.data
+                    this.loading = false
+                })
+                .catch(() => {
+                    this.$router.push('/404')
+                })
         }
     }
 }

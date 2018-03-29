@@ -23,20 +23,24 @@ import 'iview/dist/styles/iview.css'
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('problem-table', require('./components/ProblemTable.vue'))
-Vue.component('practice', require('./components/Practice.vue'))
-Vue.component('status', require('./components/Status.vue'))
-Vue.component('discuss', require('./components/Discuss.vue'))
-Vue.component('code-editor', require('./components/CodeEditor.vue'))
-Vue.component('login', require('./components/Login.vue'))
-Vue.component('profile', require('./components/Profile.vue'))
+Vue.component('main-layout', require('./components/MainLayout.vue'))
 
 /*eslint-disable no-unused-vars*/
 window.bus = new Vue()
 
+/**
+ * Use vue-router.
+ */
 import router from './router'
+
+/**
+ * Use vuex.
+ */
+import Vuex from 'vuex'
+import store from './store'
 
 const app = new Vue({
     router,
+    store,
     el: '#app'
 })

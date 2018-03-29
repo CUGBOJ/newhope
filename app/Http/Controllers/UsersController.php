@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Illuminate\Http\Request;
+use App\Handlers\ImageUploadHandler;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use App\Handlers\ImageUploadHandler;
+use Auth;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -20,12 +20,20 @@ class UsersController extends Controller
         return view('users.show', compact('user'));
     }
 
-    public function api_profile(Request $request, string $username)
+    public function api_profile(Request $request, string $username = '')
     {
         if ($request->wantsJson()) {
-            $user = User::where('username', $username)->get()->first();
-            $user->topics;
+            $user = Auth::User();
 
+            if (!empty($username)) {
+                $user = User::where('username', $username)->get()->first();
+            }
+
+            if (!$user) {
+                abort(404);
+            }
+
+            $user->topics;
             return response()->json($user);
         } else {
             abort(404);
@@ -104,7 +112,7 @@ class UsersController extends Controller
     {
         $users = User::paginate(10);
 
-        return view('users.index', compact('users'));
+        return response()->json($user);
     }
 
     public function destroy(User $user)
