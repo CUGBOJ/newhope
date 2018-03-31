@@ -92,9 +92,8 @@ class UsersController extends Controller
         }
         $user->update($data);
         Auth::login($user);
-        session()->flash('success', 'Update user profile success.');
 
-        return redirect()->route('users.show', $user->username);
+        return response()->json('Update user profile success.');
     }
 
     public function __construct()

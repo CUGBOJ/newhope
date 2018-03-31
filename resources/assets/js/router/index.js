@@ -14,6 +14,7 @@ const DiscussForum = () => import('../components/Discuss.vue')
 const AnnouncementTable = () => import('../components/AnnouncementTable.vue')
 
 const Profile = () => import('../components/Profile.vue')
+const ProfileEditor = () => import('../components/ProfileEditor.vue')
 
 const Practice = () => import('../components/Practice.vue')
 const Problem = () => import('../components/Problem.vue')
@@ -47,6 +48,11 @@ const router = new VueRouter({
             path: '/user/:username',
             name: 'user',
             component: Profile
+        },
+        {
+            path: '/user/:username/edit',
+            name: 'userEdit',
+            component: ProfileEditor
         },
         {
             path: '/statuses',

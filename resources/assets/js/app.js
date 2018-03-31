@@ -44,3 +44,20 @@ const app = new Vue({
     store,
     el: '#app'
 })
+
+window.axios.interceptors.response.use(
+    function(response) {
+        // Do something with response data
+        return response
+    },
+    function(error) {
+        if (error.response && error.response.status === 401) {
+            app.$Notice.warning({ title: '更新状态', desc: '用户状态已更新' })
+            store.commit('setLoggedIn', false)
+            store.commit('setUser')
+        } else if (error.response && error.response.status === 403) {
+            app.$Notice.warning({ title: '无权限', desc: '您没有此操作的权限' })
+        }
+        return Promise.reject(error)
+    }
+)

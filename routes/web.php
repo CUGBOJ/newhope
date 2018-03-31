@@ -18,7 +18,6 @@ Route::any('judge', 'StaticPagesController@judge')->name('judge');
 
 Route::get('signup', 'UsersController@create')->name('signup');
 
-Route::resource('users', 'UsersController', ['only' => ['store', 'update', 'destroy']]);
 Route::resource('announcements', 'AnnouncementsController', ['only' => ['store', 'update', 'destroy']]);
 Route::resource('topics', 'TopicsController', ['only' => ['store', 'update', 'destroy']]);
 Route::resource('problems', 'ProblemsController', ['only' => ['store', 'update', 'destroy']]);

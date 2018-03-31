@@ -23,3 +23,5 @@ Route::get('user', 'UsersController@api_profile');
 Route::get('user/{username}', 'UsersController@api_profile');
 Route::get('topics', 'TopicsController@api_topics');
 Route::get('problem/{problem}', 'ProblemsController@show');
+
+Route::resource('user', 'UsersController', ['only' => ['store', 'update', 'destroy']]);
