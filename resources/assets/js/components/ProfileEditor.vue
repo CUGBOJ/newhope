@@ -1,10 +1,9 @@
 <template>
   <div v-if="user">
-    <div class="form-group">
+    <div>
       <label for="" class="avatar-label">用户头像</label>
-      <input type="file" name="avatar" id="avatar" />
-      <br>
       <img :src="user.avatar" width="200" />
+      <input type="file" name="avatar" id="avatar" />
     </div>
     <div>
       <label for="nickname">昵称：</label>
@@ -12,15 +11,15 @@
     </div>
     <div>
       <label for="email">邮箱：</label>
-      <Input type="text" v-model="user.email" />
+      <Input type="email" v-model="user.email" />
     </div>
     <div>
       <label for="password">密码：</label>
-      <Input type="password" name="password" />
+      <Input type="password" v-model="user.password" />
     </div>
     <div>
       <label for="password_confirmation">确认密码：</label>
-      <Input type="password" name="password_confirmation" />
+      <Input type="password" v-model="user.password_confirmation" />
     </div>
     <div>
       <label for="school">学校：</label>
@@ -73,7 +72,13 @@ export default {
         submit() {
             let data = new FormData()
 
-            const props = ['nickname', 'email', 'school']
+            const props = [
+                'nickname',
+                'email',
+                'school',
+                'password',
+                'password_confirmation'
+            ]
             for (let key of props) {
                 data.append(key, this.user[key])
             }
@@ -84,13 +89,30 @@ export default {
 
             data.append('_method', 'PATCH')
 
-            axios.post('/api/user/laravel', data).then(res => {
-                this.$Notice.success({
-                    title: '成功更新信息',
-                    desc: res.data.message
+            axios
+                .post('/api/user/laravel', data)
+                .then(res => {
+                    this.$Notice.success({
+                        title: '更新信息成功',
+                        desc: res.data.message
+                    })
+                    this.getProfile()
                 })
-                this.getProfile()
-            })
+                .catch(err => {
+                    let detail = ''
+                    let errors = err.response.data.errors
+                    if (errors) {
+                        for (let error in errors) {
+                            detail += `${error}:${errors[error]}`
+                        }
+                    }
+
+                    this.$Notice.error({
+                        title: '更新信息失败',
+                        desc: `${err.response.data.message}:\n ${detail}`,
+                        duration: 0
+                    })
+                })
         }
     }
 }
