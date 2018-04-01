@@ -15,5 +15,8 @@ module.exports = {
     },
     globals: {
         Vue: true
+    },
+    parserOptions: {
+        parser: 'babel-eslint'
     }
 }
