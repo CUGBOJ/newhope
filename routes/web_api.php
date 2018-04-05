@@ -19,6 +19,7 @@ Route::post('login', 'SessionsController@store')->name('login');
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
 Route::post('codesubmit', 'StatusesController@store')->name('codesubmit');
 
+Route::get('users', 'UsersController@index');
 Route::get('user', 'UsersController@api_profile');
 Route::get('user/{username}', 'UsersController@api_profile');
 Route::get('topics', 'TopicsController@api_topics');

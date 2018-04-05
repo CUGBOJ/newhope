@@ -10,14 +10,22 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function create()
+   public function __construct()
     {
-        return view('users.create');
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store', 'index', 'api_profile'],
+        ]);
+
+        $this->middleware('guest', [
+            'only' => ['create'],
+        ]);
     }
 
-    public function show(User $user)
+    public function index()
     {
-        return view('users.show', compact('user'));
+        $users = User::paginate(20);
+
+        return response()->json($users);
     }
 
     public function api_profile(Request $request, string $username = '')
@@ -63,15 +71,6 @@ class UsersController extends Controller
         return redirect()->route('users.show', [$user]);
     }
 
-    public function edit(User $user)
-    {
-        if (Auth::user()->id != $user->id) {
-            abort(403);
-        }
-
-        return view('users.edit', compact('user'));
-    }
-
     public function update(User $user, UserRequest $request, ImageUploadHandler $uploader)
     {
         if (Auth::user()->id != $user->id) {
@@ -94,24 +93,6 @@ class UsersController extends Controller
         Auth::login($user);
 
         return response()->json('Update user profile success.');
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth', [
-            'except' => ['show', 'create', 'store', 'index', 'api_profile'],
-        ]);
-
-        $this->middleware('guest', [
-            'only' => ['create'],
-        ]);
-    }
-
-    public function index()
-    {
-        $users = User::paginate(10);
-
-        return response()->json($user);
     }
 
     public function destroy(User $user)
