@@ -22,7 +22,7 @@ Route::post('codesubmit', 'StatusesController@store')->name('codesubmit');
 Route::get('users', 'UsersController@index');
 Route::get('user', 'UsersController@api_profile');
 Route::get('user/{username}', 'UsersController@api_profile');
-Route::get('topics', 'TopicsController@api_topics');
+Route::get('topics', 'TopicsController@index');
 Route::get('problem/{problem}', 'ProblemsController@show');
 
 Route::resource('user', 'UsersController', ['only' => ['store', 'update', 'destroy']]);
