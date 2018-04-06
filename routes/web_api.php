@@ -15,15 +15,20 @@ Route::middleware('auth')->group(function () {
     // These APIs can be used after authentication
 });
 
-Route::post('login', 'SessionsController@store')->name('login');
-Route::delete('logout', 'SessionsController@destroy')->name('logout');
-Route::post('codesubmit', 'StatusesController@store')->name('codesubmit');
-
-Route::get('users', 'UsersController@index');
+Route::post('user', 'UsersController@store');
+Route::patch('user/{user}', 'UsersController@update');
+Route::delete('user/{user}', 'UsersController@destroy');
 Route::get('user', 'UsersController@profile');
 Route::get('user/{username}', 'UsersController@profile');
+Route::get('users', 'UsersController@index');
+
+Route::post('login', 'SessionsController@store')->name('login');
+Route::delete('logout', 'SessionsController@destroy')->name('logout');
+
 Route::get('topics', 'TopicsController@index');
+
 Route::get('announcements', 'AnnouncementsController@index');
+
 Route::get('problem/{problem}', 'ProblemsController@show');
 
-Route::resource('user', 'UsersController', ['only' => ['store', 'update', 'destroy']]);
+Route::post('codesubmit', 'StatusesController@store')->name('codesubmit');

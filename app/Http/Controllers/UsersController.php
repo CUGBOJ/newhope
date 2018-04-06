@@ -65,7 +65,7 @@ class UsersController extends Controller
 
         Auth::login($user);
 
-        return response()->json('Register success.');
+        return response()->json(['message' => 'Register success.'], 200);
     }
 
     public function update(User $user, UserRequest $request, ImageUploadHandler $uploader)

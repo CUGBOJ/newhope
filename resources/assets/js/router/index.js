@@ -5,6 +5,7 @@ import iView from 'iview'
 Vue.use(VueRouter)
 
 const LoginPane = () => import('../components/Login.vue')
+const SigninPane = () => import('../components/Signin.vue')
 const NotFoundPage = () => import('../components/NotFoundPage.vue')
 
 const ProblemTable = () => import('../components/ProblemTable.vue')
@@ -33,6 +34,11 @@ const router = new VueRouter({
             path: '/login',
             name: 'login',
             component: LoginPane
+        },
+        {
+            path: '/signin',
+            name: 'signin',
+            component: SigninPane
         },
         {
             path: '/problems',

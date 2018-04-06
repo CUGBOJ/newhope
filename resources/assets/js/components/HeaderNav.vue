@@ -27,7 +27,7 @@
           </Button>
         </ButtonGroup>
         <ButtonGroup v-if="!loggedIn">
-          <Button @click="$router.push({name: 'signup'})">
+          <Button @click="$router.push({name: 'signin'})">
             注册
           </Button>
           <Button @click="$router.push({name: 'login'})">

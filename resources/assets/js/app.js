@@ -56,11 +56,16 @@ window.axios.interceptors.response.use(
             store.commit('setLoggedIn', false)
             store.commit('setUser')
         } else if (error.response && error.response.status === 403) {
-            app.$Notice.warning({ title: '无权限', desc: '您没有此操作的权限' })
+            app.$Notice.warning({
+                title: '无权限',
+                desc: '您没有此操作的权限',
+                duration: 0
+            })
         } else if (error.response && error.response.status === 500) {
             app.$Notice.error({
                 title: '服务器错误',
-                desc: '发生了一些未知错误'
+                desc: '发生了一些未知错误',
+                duration: 0
             })
         }
         return Promise.reject(error)
