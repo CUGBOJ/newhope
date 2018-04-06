@@ -10,14 +10,10 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-   public function __construct()
+    public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store', 'index', 'api_profile'],
-        ]);
-
-        $this->middleware('guest', [
-            'only' => ['create'],
+            'except' => ['store', 'index', 'profile'],
         ]);
     }
 
@@ -28,7 +24,7 @@ class UsersController extends Controller
         return response()->json($users);
     }
 
-    public function api_profile(Request $request, string $username = '')
+    public function profile(Request $request, string $username = '')
     {
         if ($request->wantsJson()) {
             $user = Auth::User();
@@ -57,6 +53,7 @@ class UsersController extends Controller
             'email' => 'email|max:255',
             'password' => 'required|confirmed|min:6',
         ]);
+
         $user = User::create([
             'username' => $request->username,
             'nickname' => $request->nickname,
@@ -65,10 +62,10 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
             'last_login_ip' => $request->ip(),
         ]);
-        Auth::login($user);
-        session()->flash('success', 'Register success.');
 
-        return redirect()->route('users.show', [$user]);
+        Auth::login($user);
+
+        return response()->json('Register success.');
     }
 
     public function update(User $user, UserRequest $request, ImageUploadHandler $uploader)
@@ -76,6 +73,7 @@ class UsersController extends Controller
         if (Auth::user()->id != $user->id) {
             abort(403);
         }
+
         $data = [];
         $data['nickname'] = $request->nickname;
         $data['school'] = $request->school;
@@ -102,8 +100,7 @@ class UsersController extends Controller
             abort(403);
         }
         $user->delete();
-        session()->flash('success', 'Delete user success.');
 
-        return back();
+        return response()->json("Delete user success.");
     }
 }

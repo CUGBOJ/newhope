@@ -20,8 +20,8 @@ Route::delete('logout', 'SessionsController@destroy')->name('logout');
 Route::post('codesubmit', 'StatusesController@store')->name('codesubmit');
 
 Route::get('users', 'UsersController@index');
-Route::get('user', 'UsersController@api_profile');
-Route::get('user/{username}', 'UsersController@api_profile');
+Route::get('user', 'UsersController@profile');
+Route::get('user/{username}', 'UsersController@profile');
 Route::get('topics', 'TopicsController@index');
 Route::get('announcements', 'AnnouncementsController@index');
 Route::get('problem/{problem}', 'ProblemsController@show');
