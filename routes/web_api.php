@@ -25,6 +25,9 @@ Route::get('users', 'UsersController@index');
 Route::post('login', 'SessionsController@store')->name('login');
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
+Route::get('notifications', 'NotificationsController@index');
+Route::post('notifications', 'NotificationsController@read_all')->name('notifications.read_all');
+
 Route::get('topics', 'TopicsController@index');
 
 Route::get('announcements', 'AnnouncementsController@index');

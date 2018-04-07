@@ -47,20 +47,15 @@ export default {
                     render: (h, params) => {
                         return h('div', [
                             h(
-                                'Button',
+                                'router-link',
                                 {
                                     props: {
-                                        type: 'text',
-                                        size: 'small'
-                                    },
-                                    on: {
-                                        click: () =>
-                                            this.$router.push({
-                                                name: 'problem',
-                                                params: {
-                                                    problemId: params.row.id
-                                                }
-                                            })
+                                        to: {
+                                            name: 'problem',
+                                            params: {
+                                                problemId: params.row.id
+                                            }
+                                        }
                                     }
                                 },
                                 params.row.title
@@ -73,28 +68,32 @@ export default {
                     key: 'author'
                 },
                 {
-                    title: 'Submit Number',
-                    key: 'total_submit'
+                    title: 'Submited Users',
+                    key: 'total_submit_user',
+                    width: 100
+                },
+                {
+                    title: 'Accepted Users',
+                    key: 'total_ac_user',
+                    width: 100
                 },
                 {
                     title: 'Action',
                     key: 'action',
                     fixed: 'right',
-                    width: 120,
+                    width: 100,
                     render: (h, params) => {
                         return h('div', [
                             h(
-                                'Button',
+                                'router-link',
                                 {
                                     props: {
-                                        type: 'text',
-                                        size: 'small'
-                                    },
-                                    on: {
-                                        click: () =>
-                                            (window.location.href = `/problems/${
-                                                params.row.id
-                                            }/edit`)
+                                        to: {
+                                            name: 'problem-edit',
+                                            params: {
+                                                id: params.row.id
+                                            }
+                                        }
                                     }
                                 },
                                 'Edit'
@@ -108,3 +107,7 @@ export default {
     }
 }
 </script>
+<style lang="stylus" scoped>
+>>> a
+    color unset
+</style>

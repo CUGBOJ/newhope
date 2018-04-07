@@ -80,10 +80,11 @@ export default {
                         this.$router.push('/404')
                     })
             } else if (this.loggedIn) {
+                // No username provided, but user is logged in.
                 this.user = this.loggedInUser
                 this.loading = false
             } else {
-                this.$router.push('/404')
+                this.$router.push('/login')
             }
         }
     }
@@ -91,5 +92,5 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .cards>.ivu-card
-    margin-bottom 10px
+  margin-bottom 10px
 </style>

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Models\Problem;
+use Illuminate\Http\Request;
 
 class ProblemsController extends Controller
 {
@@ -39,7 +38,7 @@ class ProblemsController extends Controller
             'output' => $request->output,
             'sample_input' => $request->sample_input,
             'sample_output' => $request->sample_output,
-            'special_judge' =>$request->specail_judge,
+            'special_judge' => $request->specail_judge,
             'time_limit' => $request->time_limit,
             'case_time_limit' => $request->case_time_limit,
             'memory_limit' => $request->memory_limit,
@@ -65,12 +64,11 @@ class ProblemsController extends Controller
             $problem = $problem->orWhere('title', 'like', $search);
             $problem = $problem->orWhere('author', 'like', $search);
             $problem = $problem->get(['id', 'title', 'author']);
-        }
-        else {
+        } else {
             $perPage = request()->get('perPage') ?: 15;
             $page = request()->get('page') ?: 1;
             $problem = $problem->paginate($perPage,
-                ['id', 'title', 'author', 'total_submit'],
+                ['id', 'title', 'author', 'total_submit_user', 'total_ac_user'],
                 '', $page);
         }
         return response()->json($problem);
@@ -109,7 +107,7 @@ class ProblemsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'index', 'get_problems', 'show_topics']
+            'except' => ['show', 'index', 'get_problems', 'show_topics'],
         ]);
     }
 }

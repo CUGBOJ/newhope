@@ -10,8 +10,10 @@
           <Button @click="$router.push({name: 'users'})">
             用户
           </Button>
-          <Button @click="$router.push({name: 'statuses'})">
-            提交记录
+          <Button>
+            <router-link :to="{name: 'statuses'}">
+              提交记录
+            </router-link>
           </Button>
           <Button @click="$router.push({name: 'discusses'})">
             讨论区
@@ -39,14 +41,20 @@
             <Avatar shape="square" :src="user.avatar" size="large" />
           </badge>
           <DropdownMenu slot="list">
-            <DropdownItem @click.native="$router.push({name: 'notifications'})">
-              消息中心
+            <DropdownItem>
+              <router-link :to="{name: 'notice'}">
+                消息中心
+              </router-link>
             </DropdownItem>
-            <DropdownItem @click.native="$router.push({name: 'user', params: { username: user.username }})">
-              个人中心
+            <DropdownItem>
+              <router-link :to="{name: 'user-show', params: { username: user.username }}">
+                个人中心
+              </router-link>
             </DropdownItem>
-            <DropdownItem @click.native="$router.push({name: 'userEdit', params: { username: user.username }})">
-              编辑资料
+            <DropdownItem>
+              <router-link :to="{name: 'edit-profile', params: { username: user.username }}">
+                编辑资料
+              </router-link>
             </DropdownItem>
             <DropdownItem @click.native="logOut">
               退出
@@ -73,3 +81,7 @@ export default {
     }
 }
 </script>
+<style lang="stylus" scoped>
+a
+  color unset
+</style>

@@ -13,12 +13,14 @@ const UsersTable = () => import('../components/UsersTable.vue')
 const StatusTable = () => import('../components/Status.vue')
 const DiscussForum = () => import('../components/Discuss.vue')
 const AnnouncementTable = () => import('../components/AnnouncementTable.vue')
+const NotificationPane = () => import('../components/NotificationPane.vue')
 
 const Profile = () => import('../components/Profile.vue')
 const ProfileEditor = () => import('../components/ProfileEditor.vue')
 
 const Practice = () => import('../components/Practice.vue')
 const Problem = () => import('../components/Problem.vue')
+const ProblemEditor = () => import('../components/ProblemEditor.vue')
 
 const router = new VueRouter({
     mode: 'history',
@@ -46,18 +48,23 @@ const router = new VueRouter({
             component: ProblemTable
         },
         {
+            path: '/problem/:id/edit',
+            name: 'problem-edit',
+            component: ProblemEditor
+        },
+        {
             path: '/users',
             name: 'users',
             component: UsersTable
         },
         {
             path: '/user/:username',
-            name: 'user',
+            name: 'user-show',
             component: Profile
         },
         {
             path: '/user/:username/edit',
-            name: 'userEdit',
+            name: 'edit-profile',
             component: ProfileEditor
         },
         {
@@ -71,9 +78,24 @@ const router = new VueRouter({
             component: DiscussForum
         },
         {
+            path: '/discuss/:id',
+            name: 'discuss-show',
+            component: DiscussForum
+        },
+        {
             path: '/announcements',
             name: 'announcements',
             component: AnnouncementTable
+        },
+        {
+            path: '/announcement/:id',
+            name: 'announcement-show',
+            component: AnnouncementTable
+        },
+        {
+            path: '/notice',
+            name: 'notice',
+            component: NotificationPane
         },
         {
             path: '/practice',

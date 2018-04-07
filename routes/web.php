@@ -26,9 +26,6 @@ Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]
 
 Route::get('problems/{problem}/topics', 'ProblemsController@show_topics')->name('problem.topics');
 
-Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
-Route::post('notifications', 'NotificationsController@read_all')->name('notifications.read_all');
-
 Route::post('notifications/{notification}', 'NotificationsController@read_one')->name('notifications.read_one');
 
 Route::resource('contests', 'ContestsController');
