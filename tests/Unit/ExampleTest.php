@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends TestCase
 {
@@ -19,12 +18,21 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
         $response->assertStatus(200);
 
-        $response = $this->post(route('login'), [
+        $response = $this->post('/api/login', [
             'username' => 'laravel',
             'password' => 'password',
-            '_token' => csrf_token()
+            '_token' => csrf_token(),
         ]);
-        $response->assertStatus(302);
-        $response->assertSee('laravel');
+        $response->assertStatus(404);
+
+        $response = $this->json('POST', route('login'), [
+            'username' => 'laravel',
+            'password' => 'password',
+            '_token' => csrf_token(),
+        ]);
+
+        $response->assertStatus(200)->assertJson([
+            'message' => "Login success.",
+        ]);
     }
 }

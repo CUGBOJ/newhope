@@ -2,30 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Illuminate\Http\Request;
+use App\Handlers\ImageUploadHandler;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use App\Handlers\ImageUploadHandler;
+use Auth;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function create()
+    public function __construct()
     {
-        return view('users.create');
+        $this->middleware('auth', [
+            'except' => ['store', 'index', 'profile'],
+        ]);
     }
 
-    public function show(User $user)
+    public function index()
     {
-        return view('users.show', compact('user'));
+        $users = User::paginate(20);
+
+        return response()->json($users);
     }
 
-    public function api_profile(Request $request, string $username)
+    public function profile(Request $request, string $username = '')
     {
         if ($request->wantsJson()) {
-            $user = User::where('username', $username)->get()->first();
-            $user->topics;
+            $user = Auth::User();
 
+            if (!empty($username)) {
+                $user = User::where('username', $username)->get()->first();
+            }
+
+            if (!$user) {
+                abort(404);
+            }
+
+            $user->topics;
             return response()->json($user);
         } else {
             abort(404);
@@ -41,6 +53,7 @@ class UsersController extends Controller
             'email' => 'email|max:255',
             'password' => 'required|confirmed|min:6',
         ]);
+
         $user = User::create([
             'username' => $request->username,
             'nickname' => $request->nickname,
@@ -49,19 +62,10 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
             'last_login_ip' => $request->ip(),
         ]);
+
         Auth::login($user);
-        session()->flash('success', 'Register success.');
 
-        return redirect()->route('users.show', [$user]);
-    }
-
-    public function edit(User $user)
-    {
-        if (Auth::user()->id != $user->id) {
-            abort(403);
-        }
-
-        return view('users.edit', compact('user'));
+        return response()->json(['message' => 'Register success.'], 200);
     }
 
     public function update(User $user, UserRequest $request, ImageUploadHandler $uploader)
@@ -69,6 +73,7 @@ class UsersController extends Controller
         if (Auth::user()->id != $user->id) {
             abort(403);
         }
+
         $data = [];
         $data['nickname'] = $request->nickname;
         $data['school'] = $request->school;
@@ -84,27 +89,8 @@ class UsersController extends Controller
         }
         $user->update($data);
         Auth::login($user);
-        session()->flash('success', 'Update user profile success.');
 
-        return redirect()->route('users.show', $user->username);
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth', [
-            'except' => ['show', 'create', 'store', 'index', 'api_profile'],
-        ]);
-
-        $this->middleware('guest', [
-            'only' => ['create'],
-        ]);
-    }
-
-    public function index()
-    {
-        $users = User::paginate(10);
-
-        return view('users.index', compact('users'));
+        return response()->json('Update user profile success.');
     }
 
     public function destroy(User $user)
@@ -114,8 +100,7 @@ class UsersController extends Controller
             abort(403);
         }
         $user->delete();
-        session()->flash('success', 'Delete user success.');
 
-        return back();
+        return response()->json("Delete user success.");
     }
 }

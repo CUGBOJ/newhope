@@ -97,7 +97,7 @@ int main(){
             name: 'C#',
             index: 4
         },
-        'text/x-python': {
+        'text/x-python2': {
             name: 'Python2',
             index: 5
         },
@@ -190,17 +190,25 @@ export default {
         this.CONSTANT = CONSTANT
         let self = this
         window.bus.$on('submit', function() {
+            self.$Message.success('已向服务器提交')
             axios
-                .post('/codesubmit', {
-                    pid: window.location.href.split('/').pop(),
+                .post('/api/codesubmit', {
+                    pid: self.$route.params.problemId,
                     code: self.code,
                     lang: self.getLang
                 })
                 .then(res => {
-                    self.$Message.success(res.data.message)
+                    self.$Notice.success({
+                        title: '提交成功',
+                        desc: res.data.message
+                    })
                 })
                 .catch(err => {
-                    self.$Message.error(err.response.data.message)
+                    self.$Notice.error({
+                        title: '提交时出错',
+                        desc: err.response.data.message,
+                        duration: 0
+                    })
                 })
         })
     }
@@ -209,6 +217,6 @@ export default {
 
 <style lang="stylus">
 .CodeMirror
-  font-size 18px
-  height 70vh
+    font-size 18px
+    height 70vh
 </style>

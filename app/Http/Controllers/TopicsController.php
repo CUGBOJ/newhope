@@ -10,17 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class TopicsController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        return view('topics.index');
+        $this->middleware('auth', [
+            'except' => ['index']
+        ]);
     }
 
-    public function show(Topic $topic)
-    {
-        return view('topics.show', compact('topic'));
-    }
-
-    public function api_topics(Request $request)
+    public function index(Request $request)
     {
         if (!$request->wantsJson()) {
             abort(404);
@@ -44,19 +41,6 @@ class TopicsController extends Controller
         }
 
         return $topic->get();
-    }
-
-    public function create()
-    {
-        $this->authorize('topic_create');
-        return view('topics.create');
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth', [
-            'except' => ['show', 'index', 'api_topics']
-        ]);
     }
 
     public function store(Request $request)
@@ -105,15 +89,5 @@ class TopicsController extends Controller
         $topic->update($request->all());
         session()->flash('success', 'Change topic success.');
         return redirect()->route('topics.show', [$topic]);
-    }
-
-    public function edit(Topic $topic)
-    {
-        if (Gate::denies('topic_edit')) {
-            if ($topic->username != Auth::user()->username) {
-                abort(403);
-            }
-        }
-        return view('topics.edit', compact('topic'));
     }
 }
