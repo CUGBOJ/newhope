@@ -25,20 +25,25 @@ return [
             'title' => '作者',
             'sortable' => false,
             'output' => function ($value, $model) {
-                $avatar = $model->user->avatar;
-                $value = empty($avatar) ? 'N/A' : '<img src="' . $avatar . '" style="height:22px;width:22px"> ' . $model->user->name;
-                return model_link($value, $model);
+                return model_link($model->user->username, $model);
             },
         ],
         'problem' => [
-            'title' => '问题',
+            'title' => '问题id',
             'sortable' => false,
             'output' => function ($value, $model) {
-                return model_admin_link($model->problem->name, $model->problem);
+                return model_link($model->problem->id, $model->problem);
             },
         ],
         'reply_count' => [
-            'title' => '评论',
+            'title' => '评论数',
+        ],
+        'updated_at' => [
+            'title' => '更新时间',
+        ],
+        'operation' => [
+            'title' => '管理',
+            'sortable' => false,
         ],
         'operation' => [
             'title' => '管理',
@@ -72,7 +77,7 @@ return [
             'options_sort_field' => 'id',
         ],
         'reply_count' => [
-            'title' => '评论',
+            'title' => '评论数',
         ],
         'view_count' => [
             'title' => '查看',

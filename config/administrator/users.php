@@ -38,11 +38,11 @@ return [
             'sortable' => false,
         ],
 
-        'name' => [
+        'username' => [
             'title' => '用户名',
             'sortable' => false,
-            'output' => function ($name, $model) {
-                return '<a href="/users/' . $model->id . '" target=_blank>' . $name . '</a>';
+            'output' => function ($username, $model) {
+                return '<a href="/user/' . $model->username . '" target=_blank>' . $username . '</a>';
             },
         ],
 
