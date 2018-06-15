@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTopicsTable extends Migration
 {
@@ -14,9 +14,9 @@ class CreateTopicsTable extends Migration
     public function up()
     {
         Schema::create('topics', function (Blueprint $table) {
-            $table->integer('id',1);
+            $table->integer('id', 1)->unsigned();
             $table->string('username')->index('username');
-            $table->integer('pid')->index('pid');
+            $table->integer('problem_id')->index('problem_id');
             $table->string('title')->index('title');
             $table->text('body');
             $table->integer('reply_count')->index('reply_count')->default(0);

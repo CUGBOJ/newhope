@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContestRequest;
-use Illuminate\Http\Request;
 use App\Models\Contest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +19,7 @@ class ContestsController extends Controller
 
     public function create()
     {
-        $this->authorize('contest_create');
+        //$this->authorize('contest_create');
         return view('contests.create');
     }
 
@@ -30,18 +30,18 @@ class ContestsController extends Controller
 
     public function edit(Contest $contest)
     {
-        $this->authorize('contest_edit');
+        //$this->authorize('contest_edit');
         return view('contests.edit', compact('contest'));
     }
 
     public function update()
     {
-        $this->authorize('contest_edit');
+        //$this->authorize('contest_edit');
     }
 
     public function store(ContestRequest $request)
     {
-        $this->authorize('contest_create');
+        //$this->authorize('contest_create');
         $contest = Contest::create([
             'title' => $request->title,
             'start_time' => $request->start_time,
@@ -60,7 +60,7 @@ class ContestsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['index']
+            'except' => ['index'],
         ]);
     }
 

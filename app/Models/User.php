@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
     const CREATED_AT = 'register_time';
     const UPDATED_AT = 'last_login_time';
+    use HasRoles;
 
     public function messages($instance)
     {
@@ -70,7 +72,7 @@ class User extends Authenticatable
 
     public function contests()
     {
-        return $this->belongsToMany('App\Models\Contest', 'contests_users', 'username', 'contest_id');
+        return $this->belongsToMany('App\Models\Contest', 'contest_user', 'user_id', 'contest_id');
     }
 
     public function isAuthorOf($model)
@@ -90,9 +92,9 @@ class User extends Authenticatable
         $this->unreadNotifications->markAsRead();
     }
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
+    // public function roles()
+    // {
+    //     return $this->belongsToMany('\App\Models\Role', 'users_roles', 'user_id', 'role_id');
+    // }
 
 }

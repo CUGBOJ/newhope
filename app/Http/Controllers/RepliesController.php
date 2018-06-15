@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Models\Reply;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -17,7 +16,7 @@ class RepliesController extends Controller
 
     public function store(Request $request, Reply $reply)
     {
-        $this->authorize('reply_create');
+        //$this->authorize('reply_create');
         $reply->content = $request->contents;
         $reply->username = Auth::user()->username;
         $reply->topic_id = $request->topic_id;

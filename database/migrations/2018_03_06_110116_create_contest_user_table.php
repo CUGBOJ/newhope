@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateContestUserTable extends Migration
 {
@@ -14,12 +14,12 @@ class CreateContestUserTable extends Migration
     public function up()
     {
         Schema::create('contest_user', function (Blueprint $table) {
-            $table->integer('id',1)->index();
-            $table->integer('contest_id')->index();
-            $table->string('username')->index();
+            $table->integer('id', 1)->index()->unsigned();
+            $table->integer('contest_id')->unsigned()->index();
+            $table->integer('user_id')->unsigned()->index();
 
             $table->foreign('contest_id')->references('id')->on('contests')->onDelete('cascade');
-            $table->foreign('username')->references('username')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

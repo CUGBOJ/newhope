@@ -4,19 +4,21 @@
       <Input name="username" type="text" v-model="form.username"> </Input>
     </FormItem>
     <FormItem label="密码" prop="password">
-      <Input name="password" type="password" v-model="form.password" @keyup.enter.native="handleSubmit('form')"> </Input>
+      <Input name="password" type="password" v-model="form.password" @keyup.enter.native="handleSubmit"> </Input>
     </FormItem>
     <FormItem>
-      <Button type="primary" @click="handleSubmit()">Signin</Button>
+      <Button type="primary" @click="handleSubmit">登录</Button>
     </FormItem>
   </Form>
 </template>
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
     methods: {
+        ...mapActions(['getProfile']),
         handleSubmit() {
             axios
                 .post('/api/login', {
@@ -25,9 +27,10 @@ export default {
                 })
                 .then(res => {
                     this.$Message.success(res.data.message)
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000)
+                    window.history.length > 1
+                        ? this.$router.go(-1)
+                        : this.$router.push('/')
+                    this.getProfile()
                 })
                 .catch(err => {
                     this.$Message.error(err.response.data.message)

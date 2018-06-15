@@ -12,7 +12,7 @@ class CreateStatusesTable extends Migration
     public function up()
     {
         Schema::create('statuses', function (Blueprint $table) {
-            $table->integer('id', 1);
+            $table->integer('id', 1)->unsigned();
             $table->string('username')->index('username');
             $table->integer('pid')->index('pid');
             $table->integer('contest_belong')->nullable()->default(null);

@@ -2,10 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Models\Topic;
-use App\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,18 +21,16 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        $this->registerPolicies();
-        try {
-            foreach (\App\Models\Permission::all() as $permission) {
-                Gate::define($permission['name'], function ($user) use ($permission) {
-                    return in_array($user['role_id'], array_column($permission->roles->toArray(), 'id'));
-                });
-            }
-        }
-        catch(\Exception $e){
-            return;
-        }
-    }
+    // public function boot()
+    // {
+    //     $this->registerPolicies();
+    //     try {
+    //         \Horizon::auth(function ($request) {
+    //             // 是否是站长
+    //             return \Auth::user()->hasRole('root');
+    //         });
+    //     } catch (\Exception $e) {
+    //         return;
+    //     }
+    // }
 }

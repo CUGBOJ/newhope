@@ -8,13 +8,7 @@
 <div>
     @include('share._message')
     <div class="layout" id="app" v-cloak>
-        <layout>
-            @include('layout._header')
-            <card style="height: 80vh; margin: 80px 30px 0; overflow: auto;" dis-hover>
-                @yield('content')
-            </card>
-            @include('layout._footer')
-        </layout>
+        <main-layout/>
     </div>
 </div>
 <script src="{{ mix('js/app.js') }}"></script>

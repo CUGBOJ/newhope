@@ -1,106 +1,80 @@
 <template>
-  <div>
-    <Table :loading="loading" stripe :columns="columns" :data="data" :height="tableHeight" style="margin: 10px 0;"></Table>
-    <div style="float: right;">
-      <Page :page-size="perPage" :total="total" :current="1" @on-change="changePage"></Page>
+    <div v-if="loading">
+        <Spin size="large" fix></Spin>
     </div>
-  </div>
+    <div v-else>
+        <h1>{{ this.problem.allData.title }}</h1>
+        <div>
+            <h3>Description</h3>
+            {{ this.problem.allData.description }}
+        </div>
+        <div>
+            <h3>Input</h3>
+            {{ this.problem.allData.input }}
+        </div>
+        <div>
+            <h3>Output</h3>
+            {{ this.problem.allData.output }}
+        </div>
+        <div>
+            <h3>sample_input</h3>
+            {{ this.problem.allData.sample_input }}
+        </div>
+        <div>
+            <h3>sample_output</h3>
+            {{ this.problem.allData.sample_output }}
+        </div>
+        <div>
+            <h3>hint</h3>
+            {{ this.problem.allData.hint }}
+        </div>
+    </div>
 </template>
+
 <script>
 import axios from 'axios'
 
 export default {
-    mounted() {
-        this.changePage()
-    },
-    computed: {
-        tableHeight() {
-            return window.innerHeight * 0.65
-        }
-    },
-    methods: {
-        changePage(p = 1) {
-            this.loading = true
-            axios
-                .get('/api/problem', {
-                    params: {
-                        page: p,
-                        perPage: this.perPage
-                    }
-                })
-                .then(res => {
-                    this.data = res.data.data
-                    this.total = res.data.total
-                    this.loading = false
-                })
-        }
-    },
     data() {
         return {
-            perPage: 10,
             loading: true,
-            total: 0,
-            columns: [
-                {
-                    title: 'Title',
-                    key: 'title',
-                    render: (h, params) => {
-                        return h('div', [
-                            h(
-                                'Button',
-                                {
-                                    props: {
-                                        type: 'text',
-                                        size: 'small'
-                                    },
-                                    on: {
-                                        click: () =>
-                                            (window.location.href = `/problems/${
-                                                params.row.id
-                                            }`)
-                                    }
-                                },
-                                params.row.title
-                            )
-                        ])
-                    }
-                },
-                {
-                    title: 'Author',
-                    key: 'author'
-                },
-                {
-                    title: 'Submit Number',
-                    key: 'submit_number'
-                },
-                {
-                    title: 'Action',
-                    key: 'action',
-                    fixed: 'right',
-                    width: 120,
-                    render: (h, params) => {
-                        return h('div', [
-                            h(
-                                'Button',
-                                {
-                                    props: {
-                                        type: 'text',
-                                        size: 'small'
-                                    },
-                                    on: {
-                                        click: () =>
-                                            (window.location.href = `/problems/${
-                                                params.row.id
-                                            }/edit`)
-                                    }
-                                },
-                                'Edit'
-                            )
-                        ])
-                    }
-                }
-            ],
-            data: []
+            problem: {
+                allData: {}
+            }
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        axios
+            .get(`/api/problem/${to.params.problemId}`)
+            .then(res => {
+                next(vm => {
+                    vm.problem.allData = res.data
+                    vm.loading = false
+                })
+            })
+            .catch(() => {
+                next(false)
+            })
+    },
+    beforeRouteUpdate(to, from, next) {
+        this.loading = true
+        axios
+            .get(`/api/problem/${to.params.problemId}`)
+            .then(res => {
+                this.problem.allData = res.data
+                this.loading = false
+                next()
+            })
+            .catch(() => {
+                next(false)
+                this.$Loading.error()
+                this.$Notice.error({ title: '无法获取题目' })
+                this.loading = false
+            })
+    },
+    computed: {
+        problemId() {
+            return this.$route.params.problemId
         }
     }
 }

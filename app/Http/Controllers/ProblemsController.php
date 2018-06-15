@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Models\Problem;
+use Illuminate\Http\Request;
 
 class ProblemsController extends Controller
 {
     public function create()
     {
-        $this->authorize('problem_create');
+        //$this->authorize('problem_create');
         return view('problems.create');
     }
 
-    public function show(Problem $problem)
+    public function show(Request $request, Problem $problem)
     {
-        return view('problems.show', compact('problem'));
+        if ($request->wantsJson()) {
+            return response()->json($problem);
+        } else {
+            return view('problems.show', compact('problem'));
+        }
     }
 
     public function show_topics(Problem $problem)
@@ -27,7 +30,7 @@ class ProblemsController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize('problem_create');
+        //$this->authorize('problem_create');
         $problem = Problem::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -35,7 +38,7 @@ class ProblemsController extends Controller
             'output' => $request->output,
             'sample_input' => $request->sample_input,
             'sample_output' => $request->sample_output,
-            'special_judge' =>$request->specail_judge,
+            'special_judge' => $request->specail_judge,
             'time_limit' => $request->time_limit,
             'case_time_limit' => $request->case_time_limit,
             'memory_limit' => $request->memory_limit,
@@ -52,25 +55,34 @@ class ProblemsController extends Controller
         return view('problems.index', compact('problems'));
     }
 
-    public function get_problems()
+    public function get_problems(Request $request)
     {
-        $perPage = request()->get('perPage') ?: 15;
-        $page = request()->get('page') ?: 1;
-
-        return Problem::getModel()->paginate($perPage,
-            ['id', 'title', 'author', 'total_submit'],
-            '', $page);
+        $problem = Problem::getModel();
+        if ($request->get('search')) {
+            $search = '%' . $request->get('search') . '%';
+            $problem = $problem->orWhere('id', 'like', $search);
+            $problem = $problem->orWhere('title', 'like', $search);
+            $problem = $problem->orWhere('author', 'like', $search);
+            $problem = $problem->get(['id', 'title', 'author']);
+        } else {
+            $perPage = request()->get('perPage') ?: 15;
+            $page = request()->get('page') ?: 1;
+            $problem = $problem->paginate($perPage,
+                ['id', 'title', 'author', 'total_submit_user', 'total_ac_user'],
+                '', $page);
+        }
+        return response()->json($problem);
     }
 
     public function edit(Problem $problem)
     {
-        $this->authorize('problem_edit');
+        //$this->authorize('problem_edit');
         return view('problems.edit', compact('problem'));
     }
 
     public function update(Problem $problem, Request $request)
     {
-        $this->authorize('problem_edit');
+        //$this->authorize('problem_edit');
         $data = [];
         $data['title'] = $request->title;
         $data['description'] = $request->description;
@@ -95,7 +107,7 @@ class ProblemsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'index', 'get_problems', 'show_topics']
+            'except' => ['show', 'index', 'get_problems', 'show_topics'],
         ]);
     }
 }

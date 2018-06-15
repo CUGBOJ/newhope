@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
@@ -21,7 +21,11 @@ class UsersTableSeeder extends Seeder
         $user->email = 'fuck@fuck.com';
         $user->school = 'CUGB';
         $user->password = bcrypt('password');
-        $user->role_id = 1;
+        $user->assignRole('root');
+
+        //$user->roles()->attach(4);
+        //$user->roles()->attach(1);
+
         $user->save();
 
         $user = User::find(1);
@@ -30,7 +34,15 @@ class UsersTableSeeder extends Seeder
         $user->email = 'all@all.com';
         $user->school = 'all';
         $user->password = bcrypt('never');
-        $user->role_id = 2;
+        $user->assignRole('admin');
+
+        //$user->roles()->attach(4);
+        //$user->roles()->attach(2);
         $user->save();
+
+        //$users = User::all();
+        //foreach ($users as $user) {
+        //    $user->roles()->attach(4);
+        //}
     }
 }
