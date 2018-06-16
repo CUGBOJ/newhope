@@ -64,12 +64,45 @@ class ContestsController extends Controller
         ]);
     }
 
-    public function add_user(Contest $contest, Request $request)
+    public function add_problem(Contest $contest, Problem $problem)
+    {
+        $contest->users()->attach($problem->id);
+        return redirect()->route('contests.show', $contest->id);
+    }
+
+    public function add_user_by_admin(Contest $contest, User $user)
+    {
+        $contest->users()->attach($user->id);
+        return redirect()->route('contests.show', $contest->id);
+    }
+
+    public function add_user_by_password(Contest $contest, Request $request)
     {
         $user = Auth::user();
         if (Hash::check($request->password, $contest->password)) {
             $contest->users()->attach($user->id);
         }
+        return redirect()->route('contests.show', $contest->id);
+    }
+    public function remove_user(Contest $contest, User $user)
+    {
+
+        $contest->users()->detach($user->id);
+        return redirect()->route('contests.show', $contest->id);
+    }
+    public function add_reject_user(Contest $contest, Request $request)
+    {
+        $user = User::where('username', $request->username)->first();
+        if ($user == null) {
+            return response()->json(['message' => 'not have this user',
+            ], 200);
+        }
+        $contest->reject_users()->attach($user->id);
+        return redirect()->route('contests.show', $contest->id);
+    }
+    public function remove_reject_user(Contest $contest, User $user)
+    {
+        $contest->reject_users()->detach($user->id);
         return redirect()->route('contests.show', $contest->id);
     }
 }

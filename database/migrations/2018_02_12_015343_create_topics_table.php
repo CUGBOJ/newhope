@@ -23,6 +23,7 @@ class CreateTopicsTable extends Migration
             $table->integer('view_count')->index('view_count')->default(0);
             $table->string('last_reply_username');
             $table->integer('order')->default(0);
+            $table->integer('contest_id')->nullable()->default(null);
             $table->timestamps();
         });
     }

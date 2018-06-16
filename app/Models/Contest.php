@@ -29,8 +29,21 @@ class Contest extends Model
         return $this->belongsToMany('App\Models\User', 'contest_user', 'contest_id', 'user_id');
     }
 
+    public function reject_users()
+    {
+        return $this->belongsToMany(User::class, 'contest_reject_user', 'contest_id', 'user_id');
+    }
+
     public function problems()
     {
         return $this->hasMany(Problem::class);
+    }
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
+    public function status()
+    {
+        return $this->hasMany(Status::class);
     }
 }
