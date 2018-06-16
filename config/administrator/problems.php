@@ -17,14 +17,22 @@ return [
 
     'columns' => [
         'id' => [
-            'title' => 'ID',
+            'title' => 'Id',
         ],
-        'name' => [
+        'title' => [
             'title' => '名称',
             'sortable' => false,
         ],
-        'description' => [
-            'title' => '描述',
+        'author' => [
+            'title' => '作者',
+            'sortable' => false,
+        ],
+        'total_ac' => [
+            'title' => 'Ac',
+            'sortable' => false,
+        ],
+        'total_submit' => [
+            'title' => 'Submit',
             'sortable' => false,
         ],
         'operation' => [
@@ -33,7 +41,7 @@ return [
         ],
     ],
     'edit_fields' => [
-        'name' => [
+        'title' => [
             'title' => '名称',
         ],
         'description' => [
@@ -45,18 +53,18 @@ return [
         'id' => [
             'title' => '问题 ID',
         ],
-        'name' => [
+        'title' => [
             'title' => '名称',
         ],
-        'description' => [
-            'title' => '描述',
+        'author' => [
+            'title' => '作者',
         ],
     ],
     'rules' => [
-        'name' => 'required|min:1|unique:categories',
+        'title' => 'unique|required|min:1',
     ],
     'messages' => [
-        'name.unique' => '问题名在数据库里有重复，请选用其他名称。',
-        'name.required' => '请确保名字至少一个字符以上',
+        'title.unique' => '问题名在数据库里有重复，请选用其他名称。',
+        'title.required' => '请确保名字至少一个字符以上',
     ],
 ];

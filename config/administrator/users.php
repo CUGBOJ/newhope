@@ -70,15 +70,7 @@ return [
             // 表单使用 input 类型 password
             'type' => 'password',
         ],
-        'avatar' => [
-            'title' => '用户头像',
 
-            // 设置表单条目的类型，默认的 type 是 input
-            'type' => 'image',
-
-            // 图片上传必须设置图片存放路径
-            'location' => public_path() . '/uploads/images/avatars/',
-        ],
         'roles' => [
             'title' => '用户角色',
 
@@ -93,11 +85,10 @@ return [
     // 『数据过滤』设置
     'filters' => [
         'id' => [
-
             // 过滤表单条目显示名称
             'title' => '用户 ID',
         ],
-        'name' => [
+        'username' => [
             'title' => '用户名',
         ],
         'email' => [

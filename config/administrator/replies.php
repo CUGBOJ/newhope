@@ -30,7 +30,7 @@ return [
             'title' => '话题',
             'sortable' => false,
             'output' => function ($value, $model) {
-                return '<div style="max-width:260px">' . model_admin_link($model->topic->title, $model->topic) . '</div>';
+                return '<div style="max-width:260px">' . model_link($model->topic->title, $model->topic) . '</div>';
             },
         ],
         'operation' => [
@@ -42,9 +42,9 @@ return [
         'user' => [
             'title' => '用户',
             'type' => 'relationship',
-            'name_field' => 'name',
+            'name_field' => 'username',
             'autocomplete' => true,
-            'search_fields' => array("CONCAT(id, ' ', name)"),
+            'search_fields' => array("CONCAT(id, ' ', username)"),
             'options_sort_field' => 'id',
         ],
         'topic' => [
@@ -64,9 +64,9 @@ return [
         'user' => [
             'title' => '用户',
             'type' => 'relationship',
-            'name_field' => 'name',
+            'name_field' => 'username',
             'autocomplete' => true,
-            'search_fields' => array("CONCAT(id, ' ', name)"),
+            'search_fields' => array("CONCAT(id, ' ', username)"),
             'options_sort_field' => 'id',
         ],
         'topic' => [

@@ -2,8 +2,6 @@
 
 use App\Models\Topic;
 
-// require __DIR__ . '/../app/helpfunction.php';
-
 return [
     'title' => '话题',
     'single' => '话题',
@@ -45,10 +43,6 @@ return [
             'title' => '管理',
             'sortable' => false,
         ],
-        'operation' => [
-            'title' => '管理',
-            'sortable' => false,
-        ],
     ],
     'edit_fields' => [
         'title' => [
@@ -57,14 +51,14 @@ return [
         'user' => [
             'title' => '用户',
             'type' => 'relationship',
-            'name_field' => 'name',
+            'name_field' => 'username',
 
             // 自动补全，对于大数据量的对应关系，推荐开启自动补全，
             // 可防止一次性加载对系统造成负担
             'autocomplete' => true,
 
             // 自动补全的搜索字段
-            'search_fields' => ["CONCAT(id, ' ', name)"],
+            'search_fields' => ["CONCAT(id, ' ', username)"],
 
             // 自动补全排序
             'options_sort_field' => 'id',
@@ -72,8 +66,8 @@ return [
         'problem' => [
             'title' => '问题',
             'type' => 'relationship',
-            'name_field' => 'name',
-            'search_fields' => ["CONCAT(id, ' ', name)"],
+            'name_field' => 'id',
+            'search_fields' => ["CONCAT(id)"],
             'options_sort_field' => 'id',
         ],
         'reply_count' => [
@@ -90,16 +84,16 @@ return [
         'user' => [
             'title' => '用户',
             'type' => 'relationship',
-            'name_field' => 'name',
+            'name_field' => 'username',
             'autocomplete' => true,
-            'search_fields' => array("CONCAT(id, ' ', name)"),
+            'search_fields' => array("CONCAT(id, ' ', username)"),
             'options_sort_field' => 'id',
         ],
         'problem' => [
             'title' => '问题',
             'type' => 'relationship',
-            'name_field' => 'name',
-            'search_fields' => array("CONCAT(id, ' ', name)"),
+            'name_field' => 'id',
+            'search_fields' => array("CONCAT(id"),
             'options_sort_field' => 'id',
         ],
     ],
