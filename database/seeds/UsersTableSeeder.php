@@ -22,10 +22,6 @@ class UsersTableSeeder extends Seeder
         $user->school = 'CUGB';
         $user->password = bcrypt('password');
         $user->assignRole('root');
-
-        //$user->roles()->attach(4);
-        //$user->roles()->attach(1);
-
         $user->save();
 
         $user = User::find(1);
@@ -35,14 +31,7 @@ class UsersTableSeeder extends Seeder
         $user->school = 'all';
         $user->password = bcrypt('never');
         $user->assignRole('admin');
-
-        //$user->roles()->attach(4);
-        //$user->roles()->attach(2);
         $user->save();
 
-        //$users = User::all();
-        //foreach ($users as $user) {
-        //    $user->roles()->attach(4);
-        //}
     }
 }

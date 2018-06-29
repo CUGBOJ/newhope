@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contest extends Model
 {
-
-    public $timestamps = false;
     protected $fillable = [
         'create_time',
         'start_time',
@@ -36,7 +34,7 @@ class Contest extends Model
 
     public function problems()
     {
-        return $this->hasMany(Problem::class);
+        return $this->belongsToMany(Problem::class,'contest_problem', 'contest_id', 'problem_id');
     }
     public function topics()
     {

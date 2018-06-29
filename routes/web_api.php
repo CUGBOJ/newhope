@@ -31,7 +31,12 @@ Route::post('notifications', 'NotificationsController@read_all')->name('notifica
 Route::get('topics', 'TopicsController@index');
 
 Route::get('announcements', 'AnnouncementsController@index');
-// Route::get('contests', 'ContestsController@index');
+Route::get('contests', 'ContestsController@index');
+Route::get('problemsByContest/{contest}', 'ContestsController@getProblem');
+Route::get('usersByContest/{contest}', 'ContestsController@getUser');
+Route::get('rejectusersByContest/{contest}', 'ContestsController@getRejectUser');
+
+
 
 Route::get('problem/{problem}', 'ProblemsController@show');
 

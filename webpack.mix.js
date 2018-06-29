@@ -17,19 +17,21 @@ mix.webpackConfig({
         chunkFilename: 'js/[name].[chunkhash].js'
     },
     module: {
-        rules: [
-            {
-                test: /\.vue$/,
-                use: [
-                    {
-                        loader: 'iview-loader',
-                        options: {
-                            prefix: true
-                        }
-                    }
-                ]
-            }
-        ]
+        rules: [{
+            test: /\.vue$/,
+            use: [{
+                loader: 'iview-loader',
+                options: {
+                    prefix: true
+                }
+            }]
+        }, {
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader'
+            ]
+        }]
     }
 })
 

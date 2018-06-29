@@ -15,7 +15,7 @@ class CreateContestsTable extends Migration
     {
         Schema::create('contests', function (Blueprint $table) {
             $table->integer('id', 1)->unsigned();
-            $table->timestamp('create_time')->useCurrent();
+            $table->timestamps();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
             $table->timestamp('lock_board_time')->nullable();

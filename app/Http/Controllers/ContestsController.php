@@ -11,10 +11,18 @@ use Illuminate\Support\Facades\Hash;
 class ContestsController extends Controller
 {
 
-    public function index()
+    public function __construct()
     {
-        $contests = Contest::all();
-        return view('contests.index', compact('contests'));
+        $this->middleware('auth', [
+            'except' => ['index'],
+        ]);
+    }
+
+    public function index(Request $request)
+    {
+
+        $contest = Contest::getModel();
+        return $contest->get();
     }
 
     public function create()
@@ -57,16 +65,10 @@ class ContestsController extends Controller
         return redirect()->route('contests.show', $contest->id);
     }
 
-    public function __construct()
-    {
-        $this->middleware('auth', [
-            'except' => ['index'],
-        ]);
-    }
 
     public function add_problem(Contest $contest, Problem $problem)
     {
-        $contest->users()->attach($problem->id);
+        $contest->problems()->attach($problem->id);
         return redirect()->route('contests.show', $contest->id);
     }
 
@@ -104,5 +106,24 @@ class ContestsController extends Controller
     {
         $contest->reject_users()->detach($user->id);
         return redirect()->route('contests.show', $contest->id);
+    }
+
+    public function getProblem(Contest $contest)
+    {   
+        $problems = $contest->problems();
+        
+        return $problems->get();
+    }
+    public function getUser(Contest $contest)
+    {   
+        $users = $contest->users();
+        
+        return $users->get();
+    }
+    public function getRejectUser(Contest $contest)
+    {   
+        $reject_users = $contest->reject_users();
+        
+        return $reject_users->get();
     }
 }

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ReplysTableSeeder::class,
             AnnouncementsTableSeeder::class,
             ContestsTableSeeder::class,
+            ContestProblemSeeder::class,
         ]);
         Model::reguard();
     }

@@ -2,17 +2,17 @@
   <Spin size="large" fix v-if="loading"></Spin>
   <div v-else>
     <ul>
-      <li v-for="announcement in announcements" :key="announcement.id">
-        <a :href="'/contests/' + contest.id">
-          <div class="title">{{announcement.title}}</div>
+      <li v-for="contest in contests" :key="contest.id">
+        <a :href="'/contest/' + contest.id">
+          <div class="title">{{contest.title}}</div>
         </a>
         <div>
-          {{`#${announcement.id} updated at ${announcement.updated_at}`}}
+          {{`#${contest.id} updated at ${contest.updated_at}`}}
         </div>
       </li>
     </ul>
     <Row>
-      <Button type="primary">New announcement</Button>
+      <Button type="primary">New contest</Button>
     </Row>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
     data() {
         return {
             loading: true,
-            announcement: null
+            contest: null
         }
     },
     mounted() {
@@ -35,11 +35,11 @@ export default {
             let params = {}
 
             axios
-                .get('/api/announcements', {
+                .get('/api/contests', {
                     params
                 })
                 .then(res => {
-                    this.announcements = res.data
+                    this.contests = res.data
                     this.loading = false
                 })
                 .catch(err => {
