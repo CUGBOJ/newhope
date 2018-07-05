@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContestRequest;
 use App\Models\Contest;
+use App\Models\Problem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -110,9 +111,22 @@ class ContestsController extends Controller
 
     public function getProblem(Contest $contest)
     {   
-        $problems = $contest->problems();
-        
-        return $problems->get();
+        $problem = $contest->problems();
+        // if ($request->get('search')) {
+        //     $search = '%' . $request->get('search') . '%';
+        //     $problem = $problem->orWhere('id', 'like', $search);
+        //     $problem = $problem->orWhere('title', 'like', $search);
+        //     $problem = $problem->orWhere('author', 'like', $search);
+        //     $problem = $problem->get(['id', 'title', 'author']);
+        // } else {
+        //     $perPage = request()->get('perPage') ?: 15;
+        //     $page = request()->get('page') ?: 1;
+        //     $problem = $problem->paginate($perPage,
+        //         ['id', 'title', 'author', 'total_submit_user', 'total_ac_user'],
+        //         '', $page);
+        // }
+        // return response()->json($problem);
+        return $problem->get();
     }
     public function getUser(Contest $contest)
     {   
@@ -125,5 +139,67 @@ class ContestsController extends Controller
         $reject_users = $contest->reject_users();
         
         return $reject_users->get();
+    }
+    public function getStatus(Contest $contest,Request $request)
+    {
+        $status = $contest->status();
+        $perPage = $request->get('perPage') ?: 15;
+        $page = $request->get('page') ?: 1;
+
+        if ($request->get('search')) {
+            $search = '%' . $request->get('search') . '%';
+            $status = $status->orWhere('id', 'like', $search);
+            $status = $status->orWhere('username', 'like', $search);
+            $status = $status->orWhere('pid', 'like', $search);
+        }
+
+        if ($request->get('user')) {
+            $status = $status->where('username', $request->get('username'));
+        }
+
+        if ($request->get('prob')) {
+            $status = $status->where('pid', $request->get('prob'));
+        }
+
+        if ($request->get('res')) {
+            $res = json_decode($request->get('res'));
+            if (count($res)) {
+                $status = $status->whereIn('result', $res);
+            }
+        }
+
+        if ($request->get('lang')) {
+            $lang = json_decode($request->get('lang'));
+            if (count($lang)) {
+                $status = $status->whereIn('lang', $lang);
+            }
+        }
+
+        return $status->orderByDesc('id')->paginate($perPage, ['*'], 'page', $page);
+        return $status->get();
+    }
+    public function getTopics(Contest $contest,Request $request)
+    {
+        $topics = $contest->topics();
+        // if (!$request->wantsJson()) {
+        //     abort(404);
+        // }
+
+        if ($request->get('search')) {
+            $search = '%' . $request->get('search') . '%';
+            $topics = $topics->orWhere('id', 'like', $search);
+            $topics = $topics->orWhere('username', 'like', $search);
+            $topics = $topics->orWhere('pid', 'like', $search);
+        }
+
+        if ($request->get('user')) {
+            $topics = $topics->where('username', $request->get('username'));
+        }
+
+        if ($request->get('prob')) {
+            $topics = $topics->where('pid', $request->get('prob'));
+        }
+
+        return $topics->get();
     }
 }

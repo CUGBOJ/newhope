@@ -4,10 +4,12 @@ use Illuminate\Database\Seeder;
 use App\Models\Contest;
 use App\Models\Problem;
 use App\Models\User;
+use App\Models\Topic;
+use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ContestProblemSeeder extends Seeder
+class ContestDataSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,6 +22,7 @@ class ContestProblemSeeder extends Seeder
         $contests=Contest::all()->pluck('id')->toArray();
         $problems=Problem::all()->pluck('id')->toArray();
         $users=User::all()->pluck('id')->toArray();
+
         $i=1;
         while($i<2000){
             $pid=$faker->randomElement($problems);
@@ -29,6 +32,5 @@ class ContestProblemSeeder extends Seeder
             DB::insert('insert into contest_user (contest_id,user_id) values (?, ?)', [$cid, $uid]);
             $i++;
         }
-
     }
 }
