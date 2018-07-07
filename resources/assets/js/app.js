@@ -59,10 +59,7 @@ window.axios.interceptors.response.use(
     },
     function (error) {
         if (error.response && error.response.status === 401) {
-            app.$Notice.warning({
-                title: '更新状态',
-                desc: '用户状态已更新'
-            })
+            app.$Notice.warning({ title: '更新状态', desc: '用户状态已更新' })
             store.commit('setLoggedIn', false)
             store.commit('setUser')
         } else if (error.response && error.response.status === 403) {
@@ -80,4 +77,8 @@ window.axios.interceptors.response.use(
         }
         return Promise.reject(error)
     }
+<<<<<<< HEAD
 )
+=======
+)
+>>>>>>> upstream/master

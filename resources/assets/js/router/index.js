@@ -1,52 +1,52 @@
 import VueRouter from 'vue-router'
 import Vue from 'vue'
-// import BootstrapVue from 'bootstrap-vue'
 import iView from 'iview'
 
 Vue.use(VueRouter)
 
 const LoginPane = () =>
-    import ('../components/Login.vue')
+    import('../components/Login.vue')
 const SigninPane = () =>
-    import ('../components/Signin.vue')
+    import('../components/Signin.vue')
 const NotFoundPage = () =>
-    import ('../components/NotFoundPage.vue')
+    import('../components/NotFoundPage.vue')
 
 const ProblemTable = () =>
-    import ('../components/ProblemTable.vue')
+    import('../components/ProblemTable.vue')
 const UsersTable = () =>
-    import ('../components/UsersTable.vue')
+    import('../components/UsersTable.vue')
 const StatusTable = () =>
-    import ('../components/Status.vue')
+    import('../components/Status.vue')
 const DiscussForum = () =>
-    import ('../components/Discuss.vue')
+    import('../components/Discuss.vue')
 const AnnouncementTable = () =>
-    import ('../components/AnnouncementTable.vue')
+    import('../components/AnnouncementTable.vue')
 const NotificationPane = () =>
-    import ('../components/NotificationPane.vue')
+    import('../components/NotificationPane.vue')
 const ContestTable = () =>
-    import ('../components/ContestTable.vue')
+    import('../components/ContestTable.vue')
 const ContestShow = () =>
-    import ('../components/ContestShow.vue')
+    import('../components/ContestShow.vue')
 
 
 const Profile = () =>
-    import ('../components/Profile.vue')
+    import('../components/Profile.vue')
 const ProfileEditor = () =>
-    import ('../components/ProfileEditor.vue')
+    import('../components/ProfileEditor.vue')
 
 const Practice = () =>
-    import ('../components/Practice.vue')
+    import('../components/Practice.vue')
 const Problem = () =>
-    import ('../components/Problem.vue')
+    import('../components/Problem.vue')
 const ProblemEditor = () =>
-    import ('../components/ProblemEditor.vue')
+    import('../components/ProblemEditor.vue')
 
 const router = new VueRouter({
     mode: 'history',
     saveScrollPosition: true,
     base: '/',
-    routes: [{
+    routes: [
+        {
             path: '/',
             name: 'home',
             component: Profile
@@ -130,19 +130,20 @@ const router = new VueRouter({
             path: '/practice',
             name: 'practice',
             component: Practice,
-            children: [{
-                path: ':problemId',
-                component: Problem,
-                name: 'problem',
-                children: [{
-                    path: 'topic'
-                }]
-            }]
+            children: [
+                {
+                    path: ':problemId',
+                    component: Problem,
+                    name: 'problem',
+                    children: [
+                        {
+                            path: 'topic'
+                        }
+                    ]
+                }
+            ]
         },
-        {
-            path: '*',
-            component: NotFoundPage
-        }
+        { path: '*', component: NotFoundPage }
     ]
 })
 
