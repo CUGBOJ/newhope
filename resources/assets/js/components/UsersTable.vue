@@ -45,6 +45,9 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.users
+    list-style none
+
 span
     display block
 
