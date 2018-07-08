@@ -4,42 +4,25 @@ import iView from 'iview'
 
 Vue.use(VueRouter)
 
-const LoginPane = () =>
-    import('../components/Login.vue')
-const SigninPane = () =>
-    import('../components/Signin.vue')
-const NotFoundPage = () =>
-    import('../components/NotFoundPage.vue')
+const LoginPane = () => import('../components/Login.vue')
+const SigninPane = () => import('../components/Signin.vue')
+const NotFoundPage = () => import('../components/NotFoundPage.vue')
 
-const ProblemTable = () =>
-    import('../components/ProblemTable.vue')
-const UsersTable = () =>
-    import('../components/UsersTable.vue')
-const StatusTable = () =>
-    import('../components/Status.vue')
-const DiscussForum = () =>
-    import('../components/Discuss.vue')
-const AnnouncementTable = () =>
-    import('../components/AnnouncementTable.vue')
-const NotificationPane = () =>
-    import('../components/NotificationPane.vue')
-const ContestTable = () =>
-    import('../components/ContestTable.vue')
-const ContestShow = () =>
-    import('../components/ContestShow.vue')
+const ProblemTable = () => import('../components/ProblemTable.vue')
+const UsersTable = () => import('../components/UsersTable.vue')
+const StatusTable = () => import('../components/Status.vue')
+const DiscussForum = () => import('../components/Discuss.vue')
+const AnnouncementTable = () => import('../components/AnnouncementTable.vue')
+const NotificationPane = () => import('../components/NotificationPane.vue')
+const ContestTable = () => import('../components/ContestTable.vue')
+const ContestShow = () => import('../components/ContestShow.vue')
 
+const Profile = () => import('../components/Profile.vue')
+const ProfileEditor = () => import('../components/ProfileEditor.vue')
 
-const Profile = () =>
-    import('../components/Profile.vue')
-const ProfileEditor = () =>
-    import('../components/ProfileEditor.vue')
-
-const Practice = () =>
-    import('../components/Practice.vue')
-const Problem = () =>
-    import('../components/Problem.vue')
-const ProblemEditor = () =>
-    import('../components/ProblemEditor.vue')
+const Practice = () => import('../components/Practice.vue')
+const Problem = () => import('../components/Problem.vue')
+const ProblemEditor = () => import('../components/ProblemEditor.vue')
 
 const router = new VueRouter({
     mode: 'history',

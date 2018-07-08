@@ -8,13 +8,6 @@ require('./bootstrap')
 
 Vue = window.Vue = require('vue')
 
-import BootstrapVue from 'bootstrap-vue'
-
-Vue.use(BootstrapVue)
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-
 /**
  * Use iView
  */
@@ -53,11 +46,11 @@ const app = new Vue({
 })
 
 window.axios.interceptors.response.use(
-    function (response) {
+    function(response) {
         // Do something with response data
         return response
     },
-    function (error) {
+    function(error) {
         if (error.response && error.response.status === 401) {
             app.$Notice.warning({ title: '更新状态', desc: '用户状态已更新' })
             store.commit('setLoggedIn', false)
@@ -77,8 +70,4 @@ window.axios.interceptors.response.use(
         }
         return Promise.reject(error)
     }
-<<<<<<< HEAD
 )
-=======
-)
->>>>>>> upstream/master

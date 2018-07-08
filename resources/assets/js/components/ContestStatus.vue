@@ -6,13 +6,11 @@
       <Page ref="page" :page-size="perPage" :total="total" :current="1" @on-change="fetchData"></Page>
     </div>
     <Modal v-model="codeModal.show" v-if="this.codeModal.data" :title="'Code for ' + this.codeModal.data.a" width="750" ok-text="Copy" @on-ok="copyCode">
-        <pre v-html="codeModal.codeHTML"></pre>
-        <button v-if="codeModal.data" id="copy-code" :data-clipboard-text="codeModal.data.code" hidden></button>
-    </Modal>
+<pre v-html="codeModal.codeHTML"></pre>
+<button v-if="codeModal.data" id="copy-code" :data-clipboard-text="codeModal.data.code" hidden></button>    </Modal>
     <Modal v-model="ceModal.show" v-if="this.ceModal.data" :title="'Compile Error Info for ' + this.ceModal.data.id">
-        {{this.ceModal.data.ce_info || "Empty Info" }}
++      {{this.ceModal.data.ce_info || "Empty Info" }}
     </Modal>
-      <!-- <h1>{{contestid}}</h1> -->
   </div>
 
 </template>
@@ -57,10 +55,8 @@ const CONSTANT = {
 }
 
 import axios from 'axios'
-const Prism = require('prismjs')
+import Prism from 'prismjs'
 const Clipboard = require('clipboard')
-const loadLanguages = require('prismjs/components/index.js')
-// loadLanguages(CONSTANT.PRISM_LANG)
 
 export default {
     props:['contestid'],
@@ -155,17 +151,14 @@ export default {
                 {
                     title: 'ID',
                     key: 'id',
-                    width: '8%'
                 },
                 {
                     title: 'Username',
                     key: 'username',
-                    width: '18%'
                 },
                 {
                     title: 'Problem',
                     key: 'pid',
-                    width: '8%',
                     render: (h, params) => {
                         return h('div', [
                             h(
@@ -190,7 +183,6 @@ export default {
                 {
                     title: 'Language',
                     key: 'lang',
-                    width: '10%',
                     render: (h, params) => {
                         return h('div', CONSTANT.LANG[params.row.lang - 1])
                     },
@@ -205,7 +197,6 @@ export default {
                 {
                     title: 'Result',
                     key: 'result',
-                    width: '13%',
                     render: (h, params) => {
                         let res = CONSTANT.RESULT[params.row.result - 1]
                         let className =
@@ -229,7 +220,6 @@ export default {
                                                     this.ceModal.data =
                                                           params.row
                                                     this.ceModal.show = true
-                                                    console.log(this.ceModal)
                                                 }
                                             }
                                         },
@@ -250,17 +240,14 @@ export default {
                 {
                     title: 'Time',
                     key: 'time',
-                    width: '8%'
                 },
                 {
                     title: 'Memory',
                     key: 'memory',
-                    width: '8%'
                 },
                 {
                     title: 'Length',
                     key: 'length',
-                    width: '8%',
                     render: (h, params) => {
                         return h(
                             'a',

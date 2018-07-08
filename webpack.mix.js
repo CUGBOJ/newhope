@@ -17,27 +17,26 @@ mix.webpackConfig({
         chunkFilename: 'js/[name].[chunkhash].js'
     },
     module: {
-        rules: [{
-            test: /\.vue$/,
-            use: [{
-                loader: 'iview-loader',
-                options: {
-                    prefix: true
-                }
-            }]
-        }, {
-            test: /\.css$/,
-            use: [
-                'style-loader',
-                'css-loader'
-            ]
-        }]
+        rules: [
+            {
+                test: /\.vue$/,
+                use: [
+                    {
+                        loader: 'iview-loader',
+                        options: {
+                            prefix: true
+                        }
+                    }
+                ]
+            }
+        ]
     }
 })
 
-mix
-    .js('resources/assets/js/app.js', 'public/js')
-    .stylus('resources/assets/stylus/app.styl', 'public/css')
+mix.js('resources/assets/js/app.js', 'public/js').stylus(
+    'resources/assets/stylus/app.styl',
+    'public/css'
+)
 
 if (mix.inProduction()) {
     mix.version()
