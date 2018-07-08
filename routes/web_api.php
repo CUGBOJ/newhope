@@ -45,3 +45,9 @@ Route::get('topicsByContest/{contest}', 'ContestsController@getTopics');
 Route::get('problem/{problem}', 'ProblemsController@show');
 
 Route::post('codesubmit', 'StatusesController@store')->name('codesubmit');
+
+
+
+Route::get('problem', 'ProblemsController@get_problems');
+
+Route::get('status', 'StatusesController@show');

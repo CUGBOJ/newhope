@@ -96,7 +96,7 @@ const router = new VueRouter({
         },
         {
             path: '/contests',
-            name: 'contests-show',
+            name: 'contests',
             component: ContestTable
         },
         {

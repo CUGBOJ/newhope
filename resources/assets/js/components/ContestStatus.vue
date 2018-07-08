@@ -5,14 +5,14 @@
     <div style="float: right;">
       <Page ref="page" :page-size="perPage" :total="total" :current="1" @on-change="fetchData"></Page>
     </div>
-    <Modal v-model="codeModal.show" v-if="this.codeModal.data" :title="'Code for ' + this.codeModal.data.a" width="750" ok-text="Copy" @on-ok="copyCode">
-<pre v-html="codeModal.codeHTML"></pre>
-<button v-if="codeModal.data" id="copy-code" :data-clipboard-text="codeModal.data.code" hidden></button>    </Modal>
+    <Modal v-model="codeModal.show" v-if="this.codeModal.data" :title="'Code for ' + this.codeModal.data.id" width="750" ok-text="Copy" @on-ok="copyCode">
+      <pre v-html="codeModal.codeHTML"></pre>
+      <button v-if="codeModal.data" id="copy-code" :data-clipboard-text="codeModal.data.code" hidden></button>
+    </Modal>
     <Modal v-model="ceModal.show" v-if="this.ceModal.data" :title="'Compile Error Info for ' + this.ceModal.data.id">
-+      {{this.ceModal.data.ce_info || "Empty Info" }}
+      {{this.ceModal.data.ce_info || "Empty Info" }}
     </Modal>
   </div>
-
 </template>
 <script>
 const CONSTANT = {
@@ -109,7 +109,7 @@ export default {
             }
 
             axios
-                .get('/api/statusByContest/'+ this.contestid, {
+                .get('/api/statusByContest/'+this.contestid, {
                     params
                 })
                 .then(res => {

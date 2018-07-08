@@ -109,24 +109,13 @@ class ContestsController extends Controller
         return redirect()->route('contests.show', $contest->id);
     }
 
-    public function getProblem(Contest $contest)
+    public function getProblem(Contest $contest,Request $request)
     {   
         $problem = $contest->problems();
-        // if ($request->get('search')) {
-        //     $search = '%' . $request->get('search') . '%';
-        //     $problem = $problem->orWhere('id', 'like', $search);
-        //     $problem = $problem->orWhere('title', 'like', $search);
-        //     $problem = $problem->orWhere('author', 'like', $search);
-        //     $problem = $problem->get(['id', 'title', 'author']);
-        // } else {
-        //     $perPage = request()->get('perPage') ?: 15;
-        //     $page = request()->get('page') ?: 1;
-        //     $problem = $problem->paginate($perPage,
-        //         ['id', 'title', 'author', 'total_submit_user', 'total_ac_user'],
-        //         '', $page);
-        // }
-        // return response()->json($problem);
-        return $problem->get();
+        $perPage = request()->get('perPage') ?: 15;
+        $page = request()->get('page') ?: 1;
+        return $problem->orderByDesc('id')->paginate($perPage, ['*'], 'page', $page);
+        // return $problem->get();
     }
     public function getUser(Contest $contest)
     {   

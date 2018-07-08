@@ -1,23 +1,17 @@
 <template>
-<div>
-<b-tabs>
-  <b-tab title="Problem" >
-      <contestproblems v-bind:contestid="id" />
-  </b-tab>
-  <b-tab title="Status">
-      <conteststatus v-bind:contestid="id" />
-  </b-tab>
-    <b-tab title="Standing">
-
-  </b-tab>
-    <b-tab title="Topics">
-      <contesttopics  v-bind:contestid="id" />
-  </b-tab>
-    <b-tab title="Clarify">
-
-  </b-tab>
-</b-tabs>
-</div>
+    <Tabs active-key="key1">
+        <Tab-pane label="Problem" key="key1">
+            <contestproblems v-bind:contestid="id" />
+        </Tab-pane>
+        <Tab-pane label="Status" key="key2">
+             <conteststatus v-bind:contestid="id" />
+        </Tab-pane>
+        <Tab-pane label="Standing" key="key3">Standing</Tab-pane>
+        <Tab-pane label="Topics" key="key4">
+            <contesttopics  v-bind:contestid="id" />
+        </Tab-pane>
+        <Tab-pane label="Clarify" key="key5">Clarify</Tab-pane>
+    </Tabs>
 </template>
 
 <script>

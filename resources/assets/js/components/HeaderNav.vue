@@ -24,8 +24,8 @@
           <Button @click="$router.push('help')">
             帮助
           </Button>
-          <Button @click="$router.push('about')">
-            关于
+          <Button @click="$router.push({name: 'contests'})">
+            contest
           </Button>
         </ButtonGroup>
         <ButtonGroup v-if="!loggedIn">
