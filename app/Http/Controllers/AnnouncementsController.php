@@ -42,7 +42,7 @@ class AnnouncementsController extends Controller
             'title' => 'required|max:50|min:2',
             'body' => 'required',
         ]);
-        $this->authorize('announcement_create');
+        //$this->authorize('announcement_create');
         $announcement = Announcement::create([
             'title' => $request->title,
             'body' => $request->body,
@@ -53,7 +53,7 @@ class AnnouncementsController extends Controller
 
     public function destroy(Announcement $announcement)
     {
-        $this->authorize('announcement_destroy');
+        //$this->authorize('announcement_destroy');
         $announcement->delete();
         return redirect()->route('announcements.index')->with('success', 'Delete announcement success.');
     }
@@ -64,7 +64,7 @@ class AnnouncementsController extends Controller
             'title' => 'required|max:50|min:2',
             'body' => 'required',
         ]);
-        $this->authorize('announcement_edit');
+        //$this->authorize('announcement_edit');
         $announcement->update($request->all());
         session()->flash('success', 'Modify announcement success.');
         return redirect()->route('announcements.show', [$announcement]);

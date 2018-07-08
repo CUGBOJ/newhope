@@ -11,7 +11,7 @@ use Faker\Generator as Faker;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
 
 $factory->define(App\Models\User::class, function (Faker $faker) {
     $date_time = $faker->date . ' ' . $faker->time;
@@ -27,6 +27,5 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'register_time' => $date_time,
         'last_login_time' => $date_time,
         'last_login_ip' => $faker->ipv4,
-        'role_id' => 4,
     ];
 });

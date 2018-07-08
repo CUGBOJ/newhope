@@ -6,7 +6,7 @@
 
 
         @cannot('check_permission',$contest)
-            <form action="{{ route('contests.add_user',$contest->id) }}" method="post">
+            <form action="{{ route('contests.add_user_by_password',$contest->id) }}" method="post">
                 {{ csrf_field() }}
                 密码：<input type="password" name="password" id="password">
                 <button type="submit">提交</button>

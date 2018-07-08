@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateProblemsTable extends Migration
 {
@@ -14,7 +14,7 @@ class CreateProblemsTable extends Migration
     public function up()
     {
         Schema::create('problems', function (Blueprint $table) {
-            $table->integer('id',1);
+            $table->integer('id', 1)->unsigned();
             $table->string('title', 100);
 
             $table->text('description')->nullable();

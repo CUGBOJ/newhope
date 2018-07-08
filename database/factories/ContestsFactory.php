@@ -8,9 +8,10 @@ $factory->define(\App\Models\Contest::class, function (Faker $faker) {
     $end_time = $faker ->dateTimeThisMonth();
     $start_time = $faker ->dateTimeThisMonth($end_time);
     $isprivate = $faker -> boolean;
+    $updated_at = $faker->dateTimeThisMonth();
+    $created_at = $faker->dateTimeThisMonth($updated_at);
 
     return [
-        'create_time'=>$faker -> dateTimeThisMonth($start_time),
         'start_time'=>$start_time,
         'end_time'=>$end_time,
         'lock_board_time'=>$faker ->dateTimeThisMonth($end_time),
@@ -19,5 +20,7 @@ $factory->define(\App\Models\Contest::class, function (Faker $faker) {
         'description' => $faker -> sentence,
         'isprivate'=> $isprivate,
         'hide_other' => $faker -> boolean,
+        'created_at' => $created_at,
+        'updated_at' => $updated_at,
     ];
 });

@@ -12,7 +12,7 @@ class Status extends Model
         'result',
         'time',
         'memory',
-        'contest_belong',
+        'contest_id',
         'length',
         'lang',
         'submit_time',
@@ -31,5 +31,10 @@ class Status extends Model
     public function problem()
     {
         return $this->belongsTo(Problem::class);
+    }
+
+    public function contest()
+    {
+        return $this->belongsTo(Contest::class, 'contest_id', 'id');
     }
 }

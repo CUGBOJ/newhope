@@ -37,4 +37,8 @@ class Problem extends Model
     {
         return $this->hasMany(Topic::class);
     }
+    public function contests()
+    {
+        return $this->hasMany(Contest::class);
+    }
 }

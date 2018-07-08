@@ -32,6 +32,16 @@ Route::get('topics', 'TopicsController@index');
 
 Route::get('announcements', 'AnnouncementsController@index');
 
+//contest
+Route::get('contests', 'ContestsController@index');
+Route::get('problemsByContest/{contest}', 'ContestsController@getProblem');
+Route::get('usersByContest/{contest}', 'ContestsController@getUser');
+Route::get('rejectusersByContest/{contest}', 'ContestsController@getRejectUser');
+Route::get('statusByContest/{contest}', 'ContestsController@getStatus');
+Route::get('topicsByContest/{contest}', 'ContestsController@getTopics');
+
+
+
 Route::get('problem/{problem}', 'ProblemsController@show');
 
 Route::post('codesubmit', 'StatusesController@store')->name('codesubmit');

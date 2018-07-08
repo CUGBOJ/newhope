@@ -95,7 +95,7 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
-        $this->authorize('user_destroy');
+        //$this->authorize('user_destroy');
         if ($user->id == Auth::user()->id) {
             abort(403);
         }

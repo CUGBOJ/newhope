@@ -14,6 +14,8 @@ const StatusTable = () => import('../components/Status.vue')
 const DiscussForum = () => import('../components/Discuss.vue')
 const AnnouncementTable = () => import('../components/AnnouncementTable.vue')
 const NotificationPane = () => import('../components/NotificationPane.vue')
+const ContestTable = () => import('../components/ContestTable.vue')
+const ContestShow = () => import('../components/ContestShow.vue')
 
 const Profile = () => import('../components/Profile.vue')
 const ProfileEditor = () => import('../components/ProfileEditor.vue')
@@ -91,6 +93,16 @@ const router = new VueRouter({
             path: '/announcement/:id',
             name: 'announcement-show',
             component: AnnouncementTable
+        },
+        {
+            path: '/contests',
+            name: 'contests-show',
+            component: ContestTable
+        },
+        {
+            path: '/contest/:id',
+            name: 'contest-show',
+            component: ContestShow
         },
         {
             path: '/notice',

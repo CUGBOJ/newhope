@@ -33,9 +33,10 @@ mix.webpackConfig({
     }
 })
 
-mix
-    .js('resources/assets/js/app.js', 'public/js')
-    .stylus('resources/assets/stylus/app.styl', 'public/css')
+mix.js('resources/assets/js/app.js', 'public/js').stylus(
+    'resources/assets/stylus/app.styl',
+    'public/css'
+)
 
 if (mix.inProduction()) {
     mix.version()

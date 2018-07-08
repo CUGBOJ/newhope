@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Models\Topic;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TopicsController extends Controller
 {
@@ -45,7 +44,7 @@ class TopicsController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize('topic_create');
+        //$this->authorize('topic_create');
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',

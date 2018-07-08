@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Topic::observe(\App\Observers\TopicObserver::class);
         \App\Models\Announcement::observe(\App\Observers\AnnouncementObserver::class);
         \App\Models\Status::observe(\App\Observers\StatusObserver::class);
+
     }
 
     /**

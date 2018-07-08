@@ -28,8 +28,7 @@ Route::get('problems/{problem}/topics', 'ProblemsController@show_topics')->name(
 
 Route::post('notifications/{notification}', 'NotificationsController@read_one')->name('notifications.read_one');
 
-Route::resource('contests', 'ContestsController');
-Route::post('/contests/{contest}', 'ContestsController@add_user')->name('contests.add_user');
+Route::post('/contests/{contest}', 'ContestsController@add_user_by_password')->name('contests.add_user_by_password');
 
 Route::get('permission', 'StaticPagesController@permission')->name('permission');
 
