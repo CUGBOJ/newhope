@@ -16,15 +16,15 @@
       </p>
       </Col>
       <Col span="12" offset="2" class="cards">
-      <Card :bordered="false">
+      <Card :bordered="false" dis-hover>
         <p slot="title">Contests</p>
       </Card>
-      <Card :bordered="false">
+      <Card :bordered="false" dis-hover>
         <p slot="title">Problems</p>
         <p>Total submit: {{user.submit}}</p>
         <p>Total solve: {{user.solved}}</p>
       </Card>
-      <Card :bordered="false">
+      <Card :bordered="false" dis-hover>
         <p slot="title">Discussions</p>
         <Collapse v-if="user.topics.length">
           <Panel v-for="topic in user.topics" :key="topic.id">
@@ -39,7 +39,7 @@
           Not any topics.
         </p>
       </Card>
-      <Card :bordered="false">
+      <Card :bordered="false" dis-hover>
         <p slot="title">Activities</p>
         <p>Last login time: {{user.last_login_time}}</p>
       </Card>

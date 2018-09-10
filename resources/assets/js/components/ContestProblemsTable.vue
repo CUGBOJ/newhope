@@ -23,7 +23,7 @@ export default {
         changePage(p = 1) {
             this.loading = true
             axios
-                .get('/api/problemsByContest/'+this.contestid, {
+                .get('/api/problemsByContest/' + this.contestid, {
                     params: {
                         page: p,
                         perPage: this.perPage

@@ -15,6 +15,9 @@
               提交记录
             </router-link>
           </Button>
+          <Button @click="$router.push({name: 'contests'})">
+            比赛
+          </Button>
           <Button @click="$router.push({name: 'discusses'})">
             讨论区
           </Button>
@@ -23,9 +26,6 @@
           </Button>
           <Button @click="$router.push('help')">
             帮助
-          </Button>
-          <Button @click="$router.push({name: 'contests'})">
-            contest
           </Button>
         </ButtonGroup>
         <ButtonGroup v-if="!loggedIn">

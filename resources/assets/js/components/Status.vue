@@ -59,6 +59,9 @@ import Prism from 'prismjs'
 const Clipboard = require('clipboard')
 
 export default {
+    props: {
+        contestId: String
+    },
     mounted() {
         this.fetchData()
 
@@ -107,8 +110,10 @@ export default {
                 )
             }
 
+            let statusUrl = this.contestId ? '/api/statusByContest/' + this.contestId : '/api/status'
+
             axios
-                .get('/api/status', {
+                .get(statusUrl, {
                     params
                 })
                 .then(res => {

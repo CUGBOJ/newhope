@@ -8,7 +8,10 @@ module.exports = {
         'quotes': ['error', 'single'],
         'quote-props': ['error', 'consistent-as-needed'],
         'comma-dangle': ['error', 'never'],
+        'space-before-blocks': ['error', 'always'],
+        'keyword-spacing': ['error', {'before': true, 'after': true}],
         'key-spacing': ['error', { afterColon: true }],
+        'space-infix-ops': ['error', {'int32Hint': false}],
         'vue/no-parsing-error': [
             'error',
             {
