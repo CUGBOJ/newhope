@@ -20,13 +20,13 @@ class TopicReplied extends Notification implements ShouldQueue
         $this->reply = $reply;
     }
 
-    public function via($notifiable)
+    public function via()
     {
         // 开启通知的频道
         return ['database'];
     }
 
-    public function toDatabase($notifiable)
+    public function toDatabase()
     {
         $topic = $this->reply->topic;
         // 存入数据库里的数据
