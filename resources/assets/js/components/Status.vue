@@ -149,11 +149,11 @@ export default {
             columns: [
                 {
                     title: 'ID',
-                    key: 'id',
+                    key: 'id'
                 },
                 {
                     title: 'Username',
-                    key: 'username',
+                    key: 'username'
                 },
                 {
                     title: 'Problem',
@@ -238,11 +238,11 @@ export default {
                 },
                 {
                     title: 'Time',
-                    key: 'time',
+                    key: 'time'
                 },
                 {
                     title: 'Memory',
-                    key: 'memory',
+                    key: 'memory'
                 },
                 {
                     title: 'Length',

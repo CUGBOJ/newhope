@@ -120,11 +120,11 @@ int main(){
         }
     },
     THEME: {
-        solarized: 'Solarized',
+        'solarized': 'Solarized',
         'base16-dark': 'Base16 Dark',
         'base16-light': 'Base16 Light',
-        monokai: 'Monokai',
-        neat: 'Neat'
+        'monokai': 'Monokai',
+        'neat': 'Neat'
     },
     KEYMAP: {
         vim: 'Vim',

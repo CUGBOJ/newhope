@@ -10,7 +10,7 @@
 import axios from 'axios'
 
 export default {
-    props:['contestid'],
+    props: ['contestid'],
     mounted() {
         this.changePage()
     },

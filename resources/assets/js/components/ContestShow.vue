@@ -31,15 +31,15 @@ import contesttitlecard from './ContestTitleCard.vue'
 
 export default {
     components: {
-        'conteststatus': conteststatus,
-        'contesttopics': contesttopics,
-        'contestproblems':contestproblems,
-        'contesttitlecard':contesttitlecard
+        conteststatus: conteststatus,
+        contesttopics: contesttopics,
+        contestproblems: contestproblems,
+        contesttitlecard: contesttitlecard
 
     },
     data(){
         return{
-            id:location.href.split('/')[4]
+            id: location.href.split('/')[4]
         }
     }
 
