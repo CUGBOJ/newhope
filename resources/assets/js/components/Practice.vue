@@ -6,10 +6,12 @@
                 ID: {{problemId}}
                 <AutoComplete 
                     icon="ios-search" 
-                    :data="problemSearchData" 
+                    @on-search="searchProblem"
+                    @on-select="changeProblem"
                     v-model.lazy="problemSearchText" 
-                    style="width:80px"
+                    style="width: 180px; float: right"
                 >
+                <Option v-for="item in problemSearchData" :value="item.id" :key="item.id">{{ item.title }}</Option>
                 </AutoComplete>
                 <router-view></router-view>
             </div>
@@ -25,6 +27,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     components: {
         CodeEditor: () => import('./CodeEditor.vue')
@@ -39,11 +43,24 @@ export default {
         submitCode() {
             window.bus.$emit('submit')
         },
-        changeProblem() {
+        changeProblem(problemId) {
             this.$router.push({
                 name: 'problem',
-                params: { problemId: this.problemSearchText }
+                params: { problemId }
             })
+        },
+        searchProblem() {
+            axios.get('/api/problem',  {search: this.problemSearchText})
+                .then(res => {
+                    this.problemSearchData = res.data.data
+                })
+                .catch(err => {
+                    self.$Notice.error({
+                        title: '搜索题目时出错',
+                        desc: err.response.data.message,
+                        duration: 0
+                    })
+                })
         }
     },
     computed: {

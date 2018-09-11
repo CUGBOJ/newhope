@@ -4,11 +4,15 @@
       <div class="layout-logo" @click="$router.push({name: 'home'})"></div>
       <div class="layout-nav">
         <ButtonGroup>
-          <Button @click="$router.push({name: 'problems'})">
-            题目
+          <Button>
+            <router-link :to="{name: 'problems'}">
+              题目
+            </router-link>
           </Button>
-          <Button @click="$router.push({name: 'users'})">
-            用户
+          <Button>
+            <router-link :to="{name: 'users'}">
+              用户
+            </router-link>
           </Button>
           <Button>
             <router-link :to="{name: 'statuses'}">
