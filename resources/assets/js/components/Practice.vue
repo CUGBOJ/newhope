@@ -50,9 +50,13 @@ export default {
             })
         },
         searchProblem() {
-            axios.get('/api/problem',  {search: this.problemSearchText})
+            if (!this.problemSearchText || this.problemSearchText.lenght <= 0) {
+                return
+            }
+
+            axios.get('/api/problem',  {params: {search: this.problemSearchText}})
                 .then(res => {
-                    this.problemSearchData = res.data.data
+                    this.problemSearchData = res.data
                 })
                 .catch(err => {
                     self.$Notice.error({

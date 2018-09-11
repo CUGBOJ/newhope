@@ -24,9 +24,9 @@
 
 <script>
 import contestStatus from './Status.vue'
-import contestTopics from './contestTopicsTable.vue'
-import contestProblems from './contestProblemsTable.vue'
-import contestTitleCard from './contestTitleCard.vue'
+import contestTopics from './ContestTopicsTable.vue'
+import contestProblems from './ContestProblemsTable.vue'
+import contestTitleCard from './ContestTitleCard.vue'
 
 
 export default {

@@ -59,7 +59,7 @@ class ProblemsController extends Controller
     {
         $problem = Problem::getModel();
         if ($request->get('search')) {
-            $search = '%' . $request->get('search') . '%';
+            $search = '%' . $request->get('search'). '%';
             $problem = $problem->orWhere('id', 'like', $search);
             $problem = $problem->orWhere('title', 'like', $search);
             $problem = $problem->orWhere('author', 'like', $search);
