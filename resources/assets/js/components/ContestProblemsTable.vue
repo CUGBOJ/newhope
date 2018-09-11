@@ -77,30 +77,6 @@ export default {
                     title: 'Accepted Users',
                     key: 'total_ac_user',
                     width: 100
-                },
-                {
-                    title: 'Action',
-                    key: 'action',
-                    fixed: 'right',
-                    width: 100,
-                    render: (h, params) => {
-                        return h('div', [
-                            h(
-                                'router-link',
-                                {
-                                    props: {
-                                        to: {
-                                            name: 'problem-edit',
-                                            params: {
-                                                id: params.row.id
-                                            }
-                                        }
-                                    }
-                                },
-                                'Edit'
-                            )
-                        ])
-                    }
                 }
             ],
             data: []

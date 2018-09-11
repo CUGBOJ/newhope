@@ -71,7 +71,7 @@ export default {
             let username = this.$route.params.username
             if (username) {
                 axios
-                    .get(`/api/user/${username}`)
+                    .get('/api/user/${username}')
                     .then(res => {
                         this.user = res.data
                         this.loading = false

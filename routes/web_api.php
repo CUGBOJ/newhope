@@ -34,6 +34,8 @@ Route::get('announcements', 'AnnouncementsController@index');
 
 //contest
 Route::get('contests', 'ContestsController@index');
+Route::get('contest/{contest}', 'ContestsController@show');
+
 Route::get('problemsByContest/{contest}', 'ContestsController@getProblem');
 Route::get('usersByContest/{contest}', 'ContestsController@getUser');
 Route::get('rejectusersByContest/{contest}', 'ContestsController@getRejectUser');

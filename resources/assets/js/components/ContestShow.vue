@@ -1,8 +1,8 @@
 <template>
 
     <div>
-        <div>   
-            <contestTitleCard></contestTitleCard>
+        <div>
+            <contestTitleCard v-if="contest" v-bind:title="contest.title" v-bind:start="contest.start_time" v-bind:end="contest.end_time"></contestTitleCard>
         </div>
         <Tabs active-key="key1" style="margin-top:20px">
             <Tab-pane label="Problem" key="key1">
@@ -27,19 +27,44 @@ import contestStatus from './Status.vue'
 import contestTopics from './ContestTopicsTable.vue'
 import contestProblems from './ContestProblemsTable.vue'
 import contestTitleCard from './ContestTitleCard.vue'
+import axios from 'axios'
 
 
 export default {
+
+    data() {
+        return {
+            id: location.href.split('/')[4], 
+            loading: true,
+            contest: null
+        }
+    },
+    created() {
+        this.fetchData()
+    },    
     components: {
         contestStatus: contestStatus,
         contestTopics: contestTopics,
         contestProblems: contestProblems,
         contestTitleCard: contestTitleCard
-
     },
-    data() {
-        return {
-            id: location.href.split('/')[4]
+    methods: {
+        fetchData() {
+            this.loading = true
+            let contest_id = this.$route.params.id
+            if (contest_id) {
+                axios
+                    .get('/api/contest/' + contest_id)
+                    .then(res => {
+                        this.contest = res.data
+                        this.loading = false
+                    })
+                    .catch(() => {
+                        this.$router.push('/404')
+                    })
+            }  else {
+                this.$router.push('/404')
+            }
         }
     }
 

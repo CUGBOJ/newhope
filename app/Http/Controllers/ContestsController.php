@@ -26,15 +26,17 @@ class ContestsController extends Controller
         return $contest->get();
     }
 
+    public function show(Request $request,Contest $contest)
+    {   
+        // dd($contest);
+        // return 'ss';
+        return response()->json($contest);
+    }
+
     public function create()
     {
         //$this->authorize('contest_create');
         return view('contests.create');
-    }
-
-    public function show(Contest $contest)
-    {
-        return view('contests.show', compact('contest'));
     }
 
     public function edit(Contest $contest)
