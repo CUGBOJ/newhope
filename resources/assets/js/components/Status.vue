@@ -174,9 +174,7 @@ export default {
                                     },
                                     on: {
                                         click: () =>
-                                            (window.location.href = `/problems/${
-                                                params.row.pid
-                                            }`)
+                                            (this.$router.push({path: '/practice/' + params.row.pid}))
                                     }
                                 },
                                 params.row.pid

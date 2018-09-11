@@ -14,9 +14,14 @@
 
 <script>
 import axios from 'axios'
-import { mapActions } from 'vuex'
+// import { mapActions, mapState } from 'vuex'
+import {  mapActions, mapState } from 'vuex'
+
 
 export default {
+    computed: {
+        ...mapState(['loggedIn'])
+    },
     methods: {
         ...mapActions(['getProfile']),
         handleSubmit() {
@@ -27,14 +32,26 @@ export default {
                 })
                 .then(res => {
                     this.$Message.success(res.data.message)
-                    window.history.length > 1
+            
+                    window.history.length > 0
                         ? this.$router.go(-1)
                         : this.$router.push('/')
+                    
                     this.getProfile()
                 })
                 .catch(err => {
                     this.$Message.error(err.response.data.message)
                 })
+        }
+    },
+    created() {
+
+        if ( this.loggedIn == true) {
+            if (window.history.length > 0) {
+                this.$router.go(-1)
+            } else {            
+                this.$router.push('/')
+            }
         }
     },
     data() {
