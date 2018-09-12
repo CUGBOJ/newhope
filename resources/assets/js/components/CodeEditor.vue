@@ -192,7 +192,7 @@ export default {
         window.bus.$on('submit', function() {
             self.$Message.success('已向服务器提交')
             axios
-                .post('/api/codesubmit', {
+                .post('/api/codeSubmit', {
                     pid: self.$route.params.problemId,
                     code: self.code,
                     lang: self.getLang

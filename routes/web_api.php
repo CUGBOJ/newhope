@@ -29,6 +29,7 @@ Route::get('notifications', 'NotificationsController@index');
 Route::post('notifications', 'NotificationsController@read_all')->name('notifications.read_all');
 
 Route::get('topics', 'TopicsController@index');
+Route::get('topic/{topic}', 'TopicsController@show');
 
 Route::get('announcements', 'AnnouncementsController@index');
 
@@ -36,16 +37,14 @@ Route::get('announcements', 'AnnouncementsController@index');
 Route::get('contests', 'ContestsController@index');
 Route::get('problemsByContest/{contest}', 'ContestsController@getProblem');
 Route::get('usersByContest/{contest}', 'ContestsController@getUser');
-Route::get('rejectusersByContest/{contest}', 'ContestsController@getRejectUser');
+Route::get('rejectUserByContest/{contest}', 'ContestsController@getRejectUser');
 Route::get('statusByContest/{contest}', 'ContestsController@getStatus');
 Route::get('topicsByContest/{contest}', 'ContestsController@getTopics');
 
 
-
 Route::get('problem/{problem}', 'ProblemsController@show');
 
-Route::post('codesubmit', 'StatusesController@store')->name('codesubmit');
-
+Route::post('codeSubmit', 'StatusesController@store');
 
 
 Route::get('problem', 'ProblemsController@get_problems');

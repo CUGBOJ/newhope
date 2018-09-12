@@ -16,13 +16,12 @@ class RepliesController extends Controller
 
     public function store(Request $request, Reply $reply)
     {
-        //$this->authorize('reply_create');
         $reply->content = $request->contents;
         $reply->username = Auth::user()->username;
         $reply->topic_id = $request->topic_id;
         $reply->save();
-        session()->flash('success', 'Add reply success.');
-        return redirect()->route('topics.show', [$reply->topic]);
+
+        return response()->json(['message' => 'Success.'], 200);
     }
 
     public function destroy(Reply $reply)
@@ -32,8 +31,9 @@ class RepliesController extends Controller
                 abort(403);
             }
         }
+
         $reply->delete();
-        session()->flash('success', 'Delete reply success');
-        return redirect()->route('topics.show', $reply->topic);
+
+        return response()->json(['message' => 'Delete success.'], 200);
     }
 }

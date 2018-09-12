@@ -11,7 +11,8 @@ const NotFoundPage = () => import('../components/NotFoundPage.vue')
 const ProblemTable = () => import('../components/ProblemTable.vue')
 const UsersTable = () => import('../components/UsersTable.vue')
 const StatusTable = () => import('../components/Status.vue')
-const DiscussForum = () => import('../components/Discuss.vue')
+const DiscussTable = () => import('../components/DiscussTable.vue')
+const DiscussForum = () => import('../components/DiscussForum.vue')
 const AnnouncementTable = () => import('../components/AnnouncementTable.vue')
 const NotificationPane = () => import('../components/NotificationPane.vue')
 const ContestTable = () => import('../components/ContestTable.vue')
@@ -77,7 +78,7 @@ const router = new VueRouter({
         {
             path: '/discusses',
             name: 'discusses',
-            component: DiscussForum
+            component: DiscussTable
         },
         {
             path: '/discuss/:id',
