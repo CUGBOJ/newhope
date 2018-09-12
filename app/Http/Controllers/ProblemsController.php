@@ -7,31 +7,15 @@ use Illuminate\Http\Request;
 
 class ProblemsController extends Controller
 {
-    public function create()
-    {
-        //$this->authorize('problem_create');
-        return view('problems.create');
-    }
 
-    public function show(Request $request, Problem $problem)
+    public function show(Problem $problem)
     {
-        if ($request->wantsJson()) {
             return response()->json($problem);
-        } else {
-            return view('problems.show', compact('problem'));
-        }
-    }
-
-    public function show_topics(Problem $problem)
-    {
-        $pid = $problem->id;
-        return view('topics.index', compact('pid'));
     }
 
     public function store(Request $request)
     {
-        //$this->authorize('problem_create');
-        $problem = Problem::create([
+        Problem::create([
             'title' => $request->title,
             'description' => $request->description,
             'input' => $request->input,
@@ -46,13 +30,8 @@ class ProblemsController extends Controller
             'hide' => $request->hide,
             'author' => $request->author,
         ]);
-        session()->flash('success', 'Problem add success.');
-        return redirect()->route('problems.show', [$problem]);
-    }
 
-    public function index()
-    {
-        return view('problems.index', compact('problems'));
+        return response()->json(['message' => 'Added successful.'], 200);
     }
 
     public function get_problems(Request $request)
@@ -71,18 +50,12 @@ class ProblemsController extends Controller
                 ['id', 'title', 'author', 'total_submit_user', 'total_ac_user'],
                 '', $page);
         }
-        return response()->json($problem);
-    }
 
-    public function edit(Problem $problem)
-    {
-        //$this->authorize('problem_edit');
-        return view('problems.edit', compact('problem'));
+        return response()->json($problem);
     }
 
     public function update(Problem $problem, Request $request)
     {
-        //$this->authorize('problem_edit');
         $data = [];
         $data['title'] = $request->title;
         $data['description'] = $request->description;
@@ -99,15 +72,13 @@ class ProblemsController extends Controller
         $data['author'] = $request->author;
         $problem->update($data);
 
-        session()->flash('success', 'Problem update success.');
-
-        return redirect()->route('problems.show', $problem->id);
+        return response()->json(['message' => 'Updated successful.'], 200);
     }
 
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'index', 'get_problems', 'show_topics'],
+            'except' => ['show', 'get_problems', 'show_topics'],
         ]);
     }
 }

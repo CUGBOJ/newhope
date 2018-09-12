@@ -6,10 +6,13 @@
       </Row>
       <ul>
           <li v-for="discussion in discussions" :key="discussion.id">
-              <a :href="'/topics/' + discussion.id"><div class="title">{{discussion.title}}</div></a>
-              <div>
-              {{`#${discussion.id} for problem #${discussion.pid} by ${discussion.username}`}}
-              </div>
+                <router-link :to="{name: 'discuss-show', params: { id: discussion.id}}">
+                    <div class="title">{{discussion.title}}</div>
+                </router-link>
+                <div>
+                {{`#${discussion.id} for problem #${discussion.problem_id} by ${discussion.username}`}}
+                <Time :time="discussion.created_at"></Time>
+                </div>
           </li>
       </ul>
   </div>

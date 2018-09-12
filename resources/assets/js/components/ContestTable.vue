@@ -3,9 +3,9 @@
   <div v-else>
     <ul>
       <li v-for="contest in contests" :key="contest.id">
-        <a :href="'/contest/' + contest.id">
+        <router-link :to="'/contest/' + contest.id">
           <div class="title">{{contest.title}}</div>
-        </a>
+        </router-link>
         <div>
           {{`#${contest.id} updated at ${contest.updated_at}`}}
         </div>

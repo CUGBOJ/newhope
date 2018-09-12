@@ -42,9 +42,14 @@ class TopicsController extends Controller
         return $topic->get();
     }
 
+    public function show(Topic $topic)
+    {
+        $topic->replies;
+        return response()->json($topic);
+    }
+
     public function store(Request $request)
     {
-        //$this->authorize('topic_create');
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',
@@ -70,6 +75,7 @@ class TopicsController extends Controller
                 abort(403);
             }
         }
+
         $topic->delete();
         return redirect()->route('topics.index')->with('success', 'Delete topic success.');
     }
@@ -81,6 +87,7 @@ class TopicsController extends Controller
                 abort(403);
             }
         }
+
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',
