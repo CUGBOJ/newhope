@@ -1,19 +1,20 @@
 <template>
   <Spin size="large" fix v-if="loading"></Spin>
   <div v-else>
+    <Row>
+      <Button type="primary">New announcement</Button>
+    </Row>
     <ul>
       <li v-for="announcement in announcements" :key="announcement.id">
         <a :href="'/announcements/' + announcement.id">
           <div class="title">{{announcement.title}}</div>
         </a>
         <div>
-          {{`#${announcement.id} updated at ${announcement.updated_at}`}}
+          {{`#${announcement.id} updated `}}
+           <Time :time="announcement.updated_at"></Time>
         </div>
       </li>
     </ul>
-    <Row>
-      <Button type="primary">New announcement</Button>
-    </Row>
   </div>
 </template>
 

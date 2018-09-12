@@ -1,28 +1,28 @@
 <template>
     <div>
-        <Row>
-            <Col span="12">
-            <div style="height: 70vh; overflow: auto">
-                ID: {{problemId}}
-                <AutoComplete 
-                    icon="ios-search" 
-                    @on-search="searchProblem"
-                    @on-select="changeProblem"
-                    v-model.lazy="problemSearchText" 
-                    style="width: 180px; float: right"
-                >
-                <Option v-for="item in problemSearchData" :value="item.id" :key="item.id">{{ item.title }}</Option>
-                </AutoComplete>
-                <router-view></router-view>
+        <Split v-model="splitRatio">
+            <div slot="left" v-show="splitRatio > 0.1" class="split-pane">
+                <div style="height: 70vh; overflow: auto">
+                    ID: {{problemId}}
+                    <AutoComplete 
+                        icon="ios-search" 
+                        @on-search="searchProblem"
+                        @on-select="changeProblem"
+                        v-model.lazy="problemSearchText" 
+                        style="width: 180px; float: right"
+                    >
+                    <Option v-for="item in problemSearchData" :value="item.id" :key="item.id">{{ item.title }}</Option>
+                    </AutoComplete>
+                    <router-view></router-view>
+                </div>
+                <i-button type="primary" @click.native="submitCode">
+                    提交
+                </i-button>
             </div>
-            <i-button type="primary" @click.native="submitCode">
-                提交
-            </i-button>
-            </Col>
-            <Col span="12">
-            <CodeEditor/>
-            </Col>
-        </Row>
+            <div slot="right" class="split-pane">
+                <CodeEditor/>
+            </div>
+        </Split>
     </div>
 </template>
 
@@ -35,6 +35,7 @@ export default {
     },
     data() {
         return {
+            splitRatio: 0.5,
             problemSearchText: null,
             problemSearchData: []
         }
@@ -79,3 +80,9 @@ export default {
     }
 }
 </script>
+
+<style lang="stylus">
+.split-pane
+    padding 10px
+</style>
+

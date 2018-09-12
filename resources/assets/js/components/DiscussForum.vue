@@ -32,6 +32,7 @@
                             <div style="float: right">
                             {{'#' + reply.id}}
                             </div>
+                            <Time :time="reply.updated_at"></Time>
                         </div>
                         <div>{{reply.content}}</div>
                     </Card>

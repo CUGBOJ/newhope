@@ -11,6 +11,7 @@
                 </router-link>
                 <div>
                 {{`#${discussion.id} for problem #${discussion.problem_id} by ${discussion.username}`}}
+                <Time :time="discussion.created_at"></Time>
                 </div>
           </li>
       </ul>
