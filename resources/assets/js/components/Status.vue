@@ -174,7 +174,9 @@ export default {
                                     },
                                     on: {
                                         click: () =>
-                                            (this.$router.push({path: '/practice/' + params.row.pid}))
+                                            (this.$router.push({
+                                                path: '/practice/' + params.row.pid
+                                            }))
                                     }
                                 },
                                 params.row.pid

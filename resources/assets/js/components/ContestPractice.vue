@@ -69,8 +69,13 @@ export default {
         },
         fetchData() {
             axios
-                .get('/api/getProblemId',{params: {cid: this.contest_id,keychar: this.keychar}})
-                .then(res=>{
+                .get('/api/getProblemId',{
+                    params: {
+                        cid: this.contest_id,
+                        keychar: this.keychar
+                    }
+                })
+                .then(res => {
                     this.problem_id = res.data
                     if (this.problem_id != null) {
                         axios

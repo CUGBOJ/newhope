@@ -68,7 +68,9 @@ export default {
             .catch(() => {
                 next(false)
                 this.$Loading.error()
-                this.$Notice.error({ title: '无法获取题目' })
+                this.$Notice.error({
+                    title: '无法获取题目'
+                })
                 this.loading = false
             })
     },

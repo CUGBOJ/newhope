@@ -23,9 +23,7 @@ export default {
             type: Number,
             default: 0
         },
-        contestid: {
-            
-        }
+        contestid: {}
     },
     data() {
         return {

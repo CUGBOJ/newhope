@@ -47,7 +47,9 @@ export default {
         changeProblem(problemId) {
             this.$router.push({
                 name: 'problem',
-                params: { problemId }
+                params: {
+                    problemId
+                }
             })
         },
         searchProblem() {
@@ -55,7 +57,11 @@ export default {
                 return
             }
 
-            axios.get('/api/problem',  {params: {search: this.problemSearchText}})
+            axios.get('/api/problem',  {
+                params: {
+                    search: this.problemSearchText
+                }
+            })
                 .then(res => {
                     this.problemSearchData = res.data
                 })

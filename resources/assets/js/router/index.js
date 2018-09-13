@@ -17,7 +17,7 @@ const AnnouncementTable = () => import('../components/AnnouncementTable.vue')
 const NotificationPane = () => import('../components/NotificationPane.vue')
 const ContestTable = () => import('../components/ContestTable.vue')
 const ContestShow = () => import('../components/ContestShow.vue')
-const ContestPractice = () =>import('../components/ContestPractice.vue')
+const ContestPractice = () => import('../components/ContestPractice.vue')
 
 const Profile = () => import('../components/Profile.vue')
 const ProfileEditor = () => import('../components/ProfileEditor.vue')
@@ -134,7 +134,10 @@ const router = new VueRouter({
                 }
             ]
         },
-        { path: '*', component: NotFoundPage }
+        {
+            path: '*',
+            component: NotFoundPage
+        }
     ]
 })
 

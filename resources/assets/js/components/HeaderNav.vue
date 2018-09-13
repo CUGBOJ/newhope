@@ -70,7 +70,7 @@
   </Header>
 </template>
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
+import {mapGetters, mapActions, mapState} from 'vuex'
 
 export default {
     computed: {

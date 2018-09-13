@@ -47,7 +47,7 @@
 </template>
  
 <script>
-import { codemirror } from 'vue-codemirror'
+import {codemirror} from 'vue-codemirror'
 
 import 'codemirror/addon/display/autorefresh.js'
 

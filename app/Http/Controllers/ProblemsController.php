@@ -61,18 +61,20 @@ class ProblemsController extends Controller
     {
         $data = [];
         $data['title'] = $request->title;
+        $data['author'] = $request->author;
         $data['description'] = $request->description;
         $data['input'] = $request->input;
         $data['output'] = $request->output;
         $data['sample_input'] = $request->sample_input;
         $data['sample_output'] = $request->sample_output;
+        $data['hint'] = $request->hint;
+        $data['hide'] = $request->hide;
         $data['special_judge'] = $request->special_judge;
         $data['time_limit'] = $request->time_limit;
         $data['case_time_limit'] = $request->case_time_limit;
         $data['memory_limit'] = $request->memory_limit;
-        $data['hint'] = $request->hint;
-        $data['hide'] = $request->hide;
-        $data['author'] = $request->author;
+        $data['v_name'] = $request->v_name;
+        $data['source'] = $request->source;
         $problem->update($data);
 
         return response()->json(['message' => 'Updated successful.'], 200);

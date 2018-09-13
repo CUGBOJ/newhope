@@ -30,7 +30,7 @@
   <Spin size="large" fix v-else/>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import axios from 'axios'
 
 export default {
