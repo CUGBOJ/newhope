@@ -52,9 +52,10 @@ export default {
                                 {
                                     props: {
                                         to: {
-                                            name: 'problem',
+                                            name: 'contest-practice',
                                             params: {
-                                                problemId: params.row.id
+                                                id: this.contestid,
+                                                char: params.row.pivot.keychar
                                             }
                                         }
                                     }

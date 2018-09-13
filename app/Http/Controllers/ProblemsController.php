@@ -12,6 +12,9 @@ class ProblemsController extends Controller
     {
             return response()->json($problem);
     }
+    // public function showByContest(){
+
+    // }
 
     public function store(Request $request)
     {

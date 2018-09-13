@@ -22,6 +22,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
+            loading: true,
             contest: null
         }
     },
@@ -30,13 +31,16 @@ export default {
     },
     methods: {
         fetchData() {
+            this.loading = true
             let params = {}
+
             axios
                 .get('/api/contests', {
                     params
                 })
                 .then(res => {
                     this.contests = res.data
+                    this.loading = false
                 })
                 .catch(err => {
                     this.$Message.error(err.response.data.message)

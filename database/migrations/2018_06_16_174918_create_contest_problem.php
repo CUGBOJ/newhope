@@ -17,6 +17,7 @@ class CreateContestProblem extends Migration
             $table->integer('id', 1)->index()->unsigned();
             $table->integer('contest_id')->unsigned()->index();
             $table->integer('problem_id')->unsigned()->index();
+            $table->integer('keychar'); // 题号 如 A,B
 
             $table->foreign('contest_id')->references('id')->on('contests')->onDelete('cascade');
             $table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');

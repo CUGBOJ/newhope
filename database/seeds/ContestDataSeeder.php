@@ -23,12 +23,18 @@ class ContestDataSeeder extends Seeder
         $problems=Problem::all()->pluck('id')->toArray();
         $users=User::all()->pluck('id')->toArray();
 
+        $num=array();
         $i=1;
         while($i<100){
             $pid=$faker->randomElement($problems);
             $cid=$faker->randomElement($contests);
             $uid=$faker->randomElement($users);
-            DB::insert('insert  IGNORE into contest_problem (contest_id,problem_id) values (?, ?)', [$cid, $pid]);
+            if(array_key_exists($cid,$num)===FALSE){
+                $num[$cid]=1;
+            }else{
+                $num[$cid]++;
+            }
+            DB::insert('insert  IGNORE into contest_problem (contest_id,problem_id,keychar) values (?, ?,?)', [$cid, $pid,$num[$cid]]);
             DB::insert('insert  IGNORE into contest_user (contest_id,user_id) values (?, ?)', [$cid, $uid]);
             $i++;
         }

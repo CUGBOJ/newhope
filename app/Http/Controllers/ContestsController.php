@@ -28,8 +28,6 @@ class ContestsController extends Controller
 
     public function show(Request $request,Contest $contest)
     {   
-        // dd($contest);
-        // return 'ss';
         return response()->json($contest);
     }
 
@@ -111,13 +109,20 @@ class ContestsController extends Controller
         return redirect()->route('contests.show', $contest->id);
     }
 
-    public function getProblem(Contest $contest,Request $request)
+    public function getProblems(Contest $contest,Request $request)
     {   
         $problem = $contest->problems();
         $perPage = request()->get('perPage') ?: 15;
         $page = request()->get('page') ?: 1;
         return $problem->orderByDesc('id')->paginate($perPage, ['*'], 'page', $page);
         // return $problem->get();
+    }
+    public function getProblem(Request $request)
+    {
+        $contest_id=$request->cid;
+        $keychar=$request->keychar;
+        $problem=\DB::table('contest_problem')->where('contest_id',$contest_id)->where('keychar',$keychar)->first();
+        return $problem->problem_id;
     }
     public function getUser(Contest $contest)
     {   

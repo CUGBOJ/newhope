@@ -16,6 +16,8 @@
                 <contestTopics  v-bind:contestid="id" />
             </Tab-pane>
             <Tab-pane label="Clarify" key="key5">Clarify</Tab-pane>
+               
+            </Tab-pane> 
         </Tabs>
         
     </div>
