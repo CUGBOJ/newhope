@@ -10,8 +10,12 @@
           <div class="title">{{announcement.title}}</div>
         </a>
         <div>
-          {{`#${announcement.id} updated `}}
-           <Time :time="announcement.updated_at"></Time>
+            <Tag color="default">
+                {{`#${announcement.id}`}}
+            </Tag>
+            <Tag color="primary">
+                <Time :time="announcement.updated_at"></Time>
+            </Tag>
         </div>
       </li>
     </ul>

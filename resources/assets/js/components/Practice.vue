@@ -12,7 +12,7 @@
                         v-model.lazy="problemSearchText" 
                         style="width: 180px; float: right"
                     >
-                    <Option v-for="item in problemSearchData" :value="item.id" :key="item.id">{{ item.title }}</Option>
+                        <Option v-for="item in problemSearchData" :value="item.id" :key="item.id">{{ item.title }}</Option>
                     </AutoComplete>
                     <router-view></router-view>
                 </div>
@@ -41,7 +41,8 @@ export default {
         return {
             splitRatio: 0.5,
             problemSearchText: null,
-            problemSearchData: []
+            problemSearchData: [],
+            lastSearchTime: 0
         }
     },
     mounted() {
@@ -62,13 +63,15 @@ export default {
             })
         },
         searchProblem() {
-            if (!this.problemSearchText || this.problemSearchText.lenght <= 0) {
+            if (this.problemSearchText == null || Date.now() - this.lastSearchTime < 1500) {
                 return
             }
 
+            this.lastSearchTime = Date.now()
+
             axios.get('/api/problem',  {
                 params: {
-                    search: this.problemSearchText
+                    search: this.problemSearchText.toString().trim()
                 }
             })
                 .then(res => {
@@ -104,11 +107,6 @@ export default {
         },
         keychar() {
             return this.inContest ? this.$route.params.keychar : null
-        }
-    },
-    watch: {
-        $route(to) {
-            this.problemSearchText = to.params.problemId
         }
     }
 }

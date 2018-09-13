@@ -1,19 +1,25 @@
 <template>
   <Spin size="large" fix v-if="loading"></Spin>
   <div v-else>
+    <Row>
+      <Button type="primary">New contest</Button>
+    </Row>
     <ul>
       <li v-for="contest in contests" :key="contest.id">
         <router-link :to="'/contest/' + contest.id">
           <div class="title">{{contest.title}}</div>
         </router-link>
         <div>
-          {{`#${contest.id} updated at ${contest.updated_at}`}}
+            <Tag color="default">
+                #{{contest.id}}
+            </Tag>
+            updated
+            <Tag color="primary"> 
+                <Time :time="contest.updated_at"></Time>
+            </Tag>
         </div>
       </li>
     </ul>
-    <Row>
-      <Button type="primary">New contest</Button>
-    </Row>
   </div>
 </template>
 

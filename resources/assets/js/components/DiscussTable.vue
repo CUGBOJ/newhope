@@ -10,8 +10,20 @@
                     <div class="title">{{discussion.title}}</div>
                 </router-link>
                 <div>
-                {{`#${discussion.id} for problem #${discussion.problem_id} by ${discussion.username}`}}
-                <Time :time="discussion.created_at"></Time>
+                    <Tag color="default"> 
+                        {{`#${discussion.id}`}}
+                    </Tag>
+                    {{`for problem`}}
+                    <Tag color="default"> 
+                        {{`#${discussion.problem_id}`}}
+                    </Tag>
+                    by
+                    <Tag color="default"> 
+                        {{`${discussion.username}`}}
+                    </Tag>
+                    <Tag color="primary">
+                        <Time :time="discussion.created_at"></Time>
+                    </Tag>
                 </div>
           </li>
       </ul>

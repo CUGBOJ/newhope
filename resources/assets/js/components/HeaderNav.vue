@@ -28,7 +28,7 @@
           <Button @click="$router.push({name: 'announcements'})">
             公告
           </Button>
-          <Button @click="$router.push('help')">
+          <Button @click="$router.push('/help')">
             帮助
           </Button>
         </ButtonGroup>
