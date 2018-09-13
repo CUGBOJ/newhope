@@ -5,6 +5,7 @@
                 <div style="height: 70vh; overflow: auto">
                     ID: {{problemId}}
                     <AutoComplete 
+                        v-if="!inContest"
                         icon="ios-search" 
                         @on-search="searchProblem"
                         @on-select="changeProblem"
@@ -33,6 +34,9 @@ export default {
     components: {
         CodeEditor: () => import('./CodeEditor.vue')
     },
+    props: {
+        inContest: Boolean
+    },
     data() {
         return {
             splitRatio: 0.5,
@@ -40,13 +44,18 @@ export default {
             problemSearchData: []
         }
     },
+    mounted() {
+        if (this.inContest) {
+            this.fetchProblemId()
+        }     
+    },
     methods: {
         submitCode() {
             window.bus.$emit('submit')
         },
-        changeProblem(problemId) {
+        changeProblem(problemId = this.problemId) {
             this.$router.push({
-                name: 'problem',
+                name: this.inContest ? 'contest-problem' : 'problem',
                 params: {
                     problemId
                 }
@@ -72,11 +81,29 @@ export default {
                         duration: 0
                     })
                 })
+        },
+        fetchProblemId() {
+            axios
+                .get('/api/getProblemId',{
+                    params: {
+                        cid: this.contestId,
+                        keychar: this.keychar
+                    }
+                })
+                .then(res => {
+                    this.changeProblem(res.data)
+                })
         }
     },
     computed: {
         problemId() {
             return this.$route.params.problemId
+        },
+        contestId() {
+            return this.inContest ? this.$route.params.contestId : null
+        },
+        keychar() {
+            return this.inContest ? this.$route.params.keychar : null
         }
     },
     watch: {

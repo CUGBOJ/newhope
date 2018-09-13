@@ -6,14 +6,14 @@
         </div>
         <Tabs active-key="key1" style="margin-top:20px">
             <Tab-pane label="Problem" key="key1">
-                <contestProblems v-bind:contestid="id" />
+                <contestProblems v-bind:contestId="id" />
             </Tab-pane>
             <Tab-pane label="Status" key="key2">
-                <contestStatus v-bind:contestid="id" />
+                <contestStatus v-bind:contestId="id" />
             </Tab-pane>
             <Tab-pane label="Standing" key="key3">Standing</Tab-pane>
             <Tab-pane label="Topics" key="key4">
-                <contestTopics  v-bind:contestid="id" />
+                <contestTopics  v-bind:contestId="id" />
             </Tab-pane>
             <Tab-pane label="Clarify" key="key5">Clarify</Tab-pane>
                

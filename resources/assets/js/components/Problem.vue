@@ -3,30 +3,30 @@
         <Spin size="large" fix></Spin>
     </div>
     <div v-else>
-        <h1>{{ this.problem.allData.title }}</h1>
+        <h1>{{ this.problem.data.title }}</h1>
         <div>
             <h3>Description</h3>
-            {{ this.problem.allData.description }}
+            {{ this.problem.data.description }}
         </div>
         <div>
             <h3>Input</h3>
-            {{ this.problem.allData.input }}
+            {{ this.problem.data.input }}
         </div>
         <div>
             <h3>Output</h3>
-            {{ this.problem.allData.output }}
+            {{ this.problem.data.output }}
         </div>
         <div>
             <h3>sample_input</h3>
-            {{ this.problem.allData.sample_input }}
+            {{ this.problem.data.sample_input }}
         </div>
         <div>
             <h3>sample_output</h3>
-            {{ this.problem.allData.sample_output }}
+            {{ this.problem.data.sample_output }}
         </div>
         <div>
             <h3>hint</h3>
-            {{ this.problem.allData.hint }}
+            {{ this.problem.data.hint }}
         </div>
     </div>
 </template>
@@ -39,7 +39,7 @@ export default {
         return {
             loading: true,
             problem: {
-                allData: {}
+                data: {}
             }
         }
     },
@@ -48,7 +48,7 @@ export default {
             .get(`/api/problem/${to.params.problemId}`)
             .then(res => {
                 next(vm => {
-                    vm.problem.allData = res.data
+                    vm.problem.data = res.data
                     vm.loading = false
                 })
             })
@@ -61,7 +61,7 @@ export default {
         axios
             .get(`/api/problem/${to.params.problemId}`)
             .then(res => {
-                this.problem.allData = res.data
+                this.problem.data = res.data
                 this.loading = false
                 next()
             })

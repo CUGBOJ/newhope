@@ -17,7 +17,6 @@ const AnnouncementTable = () => import('../components/AnnouncementTable.vue')
 const NotificationPane = () => import('../components/NotificationPane.vue')
 const ContestTable = () => import('../components/ContestTable.vue')
 const ContestShow = () => import('../components/ContestShow.vue')
-const ContestPractice = () => import('../components/ContestPractice.vue')
 
 const Profile = () => import('../components/Profile.vue')
 const ProfileEditor = () => import('../components/ProfileEditor.vue')
@@ -107,9 +106,19 @@ const router = new VueRouter({
             component: ContestShow
         },
         {
-            path: '/contest/:id/practice/:char',
-            component: ContestPractice,
-            name: 'contest-practice'
+            path: '/contest/:contestId/practice/:keychar',
+            component: Practice,
+            props: {
+                inContest: true
+            },
+            name: 'contest-practice',
+            children: [
+                {
+                    path: ':problemId',
+                    component: Problem,
+                    name: 'contest-problem'
+                }
+            ]
         },
 
         {

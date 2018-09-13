@@ -23,7 +23,7 @@ export default {
             type: Number,
             default: 0
         },
-        contestid: {}
+        contestId: {}
     },
     data() {
         return {
@@ -44,7 +44,7 @@ export default {
             }
 
             axios
-                .get('/api/topicsByContest/' + this.contestid, {
+                .get('/api/topicsByContest/' + this.contestId, {
                     params
                 })
                 .then(res => {

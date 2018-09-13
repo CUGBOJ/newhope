@@ -10,7 +10,7 @@
 import axios from 'axios'
 
 export default {
-    props: ['contestid'],
+    props: ['contestId'],
     mounted() {
         this.changePage()
     },
@@ -23,7 +23,7 @@ export default {
         changePage(p = 1) {
             this.loading = true
             axios
-                .get('/api/problemsByContest/' + this.contestid, {
+                .get('/api/problemsByContest/' + this.contestId, {
                     params: {
                         page: p,
                         perPage: this.perPage
@@ -54,8 +54,8 @@ export default {
                                         to: {
                                             name: 'contest-practice',
                                             params: {
-                                                id: this.contestid,
-                                                char: params.row.pivot.keychar
+                                                contestId: this.contestId,
+                                                keychar: params.row.pivot.keychar
                                             }
                                         }
                                     }
