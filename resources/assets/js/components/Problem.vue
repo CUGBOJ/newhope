@@ -3,30 +3,53 @@
         <Spin size="large" fix></Spin>
     </div>
     <div v-else>
-        <h1>{{ this.problem.data.title }}</h1>
-        <div>
-            <h3>Description</h3>
-            {{ this.problem.data.description }}
-        </div>
-        <div>
-            <h3>Input</h3>
-            {{ this.problem.data.input }}
-        </div>
-        <div>
-            <h3>Output</h3>
-            {{ this.problem.data.output }}
-        </div>
-        <div>
-            <h3>sample_input</h3>
-            {{ this.problem.data.sample_input }}
-        </div>
-        <div>
-            <h3>sample_output</h3>
-            {{ this.problem.data.sample_output }}
-        </div>
-        <div>
-            <h3>hint</h3>
-            {{ this.problem.data.hint }}
+        <Row type="flex" align="middle" :gutter="16">
+            <Col span="9">
+                <h1>{{ this.problem.data.title }}</h1>
+            </Col>
+            <Col span="3">
+                <Tag color="primary" size="large">
+                    #{{this.problem.data.id}}
+                </Tag>
+            </Col>
+        </Row>
+        <div style="background: white; padding: 5px 20px;">
+            <Divider orientation="left">
+                <h3>Description</h3>
+            </Divider>
+            <p>
+                {{ this.problem.data.description }}
+            </p>
+            <Divider orientation="left">
+                <h3>Input</h3>
+            </Divider>
+            <p>
+                {{ this.problem.data.input }}
+            </p>
+            <Divider orientation="left">
+                <h3>Output</h3>
+            </Divider>
+            <p>
+                {{ this.problem.data.output }}
+            </p>
+            <Divider orientation="left">
+                <h3>Sample Input</h3>
+            </Divider>
+            <p>
+                {{ this.problem.data.sample_input }}
+            </p>
+            <Divider orientation="left">
+                <h3>Sample Output</h3>
+            </Divider>
+            <p>
+                {{ this.problem.data.sample_output }}
+            </p>
+            <Divider orientation="left">
+                <h3>Hint</h3>
+            </Divider>
+            <p>
+                {{ this.problem.data.hint }}
+            </p>
         </div>
     </div>
 </template>
@@ -81,3 +104,10 @@ export default {
     }
 }
 </script>
+<style lang="stylus" scoped>
+h3
+    color #9c9da7
+
+p
+    font-size 16px
+</style>

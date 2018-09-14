@@ -221,5 +221,5 @@ export default {
 <style lang="stylus">
 .CodeMirror
     font-size 18px
-    height 70vh
+    height 63vh
 </style>

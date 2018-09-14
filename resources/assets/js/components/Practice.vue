@@ -1,9 +1,8 @@
 <template>
-    <div>
+    <div style="height: 100%;">
         <Split v-model="splitRatio">
             <div slot="left" v-show="splitRatio > 0.1" class="split-pane">
-                <div style="height: 70vh; overflow: auto">
-                    ID: {{problemId}}
+                <div style="max-height: 70vh; overflow: auto">
                     <AutoComplete 
                         v-if="!inContest"
                         icon="ios-search" 
@@ -16,14 +15,17 @@
                     </AutoComplete>
                     <router-view></router-view>
                 </div>
-                <i-button type="primary" @click.native="submitCode">
-                    提交
-                </i-button>
             </div>
             <div slot="right" class="split-pane">
                 <CodeEditor/>
             </div>
         </Split>
+        <i-button type="primary" @click.native="editProblem" style="float: right">
+            修改题目
+        </i-button>
+        <i-button type="primary" @click.native="submitCode" style="float: right">
+            提交
+        </i-button>
     </div>
 </template>
 
@@ -53,6 +55,14 @@ export default {
     methods: {
         submitCode() {
             window.bus.$emit('submit')
+        },
+        editProblem() {
+            this.$router.push({
+                name: 'problem-edit',
+                params: {
+                    id: this.problemId
+                }
+            })
         },
         changeProblem(problemId = this.problemId) {
             this.$router.push({
@@ -112,8 +122,12 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .split-pane
-    padding 10px
+    padding 3px
+    
+>>> .ivu-split-trigger
+    border none
+    background none
 </style>
 

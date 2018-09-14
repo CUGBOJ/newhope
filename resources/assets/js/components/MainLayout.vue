@@ -1,9 +1,9 @@
 <template>
   <div>
     <header-nav/>
-    <card style="height: 80vh; margin: 80px 30px 0; overflow: auto;" dis-hover>
+    <div style="min-height: 90vh; height: 90vh; padding: 80px 30px 0;">
       <router-view></router-view>
-    </card>
+    </div>
     <i-footer class="layout-footer-center">2018 &copy; OJ_NG</i-footer>
   </div>
 </template>
