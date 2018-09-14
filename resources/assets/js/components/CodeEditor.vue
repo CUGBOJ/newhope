@@ -211,6 +211,9 @@ export default {
                     })
                 })
         })
+    },
+    beforeDestroy() {
+        window.bus.$off('submit')
     }
 }
 </script>
