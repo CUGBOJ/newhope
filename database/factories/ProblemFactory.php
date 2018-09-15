@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Models\Problem::class, function (Faker $faker) {
     $date_time = $faker->date . ' ' . $faker->time;
     return [
-        'title' => $faker->sentence,
+        'title' => "Problem ",
         'description' => $faker->text,
         'input'=>$faker->text,
         'output'=>$faker->text,

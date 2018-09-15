@@ -10,6 +10,14 @@ class ProblemsTableSeeder extends Seeder
      */
     public function run()
     {
-        $problems = factory(Problem::class, 50)->create();
+        $problems = factory(Problem::class)
+            ->times(100)
+            ->make();
+        $i=1;
+        foreach($problems as $problem){
+            $problem->title=$problem->title.(string)$i;
+            $i++;
+        }
+        Problem::insert($problems->toArray());
     }
 }
