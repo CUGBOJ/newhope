@@ -3,17 +3,31 @@
         <Spin size="large" fix></Spin>
     </div>
     <div v-else>
-        <Row type="flex" align="middle" :gutter="16">
-            <Col span="9">
-                <h1>{{ this.problem.data.title }}</h1>
-            </Col>
-            <Col span="3">
-                <Tag color="primary" size="large">
-                    #{{this.problem.data.id}}
-                </Tag>
-            </Col>
-        </Row>
-        <div style="background: white; padding: 5px 20px;">
+        <div class="problem">
+            <Row type="flex" justify="center" align="middle">
+                <Col>
+                    <h1>{{ this.problem.data.title }}</h1>
+                </Col>
+                <Col span="1">
+                    <Tag color="primary" size="large">
+                        #{{this.problem.data.id}}
+                    </Tag>
+                </Col>
+            </Row>
+            <Row type="flex" justify="center" align="middle" :gutter="16">
+                <Col>
+                    <Icon type="md-done-all" />
+                    {{this.acRatio}}
+                </Col>
+                <Col>
+                    <Icon type="ios-time" />
+                    {{this.problem.data.time_limit}} ms
+                </Col>
+                <Col>
+                    <Icon type="md-apps" />
+                    {{this.problem.data.memory_limit}} KB
+                </Col>
+            </Row>
             <Divider orientation="left">
                 <h3>Description</h3>
             </Divider>
@@ -35,15 +49,17 @@
             <Divider orientation="left">
                 <h3>Sample Input</h3>
             </Divider>
-            <p>
-                {{ this.problem.data.sample_input }}
-            </p>
+            <Row type="flex" justify="end">
+                <Button type="dashed" shape="circle" icon="ios-copy" class="copy" id="copy-sample-input" :data-clipboard-text="this.problem.data.sample_input"></Button>
+            </Row>
+            <pre>{{ this.problem.data.sample_input }}</pre>
             <Divider orientation="left">
                 <h3>Sample Output</h3>
             </Divider>
-            <p>
-                {{ this.problem.data.sample_output }}
-            </p>
+            <Row type="flex" justify="end">
+                <Button type="dashed" shape="circle" icon="ios-copy" class="copy" id="copy-sample-output" :data-clipboard-text="this.problem.data.sample_output"></Button>
+            </Row>
+            <pre>{{ this.problem.data.sample_output }}</pre>
             <Divider orientation="left">
                 <h3>Hint</h3>
             </Divider>
@@ -56,6 +72,7 @@
 
 <script>
 import axios from 'axios'
+const Clipboard = require('clipboard')
 
 export default {
     data() {
@@ -65,6 +82,24 @@ export default {
                 data: {}
             }
         }
+    },
+    created() {
+        // Initialize Clipboard
+        let Cb = new Clipboard('#copy-sample-output')
+        Cb.on('success', () => {
+            this.$Message.success('Copied')
+        })
+        Cb.on('error', () => {
+            this.$Message.error('Copy error')
+        })
+
+        Cb = new Clipboard('#copy-sample-input')
+        Cb.on('success', () => {
+            this.$Message.success('Copied')
+        })
+        Cb.on('error', () => {
+            this.$Message.error('Copy error')
+        })
     },
     beforeRouteEnter(to, from, next) {
         axios
@@ -100,6 +135,13 @@ export default {
     computed: {
         problemId() {
             return this.$route.params.problemId
+        },
+        acRatio() {
+            if (this.problem.data.total_ac === 0) {
+                return '0%'
+            } else {
+                return (this.problem.data.total_ac / this.problem.data.total_submit * 100).toFixed(2).toString() + '%'
+            }
         }
     }
 }
@@ -109,5 +151,23 @@ h3
     color #9c9da7
 
 p
-    font-size 16px
+    font-size 1.3rem
+
+pre
+    font-size 1.2rem
+    word-break break-all
+    word-wrap break-word
+    display block
+    white-space pre-wrap
+    margin 0
+
+.copy
+    margin-top -25px
+    z-index 999
+
+.problem
+    background white 
+    padding 5px 20px
+    height 100%
+    min-height 70vh
 </style>

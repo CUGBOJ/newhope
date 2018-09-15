@@ -37,6 +37,7 @@ class ProblemsController extends Controller
         return response()->json(['message' => 'Added successful.'], 200);
     }
 
+    // TODO: Split Search and Index
     public function get_problems(Request $request)
     {
         $problem = Problem::getModel();

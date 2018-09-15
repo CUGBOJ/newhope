@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Row :gutter="16">
+    <Row :gutter="16" style="height:32px">
       <Col span="8">
       <Dropdown @on-click="onLmClick" trigger="click">
         <Button type="text">
@@ -184,7 +184,22 @@ export default {
         }
     },
     mounted() {
+        // Load user's editor config from localStorage
+        let option = window.localStorage.getItem('cmOptions')
+        if (option) {
+            this.cmOptions = JSON.parse(option)
+        }
+
+        // Load sample code
         this.onLmClick(this.cmOptions.mode)
+    },
+    watch: {
+        cmOptions: { 
+            handler (val) {
+                window.localStorage.setItem('cmOptions', JSON.stringify(val))
+            },
+            deep: true
+        }
     },
     created() {
         this.CONSTANT = CONSTANT
@@ -221,5 +236,5 @@ export default {
 <style lang="stylus">
 .CodeMirror
     font-size 18px
-    height 63vh
+    height 70vh
 </style>
