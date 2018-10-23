@@ -95,7 +95,7 @@ vi php.ini
 ```shell
 brew update
 brew search php
-brew install php71
+brew install php@7.1
 ```
 
 ### Composer
