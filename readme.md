@@ -35,7 +35,7 @@
 #### 该项目依赖与以下环境，请自行检查是否已经安装以及版本符合要求
 
 -   Mysql Server
--   PHP （>=7.0)
+-   PHP （>=7.1)
 -   NodeJS (>=8.0)
 -   Composer
 -   HTTP Server
@@ -45,7 +45,17 @@
 **Linux User(Ubuntu for example):**
 
 ```shell
-apt-get install mysql-server
+
+sudo apt-get install mariadb-server mariadb-client
+sudo mysql_secure_installation #设置密码
+sudo mysql -u root -p
+```
+
+```mysql
+use mysql;
+update user set plugin='mysql_native_password' where user='root';
+flush privileges; 
+quit;
 ```
 
 **Windows User:**
@@ -57,9 +67,13 @@ apt-get install mysql-server
 **Linux User(Ubuntu for example):**
 
 ```shell
-apt-get install php7.0 php7.0-zip php7.0-dev php7.0-json php7.0-mbstring php7.0-mysql php7.0-curl php7.0-xml
-cd /etc/php/7.0/fpm/
-vi php.ini
+#添加php源
+sudo add-apt-repository ppa:ondrej/php
+#更新apt数据，载入php源数据
+sudo apt update
+sudo apt-get install php7.1 php7.1-fpm  php7.1-zip php7.1-dev php7.1-json php7.1-mbstring php7.1-mysql php7.1-curl php7.1-xml
+cd /etc/php/7.1/fpm/
+sudo vi php.ini
 ```
 
 取消下面几行的注释
@@ -168,7 +182,7 @@ npm run dev #npm run watch 可以监控js代码变化，实时编译
 php artisan serve
 ```
 
-打开 http://127.0.0.1:8000 即可看到部署成功的网站
+打开 http://127.1.0.1:8000 即可看到部署成功的网站
 
 可以增加`--port=<the_port_you_want>`参数来指定端口，默认为 8000
 
@@ -233,9 +247,9 @@ location / {
 
  location ~ \.php$ {
                   include snippets/fastcgi-php.conf;
-          #       # With php7.0-cgi alone:
-          #       fastcgi_pass 127.0.0.1:9000;
-          #       # With php7.0-fpm:
-                  fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+          #       # With php7.1-cgi alone:
+          #       fastcgi_pass 127.1.0.1:9000;
+          #       # With php7.1-fpm:
+                  fastcgi_pass unix:/run/php/php7.1-fpm.sock;
           }
 ```
