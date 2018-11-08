@@ -106,7 +106,7 @@ const router = new VueRouter({
             component: ContestShow
         },
         {
-            path: '/contest/:contestId/practice/:keychar',
+            path: '/contest/:contestId/practice',
             component: Practice,
             props: {
                 inContest: true
@@ -114,7 +114,7 @@ const router = new VueRouter({
             name: 'contest-practice',
             children: [
                 {
-                    path: ':problemId',
+                    path: ':keychar',
                     component: Problem,
                     name: 'contest-problem'
                 }

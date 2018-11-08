@@ -54,8 +54,9 @@ class StatusesController extends Controller
 
     public function store(Request $request, PostCodeToCugbOj $post)
     {
-
+        // dd($request);
         $res = $post->post_to_cugb_oj($request);
+
         if ($res == "fail submit") {
             return response()->json(['message' => 'fail submit',
                 'info' => $res,

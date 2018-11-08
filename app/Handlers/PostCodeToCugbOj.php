@@ -67,6 +67,7 @@ class PostCodeToCugbOj
                 'time' => $result[1],
                 'memory' => $result[2],
                 'ce_info' => $ce_info,
+                'contest_id'=>$request->cid,
             ]);
             $info = $res;
         }

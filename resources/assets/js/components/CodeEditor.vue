@@ -206,8 +206,12 @@ export default {
         let self = this
         window.bus.$on('submit', function() {
             self.$Message.success('已向服务器提交')
+            console.log('xxxxx' + self.$route.params.problemId)
+            console.log('hhhh' + self.$route.params.contestId)
             axios
                 .post('/api/codeSubmit', {
+                    // cid: self.$route.params.problemId,
+                    cid: self.$route.params.contestId,
                     pid: self.$route.params.problemId,
                     code: self.code,
                     lang: self.getLang
