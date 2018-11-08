@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <div>
             <contestTitleCard v-if="contest" v-bind:title="contest.title" v-bind:start="contest.start_time" v-bind:end="contest.end_time"></contestTitleCard>
@@ -16,12 +15,8 @@
                 <contestTopics  v-bind:contestId="id" />
             </Tab-pane>
             <Tab-pane label="Clarify" key="key5">Clarify</Tab-pane>
-               
-            </Tab-pane> 
         </Tabs>
-        
     </div>
-    
 </template>
 
 <script>
@@ -33,7 +28,6 @@ import axios from 'axios'
 
 
 export default {
-
     data() {
         return {
             id: location.href.split('/')[4], 
