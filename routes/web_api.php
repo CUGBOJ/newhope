@@ -57,3 +57,5 @@ Route::post('codeSubmit', 'StatusesController@store');
 Route::get('problem', 'ProblemsController@get_problems');
 
 Route::get('status', 'StatusesController@show');
+
+Route::get('standing/{contest}','ContestsController@getStanding');

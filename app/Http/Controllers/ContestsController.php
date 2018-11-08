@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContestRequest;
 use App\Models\Contest;
 use App\Models\Problem;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\RankUser;
 
 class ContestsController extends Controller
 {
@@ -198,4 +200,46 @@ class ContestsController extends Controller
 
         return $topics->get();
     }
+    
+    public function getStanding(Contest $contest,Request $request){
+
+
+            $nowtime=$request->time;
+            if(!$nowtime){
+                $nowtime=now();
+            }
+            $userList=array();
+            $res=array();
+            $statuses=\DB::table('statuses')->where('contest_id',$contest->id)->orderBy('submit_time', 'asc')->get();
+
+            
+
+            foreach($statuses as $status){
+                $s=Status::find($status->id);
+                if($status->submit_time<$nowtime){
+                    if(!in_array($s->user->username,$userList)){
+                        array_push($userList,$s->user->username);
+                        $res[$s->user->username]=new RankUser($s->user->id,$s->user->username);
+                    }
+                    $res[$s->user->username]->addStatus($status,$contest->start_time);
+                }
+            }
+
+            
+            usort($res,array($this,'cmps'));                // 排序 RankUser
+            $rank=1;
+            foreach($res as $user){
+                $user->rank=$rank++;
+            }   
+            return $res;
+    }
+    public function cmps($a,$b){
+        if(count($a->solPro)!=count($b->solPro)){
+            return count($a->solPro)<count($b->solPro);
+        }else{
+            return $a->grade>$b->grade;
+        }
+    }
+
+    
 }
