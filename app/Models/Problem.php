@@ -107,6 +107,6 @@ class Problem extends Model
     }
     public function contests()
     {
-        return $this->belongsToMany(contests::class,'contest_problem',  'problem_id','contest_id')->withPivot('keychar');
+        return $this->belongsToMany(Contest::class,'contest_problem',  'problem_id','contest_id')->withPivot('keychar');
     }
 }

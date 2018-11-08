@@ -17,7 +17,7 @@ class ContestsTableSeeder extends Seeder
         $owner = User::all()->pluck('username')->toArray();
         $faker = app(Faker\Generator::class);
         $contests = factory(Contest::class)
-            ->times(20)
+            ->times(3)
             ->make()
             ->each(function ($contest,$index)
                 use ($owner,$faker)

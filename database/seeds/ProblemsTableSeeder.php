@@ -11,7 +11,7 @@ class ProblemsTableSeeder extends Seeder
     public function run()
     {
         $problems = factory(Problem::class)
-            ->times(100)
+            ->times(15)
             ->make();
         $i=1;
         foreach($problems as $problem){

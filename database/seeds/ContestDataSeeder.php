@@ -25,7 +25,7 @@ class ContestDataSeeder extends Seeder
 
         $num=array();
         $i=1;
-        while($i<100){
+        while($i<50){
             $pid=$faker->randomElement($problems);
             $cid=$faker->randomElement($contests);
             $uid=$faker->randomElement($users);
@@ -38,5 +38,7 @@ class ContestDataSeeder extends Seeder
             DB::insert('insert  IGNORE into contest_user (contest_id,user_id) values (?, ?)', [$cid, $uid]);
             $i++;
         }
+
+
     }
 }

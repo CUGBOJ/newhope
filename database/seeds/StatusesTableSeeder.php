@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Status;
 use App\Models\User;
 use App\Models\Problem;
+use App\Models\Contest;
 
 class StatusesTableSeeder extends Seeder
 {
@@ -17,14 +18,22 @@ class StatusesTableSeeder extends Seeder
         $faker = app(Faker\Generator::class);
 
         $statuses = factory(Status::class)
-            ->times(1000)
+            ->times(2000)
             ->make()
             ->each(function ($status, $index) use ($user_names, $pids, $faker) {
-                // 从用户名 数组中随机取出一个并赋值
-                $status->username = $faker->randomElement($user_names);
+                $pid=$faker->randomElement($pids);
+                $username=$faker->randomElement($user_names);
 
-                // 问题 ID，同上
-                $status->pid = $faker->randomElement($pids);
+                $status->username = $username;
+                $status->pid = $pid;
+                $pro=Problem::find($pid);
+                $contests=array();
+                foreach($pro->contests as $contest){
+                    array_push($contests,$contest->id);
+                }
+                $cid=$faker->randomElement($contests);
+                $status->contest_id=$cid;
+
             });
 
         // 将数据集合转换为数组，并插入到数据库中
