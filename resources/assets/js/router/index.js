@@ -56,6 +56,14 @@ const router = new VueRouter({
             component: ProblemEditor
         },
         {
+            path: '/problem/create',
+            name: 'problem-create',
+            component: ProblemEditor,
+            props: {
+                isCreator: true
+            }
+        },
+        {
             path: '/users',
             name: 'users',
             component: UsersTable

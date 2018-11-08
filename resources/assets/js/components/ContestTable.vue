@@ -1,26 +1,23 @@
 <template>
   <Spin size="large" fix v-if="loading"></Spin>
-  <div v-else>
+  <Card v-else style="margin: 10px 0;">
     <Row>
       <Button type="primary">New contest</Button>
     </Row>
-    <ul>
-      <li v-for="contest in contests" :key="contest.id">
-        <router-link :to="'/contest/' + contest.id">
-          <div class="title">{{contest.title}}</div>
-        </router-link>
-        <div>
+    <CellGroup>
+      <Cell v-for="contest in contests" 
+      :key="contest.id" 
+      :title="contest.title" 
+      :to="{name: 'contest-show', params: {id: contest.id}}">
+        <div slot="label">
             <Tag color="default">
                 #{{contest.id}}
             </Tag>
-            updated
-            <Tag color="primary"> 
-                <Time :time="contest.updated_at"></Time>
-            </Tag>
+            <Time :time="contest.start_time"></Time>
         </div>
-      </li>
-    </ul>
-  </div>
+      </Cell>
+    </CellGroup>
+  </Card>
 </template>
 
 <script>
@@ -56,16 +53,4 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-li
-    border-bottom 1px solid #e1e4e8
-    list-style-type none
-
-    & .title
-        font-size 1.6em
-
-a
-    color #24292e
-
-    &:hover
-        color #0366d6
 </style>

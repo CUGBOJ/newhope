@@ -12,20 +12,24 @@ class ProblemsController extends Controller
     {
             return response()->json($problem);
     }
-    // public function showByContest(){
 
-    // }
+    public function destroy(Problem $problem)
+    {
+        $problem->delete();
+
+        return response()->json('Deleted successful.', 200);
+    }
 
     public function store(Request $request)
     {
-        Problem::create([
+        $prob = Problem::create([
             'title' => $request->title,
             'description' => $request->description,
             'input' => $request->input,
             'output' => $request->output,
             'sample_input' => $request->sample_input,
             'sample_output' => $request->sample_output,
-            'special_judge' => $request->specail_judge,
+            'special_judge' => $request->special_judge,
             'time_limit' => $request->time_limit,
             'case_time_limit' => $request->case_time_limit,
             'memory_limit' => $request->memory_limit,
@@ -34,7 +38,7 @@ class ProblemsController extends Controller
             'author' => $request->author,
         ]);
 
-        return response()->json(['message' => 'Added successful.'], 200);
+        return response()->json(['message' => 'Added successful.', 'id' => $prob->id], 200);
     }
 
     // TODO: Split Search and Index

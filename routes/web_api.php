@@ -50,6 +50,8 @@ Route::get('topicsByContest/{contest}', 'ContestsController@getTopics');
 
 Route::get('problem/{problem}', 'ProblemsController@show');
 Route::post('problem/{problem}', 'ProblemsController@update');
+Route::delete('problem/{problem}', 'ProblemsController@destroy');
+Route::post('problem', 'ProblemsController@store');
 
 Route::post('codeSubmit', 'StatusesController@store');
 

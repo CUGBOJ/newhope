@@ -1,6 +1,9 @@
 <template>
   <div>
     <Table :loading="loading" stripe :columns="columns" :data="data" :height="tableHeight" style="margin: 10px 0;"></Table>
+    <Row>
+      <Button type="primary" :to="{name: 'problem-create'}">New Problem</Button>
+    </Row>
     <div style="float: right;">
       <Page :page-size="perPage" :total="total" :current="1" @on-change="changePage"></Page>
     </div>
@@ -108,6 +111,6 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
->>> a
+>>> .ivu-table-cell a 
     color unset
 </style>
