@@ -23,7 +23,7 @@ class NotificationsController extends Controller
         return response()->json($notifications);
     }
 
-    public function read_all()
+    public function readAll()
     {
         Auth::user()->markAsRead();
 

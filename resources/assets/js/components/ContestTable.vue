@@ -1,6 +1,6 @@
 <template>
   <Spin size="large" fix v-if="loading"></Spin>
-  <Card v-else style="margin: 10px 0;">
+  <Card v-else>
     <Row>
       <Button type="primary">New contest</Button>
     </Row>

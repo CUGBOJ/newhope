@@ -85,21 +85,25 @@ export default {
     },
     created() {
         // Initialize Clipboard
-        let Cb = new Clipboard('#copy-sample-output')
-        Cb.on('success', () => {
+        this.outputCb = new Clipboard('#copy-sample-output')
+        this.outputCb.on('success', () => {
             this.$Message.success('Copied')
         })
-        Cb.on('error', () => {
+        this.outputCb.on('error', () => {
             this.$Message.error('Copy error')
         })
 
-        Cb = new Clipboard('#copy-sample-input')
-        Cb.on('success', () => {
+        this.inputCb = new Clipboard('#copy-sample-input')
+        this.inputCb.on('success', () => {
             this.$Message.success('Copied')
         })
-        Cb.on('error', () => {
+        this.inputCb.on('error', () => {
             this.$Message.error('Copy error')
         })
+    },
+    beforeDestroy() {
+        this.inputCb.destroy()
+        this.outputCb.destroy()
     },
     beforeRouteEnter(to, from, next) {
         axios

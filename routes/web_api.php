@@ -26,7 +26,7 @@ Route::post('login', 'SessionsController@store')->name('login');
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
 Route::get('notifications', 'NotificationsController@index');
-Route::post('notifications', 'NotificationsController@read_all')->name('notifications.read_all');
+Route::post('notifications', 'NotificationsController@readAll')->name('notifications.readAll');
 
 Route::get('topics', 'TopicsController@index');
 Route::get('topic/{topic}', 'TopicsController@show');
@@ -56,7 +56,7 @@ Route::post('problem', 'ProblemsController@store');
 Route::post('codeSubmit', 'StatusesController@store');
 
 
-Route::get('problem', 'ProblemsController@get_problems');
+Route::get('problem', 'ProblemsController@getProblems');
 
 Route::get('status', 'StatusesController@show');
 

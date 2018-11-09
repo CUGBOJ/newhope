@@ -64,15 +64,19 @@ export default {
     },
     mounted() {
         this.fetchData()
-
+    },
+    created() {
         // Initialize Clipboard
-        let Cb = new Clipboard('#copy-code')
-        Cb.on('success', () => {
+        this.cb = new Clipboard('#copy-code')
+        this.cb.on('success', () => {
             this.$Message.success('Copied')
         })
-        Cb.on('error', () => {
+        this.cb.on('error', () => {
             this.$Message.error('Copy error')
         })
+    },
+    beforeDestroy() {
+        this.cb.destroy()
     },
     computed: {
         //Hack filter when page changed

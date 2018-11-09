@@ -42,7 +42,7 @@ class ProblemsController extends Controller
     }
 
     // TODO: Split Search and Index
-    public function get_problems(Request $request)
+    public function getProblems(Request $request)
     {
         $problem = Problem::getModel();
         if ($request->get('search')) {
@@ -88,7 +88,7 @@ class ProblemsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'get_problems', 'show_topics'],
+            'except' => ['show', 'getProblems', 'show_topics'],
         ]);
     }
 }

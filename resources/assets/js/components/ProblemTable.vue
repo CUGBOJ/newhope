@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table :loading="loading" stripe :columns="columns" :data="data" :height="tableHeight" style="margin: 10px 0;"></Table>
+    <Table :loading="loading" stripe :columns="columns" :data="data" :height="tableHeight"></Table>
     <Row>
       <Button type="primary" :to="{name: 'problem-create'}">New Problem</Button>
     </Row>
