@@ -243,7 +243,7 @@ class ContestsController extends Controller
         if (count($a->solPro) != count($b->solPro)) {
             return count($a->solPro) < count($b->solPro);
         } else {
-            return $a->grade > $b->grade;
+            return $a->penalty > $b->penalty;
         }
     }
 

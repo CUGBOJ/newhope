@@ -11,7 +11,7 @@ class RankUser
     var $submitNum;
     var $acSubmitNum;
     var $rank;
-    var $grade;
+    var $penalty;
 
     function __construct($id, $name)
     {
@@ -19,18 +19,18 @@ class RankUser
         $this->username = $name;
         $this->solPro = array();
         $this->allPro = array();
-        $this->submitNum = $this->acSubmitNum = $this->grade = 0;
+        $this->submitNum = $this->acSubmitNum = $this->penalty = 0;
         $this->rank = 10000000;
     }
 
     function addStatus($status, $startTime)
     {
-        if (in_array($status->pid, $this->solPro)) {
-            if ($status->result == 1) {
-                $this->acSubmitNum++;
-            }
+        if (array_key_exists($status->pid, $this->solPro)) {
+            // if ($status->result == 1) {
+            //     $this->acSubmitNum++;
+            // }
 
-            $this->submitNum++;
+            // $this->submitNum++;
             return;
         }
 
@@ -42,16 +42,15 @@ class RankUser
                 $duration *= -1;
             }
 
-            $minutes = intval(($duration % 3600) / 60);
-            $this->grade += $minutes;
+            $minutes = intval($duration / 60);
+            $this->penalty += $minutes;
 
             if (array_key_exists($status->pid, $this->allPro)) {
-                $this->grade += 20 * $this->allPro[$status->pid];
+                $this->penalty += 20 * $this->allPro[$status->pid];
             } else {
                 $this->allPro[$status->pid] = 0;
             }
-
-            array_push($this->solPro, $status->pid);
+            $this->solPro[$status->pid]=$duration;
             $this->acSubmitNum++;
         } else if ($status->result != 9) {
             if (!array_key_exists($status->pid, $this->allPro)) {

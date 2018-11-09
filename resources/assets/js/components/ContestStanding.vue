@@ -30,14 +30,17 @@ export default {
             axios.get('/api/standing/' + this.contestId)
                 .then(res => {
                     this.data = res.data
+                    // console.log(res.data)
                     for (let row of this.data) {
                         let cellClassName = {}
                         for (let i = 0; i < this.problemNum; i++) {
-                            if (row.solPro.includes(i + 1)) {
-                                cellClassName[String.fromCharCode(i + 'A'.charCodeAt(0))] = 'AC'
+                            if (row.solPro.hasOwnProperty(i + 1)) {
+                                cellClassName[String.fromCharCode(i + 'A'.charCodeAt(0))] = 'AC '
                             }
                         }
+                        console.log(cellClassName)
                         this.$set(row, 'cellClassName', cellClassName)
+                        // this.$set(row,)
                     }
                     this.loading = false
                 })
@@ -64,8 +67,8 @@ export default {
                     key: 'acSubmitNum'
                 },
                 {
-                    title: 'grade',
-                    key: 'grade'
+                    title: 'penalty',
+                    key: 'penalty'
                 }
             ]
 
