@@ -185,7 +185,7 @@ class ContestsController extends Controller
     public function getTopics(Contest $contest, Request $request)
     {
         $topics = $contest->topics();
-        
+
         if ($request->get('search')) {
             $search = '%' . $request->get('search') . '%';
             $topics = $topics->orWhere('id', 'like', $search);
@@ -203,46 +203,50 @@ class ContestsController extends Controller
 
         return $topics->get();
     }
-    
-    public function getStanding(Contest $contest,Request $request){
+
+    public function getStanding(Contest $contest, Request $request)
+    {
+        // TODO: Debug bar has an issue here to deal with the data
+        \Debugbar::disable();
+
+        $current_time = $request->time;
+        if (!$current_time) {
+            $current_time = now();
+        }
+        $userList = array();
+        $res = array();
+        $statuses = \DB::table('statuses')->where('contest_id', $contest->id)->orderBy('submit_time', 'asc')->get();
 
 
-            $nowtime=$request->time;
-            if(!$nowtime){
-                $nowtime=now();
-            }
-            $userList=array();
-            $res=array();
-            $statuses=\DB::table('statuses')->where('contest_id',$contest->id)->orderBy('submit_time', 'asc')->get();
-
-            
-
-            foreach($statuses as $status){
-                $s=Status::find($status->id);
-                if($status->submit_time<$nowtime){
-                    if(!in_array($s->user->username,$userList)){
-                        array_push($userList,$s->user->username);
-                        $res[$s->user->username]=new RankUser($s->user->id,$s->user->username);
-                    }
-                    $res[$s->user->username]->addStatus($status,$contest->start_time);
+        foreach ($statuses as $status) {
+            $s = Status::find($status->id);
+            if ($status->submit_time < $current_time) {
+                if (!in_array($s->user->username, $userList)) {
+                    array_push($userList, $s->user->username);
+                    $res[$s->user->username] = new RankUser($s->user->id, $s->user->username);
                 }
+                $res[$s->user->username]->addStatus($status, $contest->start_time);
             }
+        }
 
-            
-            usort($res,array($this,'cmps'));                // 排序 RankUser
-            $rank=1;
-            foreach($res as $user){
-                $user->rank=$rank++;
-            }   
-            return $res;
+        // 排序 RankUser
+        usort($res, array($this, 'compareRule'));
+
+        $rank = 1;
+        foreach ($res as $user) {
+            $user->rank = $rank++;
+        }
+        return $res;
     }
-    public function cmps($a,$b){
-        if(count($a->solPro)!=count($b->solPro)){
-            return count($a->solPro)<count($b->solPro);
-        }else{
-            return $a->grade>$b->grade;
+
+    public function compareRule($a, $b)
+    {
+        if (count($a->solPro) != count($b->solPro)) {
+            return count($a->solPro) < count($b->solPro);
+        } else {
+            return $a->grade > $b->grade;
         }
     }
 
-    
+
 }

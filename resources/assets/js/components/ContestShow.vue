@@ -3,18 +3,20 @@
         <div>
             <contestTitleCard v-if="contest" v-bind:title="contest.title" v-bind:start="contest.start_time" v-bind:end="contest.end_time"></contestTitleCard>
         </div>
-        <Tabs active-key="key1" style="margin-top:20px">
-            <Tab-pane label="Problem" key="key1">
+        <Tabs active-key="problems" style="margin-top:20px">
+            <Tab-pane label="Problem" key="problems">
                 <contestProblems v-bind:contestId="id" />
             </Tab-pane>
-            <Tab-pane label="Status" key="key2">
+            <Tab-pane label="Status" key="status">
                 <contestStatus v-bind:contestId="id" />
             </Tab-pane>
-            <Tab-pane label="Standing" key="key3">Standing</Tab-pane>
-            <Tab-pane label="Topics" key="key4">
+            <Tab-pane label="Standing" key="standing">
+                <contestStanding  v-bind:contestId="id" />
+            </Tab-pane>
+            <Tab-pane label="Topics" key="topics">
                 <contestTopics  v-bind:contestId="id" />
             </Tab-pane>
-            <Tab-pane label="Clarify" key="key5">Clarify</Tab-pane>
+            <Tab-pane label="Clarification" key="clarification">Clarification</Tab-pane>
         </Tabs>
     </div>
 </template>
@@ -24,6 +26,7 @@ import contestStatus from './Status.vue'
 import contestTopics from './ContestTopicsTable.vue'
 import contestProblems from './ContestProblemsTable.vue'
 import contestTitleCard from './ContestTitleCard.vue'
+import contestStanding from './ContestStanding.vue'
 import axios from 'axios'
 
 
@@ -42,7 +45,8 @@ export default {
         contestStatus: contestStatus,
         contestTopics: contestTopics,
         contestProblems: contestProblems,
-        contestTitleCard: contestTitleCard
+        contestTitleCard: contestTitleCard,
+        contestStanding: contestStanding
     },
     methods: {
         fetchData() {

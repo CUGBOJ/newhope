@@ -1,7 +1,7 @@
 <template>
   <div>
     <Input v-model="searchText" @keyup.enter.native="fetchData" placeholder="Search for ID, Problem or User" style="width: 300px;" icon="ios-search"></Input>
-    <Table ref="table" :loading="loading" stripe :columns="columns" :data="data" :height="tableHeight" style="margin: 10px 0;"></Table>
+    <Table ref="table" :loading="loading" stripe :columns="columns" :data="data" :height="tableHeight"></Table>
     <div style="float: right;">
       <Page ref="page" :page-size="perPage" :total="total" :current="1" @on-change="fetchData"></Page>
     </div>
