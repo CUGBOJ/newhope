@@ -19,8 +19,8 @@ export default {
                     key: 'rank'
                 },
                 {
-                    title: 'userName',
-                    key: 'userName'
+                    title: 'username',
+                    key: 'username'
                 },
                 {
                     title: 'acSubmitNum',

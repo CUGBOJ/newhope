@@ -213,30 +213,29 @@ class ContestsController extends Controller
         if (!$current_time) {
             $current_time = now();
         }
-        $userList = array();
-        $res = array();
-        $statuses = \DB::table('statuses')->where('contest_id', $contest->id)->orderBy('submit_time', 'asc')->get();
 
+        $user_list = array();
+        $ranking_result = array();
+        $status_list = Status::where('contest_id', $contest->id)->orderBy('submit_time', 'asc')->get();
 
-        foreach ($statuses as $status) {
-            $s = Status::find($status->id);
+        foreach ($status_list as $status) {
             if ($status->submit_time < $current_time) {
-                if (!in_array($s->user->username, $userList)) {
-                    array_push($userList, $s->user->username);
-                    $res[$s->user->username] = new RankUser($s->user->id, $s->user->username);
+                if (!in_array($status->user->username, $user_list)) {
+                    array_push($user_list, $status->user->username);
+                    $ranking_result[$status->user->username] = new RankUser($status->user->id, $status->user->username);
                 }
-                $res[$s->user->username]->addStatus($status, $contest->start_time);
+                $ranking_result[$status->user->username]->addStatus($status, $contest->start_time);
             }
         }
 
-        // 排序 RankUser
-        usort($res, array($this, 'compareRule'));
+        usort($ranking_result, array($this, 'compareRule'));
 
         $rank = 1;
-        foreach ($res as $user) {
+        foreach ($ranking_result as $user) {
             $user->rank = $rank++;
         }
-        return $res;
+
+        return $ranking_result;
     }
 
     public function compareRule($a, $b)
