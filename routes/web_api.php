@@ -36,6 +36,9 @@ Route::get('announcements', 'AnnouncementsController@index');
 //contest
 Route::get('contests', 'ContestsController@index');
 Route::get('contest/{contest}', 'ContestsController@show');
+Route::post('contest/{contest}', 'ContestsController@update');
+Route::delete('contest/{contest}', 'ContestsController@destroy');
+Route::post('contest', 'ContestsController@store');
 // Route::get('contest/{contest}/{problem}','ProblemsController@showByContest');
 
 Route::get('problemsByContest/{contest}', 'ContestsController@getProblems');

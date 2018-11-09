@@ -30,7 +30,6 @@ export default {
             axios.get('/api/standing/' + this.contestId)
                 .then(res => {
                     this.data = res.data
-                    // console.log(res.data)
                     for (let row of this.data) {
                         let cellClassName = {}
                         for (let i = 0; i < this.problemNum; i++) {
@@ -38,9 +37,7 @@ export default {
                                 cellClassName[String.fromCharCode(i + 'A'.charCodeAt(0))] = 'AC '
                             }
                         }
-                        console.log(cellClassName)
                         this.$set(row, 'cellClassName', cellClassName)
-                        // this.$set(row,)
                     }
                     this.loading = false
                 })
@@ -73,12 +70,13 @@ export default {
             ]
 
             for (let i = 0; i < this.problemNum; i++) {
+                let problemLabel = String.fromCharCode(i + 'A'.charCodeAt(0))
                 this.columns.push({
-                    title: String.fromCharCode(i + 'A'.charCodeAt(0)),
-                    key: String.fromCharCode(i + 'A'.charCodeAt(0)) 
-                    // render: (h, params) => {
-                    //     return h('div', {}, params.row.solPro.includes(i + 1).toString())
-                    // }
+                    title: problemLabel,
+                    key: problemLabel,
+                    render: (h, params) => {
+                        return h('div', {}, params.row.solPro.hasOwnProperty(i + 1) ? params.row.solPro[i + 1] : '')
+                    }
                 })
             }
         }

@@ -97,16 +97,19 @@ class Problem extends Model
         'created_at',
         'updated_at',
     ];
+
     public function statuses()
     {
         return $this->hasMany(Status::class);
     }
+
     public function topics()
     {
         return $this->hasMany(Topic::class);
     }
+
     public function contests()
     {
-        return $this->belongsToMany(Contest::class,'contest_problem',  'problem_id','contest_id')->withPivot('keychar');
+        return $this->belongsToMany(Contest::class, 'contest_problem', 'problem_id', 'contest_id')->withPivot('keychar');
     }
 }

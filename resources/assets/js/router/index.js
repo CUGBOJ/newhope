@@ -17,6 +17,7 @@ const AnnouncementTable = () => import('../components/AnnouncementTable.vue')
 const NotificationPane = () => import('../components/NotificationPane.vue')
 const ContestTable = () => import('../components/ContestTable.vue')
 const ContestShow = () => import('../components/ContestShow.vue')
+const ContestEditor = () => import('../components/ContestEditor.vue')
 
 const Profile = () => import('../components/Profile.vue')
 const ProfileEditor = () => import('../components/ProfileEditor.vue')
@@ -128,7 +129,19 @@ const router = new VueRouter({
                 }
             ]
         },
-
+        {
+            path: '/contest/:id/edit',
+            name: 'contest-edit',
+            component: ContestEditor
+        },
+        {
+            path: '/contest/create',
+            name: 'contest-create',
+            component: ContestEditor,
+            props: {
+                isCreator: true
+            }
+        },
         {
             path: '/notice',
             name: 'notice',

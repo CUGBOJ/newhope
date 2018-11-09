@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use App\Models\Contest;
 use App\Models\User;
+use App\Models\Status;
+use App\Models\Problem;
 
 class ContestsTableSeeder extends Seeder
 {
@@ -13,18 +15,24 @@ class ContestsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
-        $owner = User::all()->pluck('username')->toArray();
+        $users = User::all()->pluck('username')->toArray();
         $faker = app(Faker\Generator::class);
-        $contests = factory(Contest::class)
-            ->times(3)
-            ->make()
-            ->each(function ($contest,$index)
-                use ($owner,$faker)
-            {
-                $contest->owner=$faker->randomElement($owner);
+
+        factory(Contest::class)
+            ->times(5)
+            ->create()
+            ->each(function ($contest, $index)
+            use ($users, $faker) {
+                $contest->id = $index + 1;
+                $problems = Problem::all()->random(10);
+                $contest->problems()->attach($problems, ['contest_id' => $contest->id, 'keychar' => 1]);
+
+                $contest->status()->saveMany(factory(Status::class, 50)->make()->each(function ($status)
+                use ($faker, $users, $contest, $problems) {
+                    $status->username = $faker->randomElement($users);
+                    $status->submit_time = $faker->dateTimeBetween($contest->start_time, $contest->end_time);
+                    $status->pid = $faker->randomElement($problems)->id;
+                }));
             });
-        Contest::insert($contests->makeVisible(['password'])->toArray());
-   //     Contest::insert($contests->toArray());
     }
 }
