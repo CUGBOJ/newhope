@@ -30,14 +30,19 @@ export default {
             axios.get('/api/standing/' + this.contestId)
                 .then(res => {
                     this.data = res.data
+                    // console.log(res.data)
                     for (let row of this.data) {
                         let cellClassName = {}
                         for (let i = 0; i < this.problemNum; i++) {
                             if (row.solPro.hasOwnProperty(i + 1)) {
                                 cellClassName[String.fromCharCode(i + 'A'.charCodeAt(0))] = 'AC '
+                            } else if (row.allPro.hasOwnProperty(i + 1)) {
+                                cellClassName[String.fromCharCode(i + 'A'.charCodeAt(0))] = 'WA '
                             }
                         }
+                        // console.log(cellClassName)
                         this.$set(row, 'cellClassName', cellClassName)
+                        // this.$set(row,)
                     }
                     this.loading = false
                 })
@@ -75,7 +80,15 @@ export default {
                     title: problemLabel,
                     key: problemLabel,
                     render: (h, params) => {
-                        return h('div', {}, params.row.solPro.hasOwnProperty(i + 1) ? params.row.solPro[i + 1] : '')
+                        if (params.row.solPro.hasOwnProperty(i + 1)) {
+                            if (params.row.allPro[i + 1] != 0) {
+                                return h('div', {},  params.row.solPro[i + 1] + '(-' + params.row.allPro[i + 1] + ')')
+                            } else {
+                                return h('div', {},  params.row.solPro[i + 1])
+
+                            }
+                        } else 
+                            return h('div', {}, params.row.allPro.hasOwnProperty(i + 1) ?  '(-' + params.row.allPro[i + 1] + ')' : '')
                     }
                 })
             }
@@ -86,5 +99,8 @@ export default {
 <style lang="stylus">
 .ivu-table .AC
     background-color #2e7f79 
+    color white
+.ivu-table .WA
+    background-color #FF4500
     color white
 </style>

@@ -50,7 +50,7 @@ class RankUser
             } else {
                 $this->allPro[$status->pid] = 0;
             }
-            $this->solPro[$status->pid]=$duration;
+            $this->solPro[$status->pid]=date('H:i:s',$duration);
             $this->acSubmitNum++;
         } else if ($status->result != 9) {
             if (!array_key_exists($status->pid, $this->allPro)) {
