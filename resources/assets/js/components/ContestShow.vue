@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <contestTitleCard v-if="contest" v-bind:title="contest.title" v-bind:start="contest.start_time" v-bind:end="contest.end_time"></contestTitleCard>
+            <contestTitleCard v-if="contest" v-bind:title="contest.title" :start="contest.start_time" :end="contest.end_time"></contestTitleCard>
         </div>
         <Tabs active-key="problems" style="margin-top:20px">
             <Tab-pane label="Problem" key="problems">

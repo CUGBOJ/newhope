@@ -21,11 +21,11 @@ export default {
             } else if (this.now < this.start) {
                 return 0
             } else {
-                return (this.now - this.start) / (this.end - this.start)
+                return (this.now - this.start) / (this.end - this.start) * 100
             }
         },
         now() {
-            return Date.now()
+            return new Date()
         }
     }
 }

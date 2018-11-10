@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $password
  * @property string $title
  * @property string|null $description
- * @property int $isprivate
+ * @property int $is_private
  * @property int $hide_other
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Problem[] $problems
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $reject_users
@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contest whereEndTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contest whereHideOther($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contest whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contest whereIsprivate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contest whereIsPrivate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contest whereLockBoardTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contest whereOwner($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contest wherePassword($value)

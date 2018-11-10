@@ -252,4 +252,11 @@ location / {
           #       # With php7.1-fpm:
                   fastcgi_pass unix:/run/php/php7.1-fpm.sock;
           }
+
 ```
+
+### Laravel IDE Helper
+
+由于 Laravel 使用了大量的 magic method，在使用 IDE 的时候我们有时无法获得正确的高亮和自动补全。
+
+[Laravel IDE Helper](https://github.com/barryvdh/laravel-ide-helper) 可以帮助我们做到更多。

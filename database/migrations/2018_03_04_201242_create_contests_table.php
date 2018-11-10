@@ -25,7 +25,9 @@ class CreateContestsTable extends Migration
             $table->string('title', 255);
 
             $table->longText('description')->nullable();
-            $table->boolean('isprivate')->default(0); //if private only user in table contest_user can view.
+
+            //if private only user in table contest_user can view.
+            $table->boolean('is_private')->default(0);
             $table->boolean('hide_other')->default(0);
 
         });

@@ -33,38 +33,41 @@ class ContestsController extends Controller
         return response()->json($contest);
     }
 
-    public function create()
+    public function update(Contest $contest, ContestRequest $request)
     {
-        //$this->authorize('contest_create');
-        return view('contests.create');
-    }
+        $data = [];
+        $data['title'] = $request->title;
+        $data['description'] = $request->description;
+        $data['start_time'] = date("Y-m-d H:i:s", strtotime($request->start_time));
+        $data['lock_board_time'] = $request->lock_board_time;
+        $data['end_time'] = date("Y-m-d H:i:s", strtotime($request->end_time));
+        $data['is_private'] = $request->is_private;
+        $data['hide_other'] = $request->hide_other;
 
-    public function edit(Contest $contest)
-    {
-        //$this->authorize('contest_edit');
-        return view('contests.edit', compact('contest'));
-    }
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
 
-    public function update()
-    {
-        //$this->authorize('contest_edit');
+        $contest->update($data);
+
+        return response()->json(['message' => 'Updated successful.'], 200);
     }
 
     public function store(ContestRequest $request)
     {
-        //$this->authorize('contest_create');
         $contest = Contest::create([
             'title' => $request->title,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'lock_board_time' => $request->lock_board_time,
-            'owner' => Auth::user()->username,
-            'isprivate' => $request->is_private == 2 ? true : false,
-            'hide_other' => $request->hide_other == 2 ? true : false,
-            'password' => $request->is_private == 2 ? bcrypt($request->password) : null,
             'description' => $request->description,
+            'start_time' => $request->start_time,
+            'lock_board_time' => $request->lock_board_time,
+            'end_time' => $request->end_time,
+            'is_private' => $request->is_private,
+            'hide_other' => $request->hide_other,
+            'password' => $request->password ? bcrypt($request->password) : null,
+            'owner' => Auth::user()->username,
             'create_time' => now(),
         ]);
+
         return redirect()->route('contests.show', $contest->id);
     }
 
@@ -87,6 +90,7 @@ class ContestsController extends Controller
         if (Hash::check($request->password, $contest->password)) {
             $contest->users()->attach($user->id);
         }
+
         return redirect()->route('contests.show', $contest->id);
     }
 

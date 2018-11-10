@@ -25,14 +25,20 @@
                     </Checkbox>
                     </Row>
                     <Row>
-                    <Checkbox size="large" v-model="data.isprivate" :true-value="1" :false-value="0"> 
-                        isprivate
+                    <Checkbox size="large" v-model="data.is_private" :true-value="1" :false-value="0"> 
+                        is_private
                     </Checkbox>
                     </Row>
                     <h2>
-                        Time Limit
+                        Time Setting
                     </h2>
-
+                    <h3>
+                        Time Range
+                    </h3>
+                    <DatePicker type="datetimerange" v-model="timeRange" style="width: 300px"></DatePicker>
+                    <h3>
+                        Lock Board Time
+                    </h3>
                 </Col>
             </Row>
             <Button type="primary" @click="submitData" :loading="submitLoading">Submit</Button>
@@ -51,13 +57,14 @@ export default {
         return {
             loading: false,
             submitLoading: false,
+            timeRange: [],
             data: {
                 title: null,
                 id: 0,
                 description: null,
                 end_time: new Date(),
                 hide_other: 0,
-                isprivate: 0,
+                is_private: 0,
                 lock_board_time: new Date(),
                 start_time: new Date()
             }
@@ -74,6 +81,7 @@ export default {
             axios.get('/api/contest/' + this.contestId)
                 .then(res => {
                     this.data = res.data
+                    this.timeRange = [new Date(res.data.start_time), new Date(res.data.end_time)]
                     this.loading = false
                 })
         },
@@ -84,16 +92,17 @@ export default {
             const props = [
                 'title',
                 'description',
-                'start_time',
-                'end_time',
                 'lock_board_time',
                 'hide_other',
-                'isprivate'
+                'is_private'
             ]
 
             for (let key of props) {
                 data.append(key, this.data[key])
             }
+
+            data.append('start_time', this.timeRange[0].toISOString())
+            data.append('end_time', this.timeRange[1].toISOString())
 
             if (this.isCreator) {
                 this.createPorblem(data)

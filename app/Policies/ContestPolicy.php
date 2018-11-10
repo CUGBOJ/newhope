@@ -18,7 +18,7 @@ class ContestPolicy
         {
             return true;
         }
-        if(!$contest->isprivate)
+        if(!$contest->is_private)
         {
             return true;
         }

@@ -7,10 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Reply
  *
- * @property mixed id
- * @property string content
- * @property string username
- * @property mixed topic
  * @property int $id
  * @property int $topic_id
  * @property string $username

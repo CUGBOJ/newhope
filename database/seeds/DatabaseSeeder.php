@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
             ProblemsTableSeeder::class,
             UsersTableSeeder::class,            
             ContestsTableSeeder::class,
-            ContestDataSeeder::class,
             StatusesTableSeeder::class,
             TopicsTableSeeder::class,
             ReplysTableSeeder::class,
