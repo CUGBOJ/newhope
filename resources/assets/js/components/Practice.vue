@@ -92,13 +92,19 @@ export default {
                 }
             })
         },
-        changeProblem(problemId = this.problemId) {
-            this.$router.push({
+        changeProblem(problemId = this.problemId, replace = false) {
+            let dest = {
                 name: this.inContest ? 'contest-problem' : 'problem',
                 params: {
                     problemId
                 }
-            })
+            }
+            
+            if (replace) {
+                this.$router.replace(dest)
+            } else {
+                this.$router.push(dest)
+            }
         },
         searchProblem() {
             let search = this.problemSearchText.toString().trim()
@@ -132,7 +138,7 @@ export default {
                     }
                 })
                 .then(res => {
-                    this.changeProblem(res.data)
+                    this.changeProblem(res.data, true)
                 })
         }
     },

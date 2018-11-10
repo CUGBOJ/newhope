@@ -10,3 +10,7 @@ export const setUser = (state, data) => {
         state.loggedIn = true
     }
 }
+
+export const setTimer = (state) => {
+    state.time = new Date()
+}

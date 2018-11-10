@@ -25,7 +25,7 @@ export default {
             }
         },
         now() {
-            return new Date()
+            return this.$store.state.time
         }
     }
 }

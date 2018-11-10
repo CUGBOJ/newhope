@@ -1,6 +1,7 @@
 <template>
 <div>
-    <Table ref="standing" :loading="loading" :columns="columns" :data="data"></Table>
+    <Table ref="standing" :loading="loading" :columns="columns" :data="data" height="570">
+    </Table>
 </div>
 </template>
 <script>
@@ -8,10 +9,7 @@ import axios from 'axios'
 export default {
     props: {
         contestId: String,
-        problemNum: {
-            type: Number,
-            default: 10
-        }
+        problems: Array
     },
     data () {
         return {
@@ -30,19 +28,17 @@ export default {
             axios.get('/api/standing/' + this.contestId)
                 .then(res => {
                     this.data = res.data
-                    // console.log(res.data)
                     for (let row of this.data) {
                         let cellClassName = {}
-                        for (let i = 0; i < this.problemNum; i++) {
-                            if (row.solPro.hasOwnProperty(i + 1)) {
+                        for (let i = 0; i < this.problems.length; i++) {
+                            let problemId = this.problems[i].id
+                            if (row.solPro.hasOwnProperty(problemId)) {
                                 cellClassName[String.fromCharCode(i + 'A'.charCodeAt(0))] = 'AC '
-                            } else if (row.allPro.hasOwnProperty(i + 1)) {
+                            } else if (row.allPro.hasOwnProperty(problemId)) {
                                 cellClassName[String.fromCharCode(i + 'A'.charCodeAt(0))] = 'WA '
                             }
                         }
-                        // console.log(cellClassName)
                         this.$set(row, 'cellClassName', cellClassName)
-                        // this.$set(row,)
                     }
                     this.loading = false
                 })
@@ -57,38 +53,46 @@ export default {
         initColumns() {
             this.columns = [
                 {
-                    title: 'rank',
-                    key: 'rank'
+                    title: 'Rk',
+                    key: 'rank',
+                    fixed: 'left',
+                    width: 50
                 },
                 {
-                    title: 'username',
-                    key: 'username'
+                    title: 'Name',
+                    key: 'username',
+                    fixed: 'left',
+                    width: 180
                 },
                 {
-                    title: 'acSubmitNum',
-                    key: 'acSubmitNum'
+                    title: 'AC',
+                    key: 'acSubmitNum',
+                    width: 50
                 },
                 {
-                    title: 'penalty',
-                    key: 'penalty'
+                    title: 'Penalty',
+                    key: 'penalty',
+                    width: 90
                 }
             ]
 
-            for (let i = 0; i < this.problemNum; i++) {
+            for (let i = 0; i < this.problems.length; i++) {
+                let problemId = this.problems[i].id
                 let problemLabel = String.fromCharCode(i + 'A'.charCodeAt(0))
                 this.columns.push({
                     title: problemLabel,
                     key: problemLabel,
+                    width: 84,
                     render: (h, params) => {
-                        if (params.row.solPro.hasOwnProperty(i + 1)) {
-                            if (params.row.allPro[i + 1] != 0) {
-                                return h('div', {},  params.row.solPro[i + 1] + '(-' + params.row.allPro[i + 1] + ')')
+                        if (params.row.solPro.hasOwnProperty(problemId)) {
+                            if (params.row.allPro[problemId] != 0) {
+                                return h('div', {},  params.row.solPro[problemId] + '(-' + params.row.allPro[problemId] + ')')
                             } else {
-                                return h('div', {},  params.row.solPro[i + 1])
+                                return h('div', {},  params.row.solPro[problemId])
 
                             }
                         } else 
-                            return h('div', {}, params.row.allPro.hasOwnProperty(i + 1) ?  '(-' + params.row.allPro[i + 1] + ')' : '')
+                            return h('div', {}, params.row.allPro.hasOwnProperty(problemId) ?  '(-' + params.row.allPro[problemId] + ')' : '')
                     }
                 })
             }
@@ -98,9 +102,11 @@ export default {
 </script>
 <style lang="stylus">
 .ivu-table .AC
-    background-color #2e7f79 
+    background-color #187 
     color white
 .ivu-table .WA
-    background-color #FF4500
+    background-color #ff6600
     color white
+.flip-list-move
+  transition transform 1s
 </style>

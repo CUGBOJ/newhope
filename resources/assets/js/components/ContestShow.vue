@@ -1,20 +1,30 @@
 <template>
-    <div>
+    <Spin v-if ="loading"></Spin>
+    <div v-else>
         <div>
-            <contestTitleCard v-if="contest" v-bind:title="contest.title" :start="contest.start_time" :end="contest.end_time"></contestTitleCard>
+            <contestTitleCard v-if="contest" :title="contest.title" :start="new Date(contest.start_time)" :end="new Date(contest.end_time)">
+            </contestTitleCard>
         </div>
         <Tabs active-key="problems" style="margin-top:20px">
             <Tab-pane label="Problem" key="problems">
-                <contestProblems v-bind:contestId="id" />
+                <Card>
+                     <CellGroup>
+                         <Cell v-for="problem in contest.problems" 
+                            :key="problem.id" 
+                            :to="{name: 'contest-practice', params: {contestId, keychar: problem.pivot.keychar}}">
+                            {{problem.title}}
+                         </Cell>
+                     </CellGroup>
+                </Card>
             </Tab-pane>
             <Tab-pane label="Status" key="status">
-                <contestStatus v-bind:contestId="id" />
+                <contestStatus :contestId="contestId" />
             </Tab-pane>
             <Tab-pane label="Standing" key="standing">
-                <contestStanding  v-bind:contestId="id" />
+                <contestStanding :contestId="contestId" :problems="contest.problems"/>
             </Tab-pane>
             <Tab-pane label="Topics" key="topics">
-                <contestTopics  v-bind:contestId="id" />
+                <contestTopics :contestId="contestId" />
             </Tab-pane>
             <Tab-pane label="Clarification" key="clarification">Clarification</Tab-pane>
         </Tabs>
@@ -24,7 +34,6 @@
 <script>
 import contestStatus from './Status.vue'
 import contestTopics from './ContestTopicsTable.vue'
-import contestProblems from './ContestProblemsTable.vue'
 import contestTitleCard from './ContestTitleCard.vue'
 import contestStanding from './ContestStanding.vue'
 import axios from 'axios'
@@ -33,7 +42,6 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            id: location.href.split('/')[4], 
             loading: true,
             contest: null
         }
@@ -44,17 +52,15 @@ export default {
     components: {
         contestStatus: contestStatus,
         contestTopics: contestTopics,
-        contestProblems: contestProblems,
         contestTitleCard: contestTitleCard,
         contestStanding: contestStanding
     },
     methods: {
         fetchData() {
             this.loading = true
-            let contest_id = this.$route.params.id
-            if (contest_id) {
+            if (this.contestId) {
                 axios
-                    .get('/api/contest/' + contest_id)
+                    .get('/api/contest/' + this.contestId)
                     .then(res => {
                         this.contest = res.data
                         this.loading = false
@@ -66,8 +72,12 @@ export default {
                 this.$router.push('/404')
             }
         }
+    },
+    computed: {
+        contestId() {
+            return this.$route.params.id.toString()
+        }
     }
-
 }
 </script>
 <style>

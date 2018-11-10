@@ -30,6 +30,7 @@ class ContestsController extends Controller
 
     public function show(Request $request, Contest $contest)
     {
+        $contest->problems;
         return response()->json($contest);
     }
 

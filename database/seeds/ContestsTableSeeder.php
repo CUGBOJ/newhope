@@ -25,7 +25,10 @@ class ContestsTableSeeder extends Seeder
             use ($users, $faker) {
                 $contest->id = $index + 1;
                 $problems = Problem::all()->random(10);
-                $contest->problems()->attach($problems, ['contest_id' => $contest->id, 'keychar' => 1]);
+                $keychar = 1;
+                foreach ($problems as $problem) {
+                    $contest->problems()->attach($problem, ['contest_id' => $contest->id, 'keychar' => $keychar++]);
+                }
 
                 $contest->status()->saveMany(factory(Status::class, 50)->make()->each(function ($status)
                 use ($faker, $users, $contest, $problems) {

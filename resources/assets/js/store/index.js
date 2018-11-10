@@ -14,6 +14,7 @@ export default new Vuex.Store({
     mutations,
     state: {
         loggedIn: false,
-        user: null
+        user: null,
+        time: new Date()
     }
 })

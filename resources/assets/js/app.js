@@ -45,6 +45,10 @@ const app = new Vue({
     el: '#app'
 })
 
+setInterval(function() {
+    store.commit('setTimer')
+}, 1000)
+
 window.axios.interceptors.response.use(
     function(response) {
         // Do something with response data
