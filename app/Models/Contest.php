@@ -40,6 +40,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Contest extends Model
 {
+    protected $with = ['problems'];
+
     protected $fillable = [
         'create_time',
         'start_time',

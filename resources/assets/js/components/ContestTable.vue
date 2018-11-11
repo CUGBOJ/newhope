@@ -2,7 +2,7 @@
   <Spin size="large" fix v-if="loading"></Spin>
   <Card v-else>
     <Row>
-      <Button type="primary">New contest</Button>
+      <Button :to="{name: 'contest-create'}" type="primary">New contest</Button>
     </Row>
     <CellGroup>
       <Cell v-for="contest in contests" 

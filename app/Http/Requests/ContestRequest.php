@@ -13,6 +13,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string|null $description
  * @property int $is_private
  * @property int $hide_other
+ * @property mixed problems
  */
 class ContestRequest extends FormRequest
 {

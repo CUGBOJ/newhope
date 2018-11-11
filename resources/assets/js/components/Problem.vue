@@ -1,16 +1,16 @@
 <template>
-    <div v-if="loading">
+    <div v-if="loading || !this.problemData">
         <Spin size="large" fix></Spin>
     </div>
     <div v-else>
         <div class="problem">
             <Row type="flex" justify="center" align="middle">
                 <Col>
-                    <h1>{{ this.problem.data.title }}</h1>
+                    <h1>{{ this.problemData.title }}</h1>
                 </Col>
                 <Col span="1">
                     <Tag color="primary" size="large">
-                        #{{this.problem.data.id}}
+                        #{{this.problemData.id}}
                     </Tag>
                 </Col>
             </Row>
@@ -21,50 +21,50 @@
                 </Col>
                 <Col>
                     <Icon type="ios-time" />
-                    {{this.problem.data.time_limit}} ms
+                    {{this.problemData.time_limit}} ms
                 </Col>
                 <Col>
                     <Icon type="md-apps" />
-                    {{this.problem.data.memory_limit}} KB
+                    {{this.problemData.memory_limit}} KB
                 </Col>
             </Row>
             <Divider orientation="left">
                 <h3>Description</h3>
             </Divider>
             <p>
-                {{ this.problem.data.description }}
+                {{ this.problemData.description }}
             </p>
             <Divider orientation="left">
                 <h3>Input</h3>
             </Divider>
             <p>
-                {{ this.problem.data.input }}
+                {{ this.problemData.input }}
             </p>
             <Divider orientation="left">
                 <h3>Output</h3>
             </Divider>
             <p>
-                {{ this.problem.data.output }}
+                {{ this.problemData.output }}
             </p>
             <Divider orientation="left">
                 <h3>Sample Input</h3>
             </Divider>
             <Row type="flex" justify="end">
-                <Button type="dashed" shape="circle" icon="ios-copy" class="copy" id="copy-sample-input" :data-clipboard-text="this.problem.data.sample_input"></Button>
+                <Button type="dashed" shape="circle" icon="ios-copy" class="copy" id="copy-sample-input" :data-clipboard-text="this.problemData.sample_input"></Button>
             </Row>
-            <pre>{{ this.problem.data.sample_input }}</pre>
+            <pre>{{ this.problemData.sample_input }}</pre>
             <Divider orientation="left">
                 <h3>Sample Output</h3>
             </Divider>
             <Row type="flex" justify="end">
-                <Button type="dashed" shape="circle" icon="ios-copy" class="copy" id="copy-sample-output" :data-clipboard-text="this.problem.data.sample_output"></Button>
+                <Button type="dashed" shape="circle" icon="ios-copy" class="copy" id="copy-sample-output" :data-clipboard-text="this.problemData.sample_output"></Button>
             </Row>
-            <pre>{{ this.problem.data.sample_output }}</pre>
+            <pre>{{ this.problemData.sample_output }}</pre>
             <Divider orientation="left">
                 <h3>Hint</h3>
             </Divider>
             <p>
-                {{ this.problem.data.hint }}
+                {{ this.problemData.hint }}
             </p>
         </div>
     </div>
@@ -75,12 +75,11 @@ import axios from 'axios'
 const Clipboard = require('clipboard')
 
 export default {
+    props: ['value'],
     data() {
         return {
-            loading: true,
-            problem: {
-                data: {}
-            }
+            loading: false,
+            problemData: this.value
         }
     },
     created() {
@@ -110,7 +109,7 @@ export default {
             .get(`/api/problem/${to.params.problemId}`)
             .then(res => {
                 next(vm => {
-                    vm.problem.data = res.data
+                    vm.problemData = res.data
                     vm.loading = false
                 })
             })
@@ -123,7 +122,7 @@ export default {
         axios
             .get(`/api/problem/${to.params.problemId}`)
             .then(res => {
-                this.problem.data = res.data
+                this.problemData = res.data
                 this.loading = false
                 next()
             })
@@ -141,11 +140,17 @@ export default {
             return this.$route.params.problemId
         },
         acRatio() {
-            if (this.problem.data.total_ac === 0) {
+            if (this.problemData.total_ac === 0) {
                 return '0%'
             } else {
-                return (this.problem.data.total_ac / this.problem.data.total_submit * 100).toFixed(2).toString() + '%'
+                return (this.problemData.total_ac / this.problemData.total_submit * 100).toFixed(2).toString() + '%'
             }
+        }
+    },
+    watch: {
+        value: function(val) {
+            // Due to some external change may not be detected by JS
+            this.problemData = val
         }
     }
 }

@@ -16,29 +16,59 @@
                     <Input v-model="data.title"/>
                     <h2>Description</h2>
                     <Input v-model="data.description" type="textarea"/>
+                    <h2>Problems</h2>
+                    <Row>
+                        <InputNumber v-model="addProblemId"></InputNumber>
+                        <Button @click="addProblem(addProblemId)">Add Problem</Button>
+                    </Row>
+                    <draggable v-model="data.problems" @end="onDragEnd">
+                        <transition-group name="flip-list">
+                            <Row v-for="(problem, index) in data.problems" 
+                                :key="problem.id">
+                                <Tag 
+                                    :key="problem.id"
+                                    type="dot" 
+                                    @click.native="problemModal.open=true; problemModal.id=index;" 
+                                    @on-close="data.problems.splice(index, 1)"
+                                    closable color="primary">
+                                    {{String.fromCharCode(problem.pivot.keychar + 64)}} - {{problem.title}}
+                                </Tag>
+                            </Row>
+                        </transition-group>
+                    </draggable>
+                    <Modal v-model="problemModal.open" width="900">
+                        <Problem :value="data.problems[problemModal.id]"/>
+                        <div slot="footer"/>
+                    </Modal>
                 </Col>
                 <Col span="12">
                     <h2>Meta Info</h2>
                     <Row>
-                    <Checkbox size="large" v-model="data.hide_other" :true-value="1" :false-value="0"> 
-                        hide_other
-                    </Checkbox>
+                        <Checkbox size="large" v-model="data.hide_other" :true-value="1" :false-value="0"> 
+                            hide_other
+                        </Checkbox>
                     </Row>
                     <Row>
-                    <Checkbox size="large" v-model="data.is_private" :true-value="1" :false-value="0"> 
-                        is_private
-                    </Checkbox>
+                        <Checkbox size="large" v-model="data.is_private" :true-value="1" :false-value="0"> 
+                            is_private
+                        </Checkbox>
                     </Row>
-                    <h2>
-                        Time Setting
-                    </h2>
-                    <h3>
-                        Time Range
-                    </h3>
+                    <h3> Password </h3>
+                    <Row type="flex" align="middle">
+                        <Col span="4">
+                            <i-switch v-model="updatePassword">
+                                <Icon type="md-checkmark" slot="open"></Icon>
+                                <Icon type="md-close" slot="close"></Icon>
+                            </i-switch>
+                        </Col>
+                        <Col span="10">
+                            <Input v-model="password" :disabled="!updatePassword" type="password" placeholder="Enter a new password" />
+                        </Col>
+                    </Row>
+                    <h3> Time Range </h3>
                     <DatePicker type="datetimerange" v-model="timeRange" style="width: 300px"></DatePicker>
-                    <h3>
-                        Lock Board Time
-                    </h3>
+                    <h3> Lock Board Time </h3>
+                    <DatePicker type="datetime" v-model="data.lock_board_time" style="width: 300px"></DatePicker>
                 </Col>
             </Row>
             <Button type="primary" @click="submitData" :loading="submitLoading">Submit</Button>
@@ -48,16 +78,29 @@
 </template>
 <script>
 import axios from 'axios'
+import draggable from 'vuedraggable'
+import Problem from './Problem'
 
 export default {
+    components: {
+        draggable,
+        Problem
+    },
     props: {
         isCreator: Boolean
     },
     data() {
         return {
+            problemModal: {
+                open: false,
+                id: 0
+            },
+            addProblemId: null,
             loading: false,
             submitLoading: false,
             timeRange: [],
+            password: '',
+            updatePassword: false,
             data: {
                 title: null,
                 id: 0,
@@ -66,7 +109,8 @@ export default {
                 hide_other: 0,
                 is_private: 0,
                 lock_board_time: new Date(),
-                start_time: new Date()
+                start_time: new Date(),
+                problems: []
             }
         }
     }, 
@@ -92,7 +136,6 @@ export default {
             const props = [
                 'title',
                 'description',
-                'lock_board_time',
                 'hide_other',
                 'is_private'
             ]
@@ -103,6 +146,13 @@ export default {
 
             data.append('start_time', this.timeRange[0].toISOString())
             data.append('end_time', this.timeRange[1].toISOString())
+            data.append('lock_board_time', this.data.lock_board_time.toISOString())
+
+            data.append('problems', JSON.stringify(this.problems))
+
+            if (this.updatePassword) {
+                data.append('password', this.password)
+            }
 
             if (this.isCreator) {
                 this.createPorblem(data)
@@ -177,12 +227,46 @@ export default {
                         duration: 0
                     })
                 })
+        },
+        addProblem(id) {
+            if (this.problems.includes(id)) {
+                this.$Notice.error({
+                    title: '题目与已有题目重复'
+                })
+                return
+            }
+            axios
+                .get(`/api/problem/${id}`)
+                .then(res => {
+                    res.data.pivot = {
+                        keychar: this.data.problems.length + 1
+                    }
+                    this.data.problems.push(res.data)
+                })
+                .catch(() => {
+                    this.$Notice.error({
+                        title: '无法获取题目'
+                    })
+                })
+        },
+        onDragEnd() {
+            for (let i = 0; i < this.data.problems.length; i++) {
+                this.data.problems[i].pivot.keychar = i + 1
+            }
         }
     },
     computed: {
         contestId() {
             return this.$route.params.id
+        },
+        problems() {
+            return this.data.problems.map(o => o.id)
         }
     }
 }
 </script>
+<style lang="stylus" scoped>
+.flip-list-move {
+  transition: transform 1s;
+}
+</style>

@@ -1,15 +1,19 @@
 <template>
-  <Form ref="form" :model="form" :label-width="80" :rules="rule">
-    <FormItem label="用户名" prop="username">
-      <Input name="username" type="text" v-model="form.username"> </Input>
-    </FormItem>
-    <FormItem label="密码" prop="password">
-      <Input name="password" type="password" v-model="form.password" @keyup.enter.native="handleSubmit"> </Input>
-    </FormItem>
-    <FormItem>
-      <Button type="primary" @click="handleSubmit">登录</Button>
-    </FormItem>
-  </Form>
+<Row>
+    <Col span="8" push="8">
+        <Form ref="form" :model="form" :label-width="80" :rules="rule">
+            <FormItem label="用户名" prop="username">
+            <Input name="username" type="text" v-model="form.username"> </Input>
+            </FormItem>
+            <FormItem label="密码" prop="password">
+            <Input name="password" type="password" v-model="form.password" @keyup.enter.native="handleSubmit"> </Input>
+            </FormItem>
+            <FormItem>
+            <Button type="primary" @click="handleSubmit">登录</Button>
+            </FormItem>
+        </Form>
+    </Col>
+</Row>
 </template>
 
 <script>

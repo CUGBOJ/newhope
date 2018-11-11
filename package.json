@@ -13,6 +13,7 @@
     "devDependencies": {
         "axios": "^0.18.0",
         "babel-eslint": "^8.2.2",
+        "babel-plugin-prismjs": "^1.0.2",
         "babel-plugin-syntax-dynamic-import": "^6.18.0",
         "clipboard": "^2.0.0",
         "cross-env": "^5.0.1",
@@ -28,12 +29,10 @@
         "vue": "^2.5.16",
         "vue-codemirror": "^4.0.3",
         "vue-router": "^3.0.1",
-        "vuex": "^3.0.1"
-    },
-    "dependencies": {
-        "babel-plugin-prismjs": "^1.0.2",
+        "vuedraggable": "^2.16.0",
         "laravel-echo": "^1.4.1",
         "laravel-echo-server": "^1.4.2",
         "socket.io-client": "^2.1.1",
+        "vuex": "^3.0.1"
     }
 }

@@ -13,7 +13,6 @@ use App\Models\RankUser;
 
 class ContestsController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth', [
@@ -30,7 +29,6 @@ class ContestsController extends Controller
 
     public function show(Request $request, Contest $contest)
     {
-        $contest->problems;
         return response()->json($contest);
     }
 
@@ -40,7 +38,7 @@ class ContestsController extends Controller
         $data['title'] = $request->title;
         $data['description'] = $request->description;
         $data['start_time'] = date("Y-m-d H:i:s", strtotime($request->start_time));
-        $data['lock_board_time'] = $request->lock_board_time;
+        $data['lock_board_time'] = date("Y-m-d H:i:s", strtotime($request->lock_board_time));
         $data['end_time'] = date("Y-m-d H:i:s", strtotime($request->end_time));
         $data['is_private'] = $request->is_private;
         $data['hide_other'] = $request->hide_other;
@@ -48,6 +46,14 @@ class ContestsController extends Controller
         if ($request->password) {
             $data['password'] = bcrypt($request->password);
         }
+
+        $problems = json_decode($request->problems);
+        $contest->problems()->sync(array_map(function ($v, $k) {
+            return [
+                'keychar' => $k + 1,
+                'problem_id' => $v
+            ];
+        }, $problems, array_keys($problems)));
 
         $contest->update($data);
 
@@ -72,12 +78,6 @@ class ContestsController extends Controller
         return redirect()->route('contests.show', $contest->id);
     }
 
-
-    public function add_problem(Contest $contest, Problem $problem)
-    {
-        $contest->problems()->attach($problem->id);
-        return redirect()->route('contests.show', $contest->id);
-    }
 
     public function add_user_by_admin(Contest $contest, User $user)
     {

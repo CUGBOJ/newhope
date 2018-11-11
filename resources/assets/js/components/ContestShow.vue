@@ -6,6 +6,7 @@
             </contestTitleCard>
         </div>
         <Tabs active-key="problems" style="margin-top:20px">
+            <Button :to="{name: 'contest-edit', params: {id: contestId}}" type="warning" slot="extra">Update</Button>
             <Tab-pane label="Problem" key="problems">
                 <Card>
                      <CellGroup>

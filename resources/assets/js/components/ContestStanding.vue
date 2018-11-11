@@ -56,7 +56,7 @@ export default {
                     title: 'Rk',
                     key: 'rank',
                     fixed: 'left',
-                    width: 50
+                    width: 70
                 },
                 {
                     title: 'Name',
@@ -67,7 +67,7 @@ export default {
                 {
                     title: 'AC',
                     key: 'acSubmitNum',
-                    width: 50
+                    width: 70
                 },
                 {
                     title: 'Penalty',
