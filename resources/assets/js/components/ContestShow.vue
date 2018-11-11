@@ -42,6 +42,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
+            lastCid: null,
             loading: true,
             contest: null
         }
@@ -71,11 +72,22 @@ export default {
             }  else {
                 this.$router.push('/404')
             }
+            Echo.channel('contest.' + this.$route.params.id.toString())
+                .listen('ContestMessageEvent', (e) => {
+                    console.log(e)
+                })
+            this.lastCid = this.$route.params.id.toString()
+
         }
     },
     computed: {
         contestId() {
             return this.$route.params.id.toString()
+        }
+    },
+    beforeDestroy() {
+        if (this.lastCid != null) {
+            Echo.leave('contest.' + this.lastCid)
         }
     }
 }

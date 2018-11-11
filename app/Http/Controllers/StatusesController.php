@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Handlers\PostCodeToCugbOj;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use App\Events\ContestMessageEvent;
+
 
 class StatusesController extends Controller
 {
@@ -55,6 +57,7 @@ class StatusesController extends Controller
     public function store(Request $request, PostCodeToCugbOj $post)
     {
         // dd($request);
+        event(new ContestMessageEvent($request->cid,"diao"));
         $res = $post->post_to_cugb_oj($request);
 
         if ($res == "fail submit") {

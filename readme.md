@@ -174,6 +174,7 @@ npm install
 npm run dev #npm run watch 可以监控js代码变化，实时编译
 ```
 
+
 每次从上游获取代码后，需再次运行上述命令以重新安装相关依赖、迁移数据库、部署数据库模式的最新更改。
 
 最后在项目路径下使用以下命令启动 PHP 内置服务器
@@ -185,6 +186,11 @@ php artisan serve
 打开 http://127.1.0.1:8000 即可看到部署成功的网站
 
 可以增加`--port=<the_port_you_want>`参数来指定端口，默认为 8000
+
+
+```打开websocket服务器
+laravel-echo-server start
+```
 
 ---
 

@@ -78,3 +78,9 @@ window.axios.interceptors.response.use(
         return Promise.reject(error)
     }
 )
+
+Echo.channel('push')
+    .listen('PublicMessageEvent', (e) => {
+        alert('test')
+        console.log(e)
+    })

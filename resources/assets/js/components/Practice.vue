@@ -56,6 +56,7 @@ export default {
     },
     data() {
         return {
+            lastCid:null,
             leftPaneHeight: 0,
             splitRatio: 0.5,
             problemSearchText: null,
@@ -69,6 +70,11 @@ export default {
     mounted() {
         if (this.inContest) {
             this.fetchProblemId()
+            Echo.channel('contest.' +this.contestId)
+                .listen('ContestMessageEvent', (e) => {
+                    console.log(e)
+                })
+            this.lastCid=this.contestId
         }
 
         this.getLeftPaneHeight()
@@ -152,14 +158,19 @@ export default {
         keychar() {
             return this.inContest ? this.$route.params.keychar : null
         }
+    },
+    beforeDestroy(){
+        console.log(this.lastCid)
+        Echo.leave('contest.' + this.lastCid)
     }
+
 }
 </script>
 
 <style lang="stylus" scoped>
 .split-pane
     padding 3px
-    
+
 >>> .ivu-split-trigger
     border none
     background none

@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Status;
 use App\Models\User;
+use App\Events\PublicMessageEvent;
 
 class StatusObserver
 {
@@ -14,5 +15,6 @@ class StatusObserver
         if ($status->result === 1) {
             $user->increment('solved', 1);
         }
+        
     }
 }
