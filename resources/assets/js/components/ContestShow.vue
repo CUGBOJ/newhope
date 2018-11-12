@@ -13,6 +13,7 @@
                          <Cell v-for="problem in contest.problems" 
                             :key="problem.id" 
                             :to="{name: 'contest-practice', params: {contestId, keychar: problem.pivot.keychar}}">
+                            <Tag type="dot" :color="problem.pivot.color">{{String.fromCharCode(64 + problem.pivot.keychar)}}</Tag>
                             {{problem.title}}
                          </Cell>
                      </CellGroup>
@@ -38,7 +39,6 @@ import contestTopics from './ContestTopicsTable.vue'
 import contestTitleCard from './ContestTitleCard.vue'
 import contestStanding from './ContestStanding.vue'
 import axios from 'axios'
-
 
 export default {
     data() {
@@ -73,9 +73,9 @@ export default {
             }  else {
                 this.$router.push('/404')
             }
-            Echo.channel('contest.' + this.$route.params.id.toString())
-                .listen('ContestMessageEvent', (e) => {
-                    console.log(e)
+
+            window.Echo.channel('contest.' + this.$route.params.id.toString())
+                .listen('ContestMessageEvent', () => {
                 })
             this.lastCid = this.$route.params.id.toString()
 
@@ -88,7 +88,7 @@ export default {
     },
     beforeDestroy() {
         if (this.lastCid != null) {
-            Echo.leave('contest.' + this.lastCid)
+            window.Echo.leave('contest.' + this.lastCid)
         }
     }
 }

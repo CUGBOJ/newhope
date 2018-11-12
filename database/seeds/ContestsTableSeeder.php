@@ -27,7 +27,9 @@ class ContestsTableSeeder extends Seeder
                 $problems = Problem::all()->random(10);
                 $keychar = 1;
                 foreach ($problems as $problem) {
-                    $contest->problems()->attach($problem, ['contest_id' => $contest->id, 'keychar' => $keychar++]);
+                    $contest->problems()->attach($problem, ['contest_id' => $contest->id,
+                        'keychar' => $keychar++,
+                        'color' => $faker->colorName]);
                 }
 
                 $contest->status()->saveMany(factory(Status::class, 50)->make()->each(function ($status)

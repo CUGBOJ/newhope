@@ -25,12 +25,13 @@
                         <transition-group name="flip-list">
                             <Row v-for="(problem, index) in data.problems" 
                                 :key="problem.id">
+                                <ColorPicker v-model="problem.pivot.color" size="small" recommend/>
                                 <Tag 
                                     :key="problem.id"
-                                    type="dot" 
+                                    type="border"
                                     @click.native="problemModal.open=true; problemModal.id=index;" 
                                     @on-close="data.problems.splice(index, 1)"
-                                    closable color="primary">
+                                    closable>
                                     {{String.fromCharCode(problem.pivot.keychar + 64)}} - {{problem.title}}
                                 </Tag>
                             </Row>
@@ -239,7 +240,8 @@ export default {
                 .get(`/api/problem/${id}`)
                 .then(res => {
                     res.data.pivot = {
-                        keychar: this.data.problems.length + 1
+                        keychar: this.data.problems.length + 1,
+                        color: 'white'
                     }
                     this.data.problems.push(res.data)
                 })
@@ -260,7 +262,10 @@ export default {
             return this.$route.params.id
         },
         problems() {
-            return this.data.problems.map(o => o.id)
+            return this.data.problems.map(o => ({
+                id: o.id,
+                color: o.pivot.color
+            }))
         }
     }
 }

@@ -47,13 +47,21 @@ class ContestsController extends Controller
             $data['password'] = bcrypt($request->password);
         }
 
-        $problems = json_decode($request->problems);
-        $contest->problems()->sync(array_map(function ($v, $k) {
+        $problems = json_decode($request->problems, true);
+        $query = array_map(function ($v, $k) {
             return [
                 'keychar' => $k + 1,
-                'problem_id' => $v
+                'problem_id' => $v['id'],
+                'color' => $v['color']
             ];
-        }, $problems, array_keys($problems)));
+        }, $problems, array_keys($problems));
+
+        // Play a trick here because the sync array must have index started from 1
+        array_unshift($query, "");
+        unset($query[0]);
+
+
+        $contest->problems()->sync($query);
 
         $contest->update($data);
 
