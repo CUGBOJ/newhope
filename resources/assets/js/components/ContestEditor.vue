@@ -123,7 +123,7 @@ export default {
     methods: {
         fetchData() {
             this.loading = true
-            axios.get('/api/contest/' + this.contestId)
+            axios.get('/contest/' + this.contestId)
                 .then(res => {
                     this.data = res.data
                     this.timeRange = [new Date(res.data.start_time), new Date(res.data.end_time)]
@@ -162,7 +162,7 @@ export default {
             }
         },
         createPorblem(data) {
-            axios.post('/api/contest', data)
+            axios.post('/contest', data)
                 .then(res => {
                     this.submitLoading = false
                     this.$Notice.success({
@@ -186,7 +186,7 @@ export default {
                 })
         },
         modifyContest(data) {
-            axios.post('/api/contest/' + this.contestId, data)
+            axios.post('/contest/' + this.contestId, data)
                 .then(res => {
                     this.submitLoading = false
                     this.$Notice.success({
@@ -209,7 +209,7 @@ export default {
 
             data.append('_method', 'DELETE')
 
-            axios.post('/api/contest/' + this.contestId, data)
+            axios.post('/contest/' + this.contestId, data)
                 .then(res => {
                     this.submitLoading = false
                     this.$Notice.success({
@@ -237,7 +237,7 @@ export default {
                 return
             }
             axios
-                .get(`/api/problem/${id}`)
+                .get(`/problem/${id}`)
                 .then(res => {
                     res.data.pivot = {
                         keychar: this.data.problems.length + 1,

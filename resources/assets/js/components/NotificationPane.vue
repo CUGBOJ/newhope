@@ -50,7 +50,7 @@ export default {
     methods: {
         readOne() {},
         readAll() {
-            axios.post('/api/notifications').then(res => {
+            axios.post('/notifications').then(res => {
                 this.$Notice.success({
                     title: 'Success',
                     desc: res.data.message
@@ -58,7 +58,7 @@ export default {
             })
         },
         fetchData() {
-            axios.get('/api/notifications').then(res => {
+            axios.get('/notifications').then(res => {
                 this.notification = res.data
             })
         }

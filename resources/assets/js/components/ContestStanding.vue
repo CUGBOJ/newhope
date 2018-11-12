@@ -25,7 +25,7 @@ export default {
     methods: {
         fetchData() {
             this.loading = true
-            axios.get('/api/standing/' + this.contestId)
+            axios.get('/standing/' + this.contestId)
                 .then(res => {
                     this.data = res.data
                     for (let row of this.data) {

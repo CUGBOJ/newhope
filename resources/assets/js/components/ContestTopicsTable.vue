@@ -44,7 +44,7 @@ export default {
             }
 
             axios
-                .get('/api/topicsByContest/' + this.contestId, {
+                .get('/topicsByContest/' + this.contestId, {
                     params
                 })
                 .then(res => {

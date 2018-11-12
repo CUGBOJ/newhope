@@ -29,7 +29,7 @@ export default {
         ...mapActions(['getProfile']),
         handleSubmit() {
             axios
-                .post('/api/login', {
+                .post('/login', {
                     username: this.form.username,
                     password: this.form.password
                 })

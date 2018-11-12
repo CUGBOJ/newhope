@@ -134,7 +134,7 @@ export default {
     methods: {
         fetchData() {
             this.loading = true
-            axios.get('/api/problem/' + this.problemId)
+            axios.get('/problem/' + this.problemId)
                 .then(res => {
                     this.data = res.data
                     this.loading = false
@@ -173,7 +173,7 @@ export default {
             }
         },
         createPorblem(data) {
-            axios.post('/api/problem', data)
+            axios.post('/problem', data)
                 .then(res => {
                     this.submitLoading = false
                     this.$Notice.success({
@@ -197,7 +197,7 @@ export default {
                 })
         },
         modifyProblem(data) {
-            axios.post('/api/problem/' + this.problemId, data)
+            axios.post('/problem/' + this.problemId, data)
                 .then(res => {
                     this.submitLoading = false
                     this.$Notice.success({
@@ -220,7 +220,7 @@ export default {
 
             data.append('_method', 'DELETE')
 
-            axios.post('/api/problem/' + this.problemId, data)
+            axios.post('/problem/' + this.problemId, data)
                 .then(res => {
                     this.submitLoading = false
                     this.$Notice.success({

@@ -56,7 +56,7 @@ export default {
     },
     data() {
         return {
-            lastCid:null,
+            lastCid: null,
             leftPaneHeight: 0,
             splitRatio: 0.5,
             problemSearchText: null,
@@ -70,11 +70,11 @@ export default {
     mounted() {
         if (this.inContest) {
             this.fetchProblemId()
-            Echo.channel('contest.' +this.contestId)
-                .listen('ContestMessageEvent', (e) => {
-                    console.log(e)
+            Echo.channel('contest.' + this.contestId)
+                .listen('ContestMessageEvent', () => {
                 })
-            this.lastCid=this.contestId
+
+            this.lastCid = this.contestId
         }
 
         this.getLeftPaneHeight()
@@ -119,7 +119,7 @@ export default {
                 return
             }
 
-            axios.get('/api/problem',  {
+            axios.get('/problem',  {
                 params: {
                     search 
                 }
@@ -137,7 +137,7 @@ export default {
         },
         fetchProblemId() {
             axios
-                .get('/api/getProblemId',{
+                .get('/getProblemId',{
                     params: {
                         cid: this.contestId,
                         keychar: this.keychar
@@ -159,8 +159,7 @@ export default {
             return this.inContest ? this.$route.params.keychar : null
         }
     },
-    beforeDestroy(){
-        console.log(this.lastCid)
+    beforeDestroy() {
         Echo.leave('contest.' + this.lastCid)
     }
 

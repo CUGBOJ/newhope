@@ -82,5 +82,4 @@ window.axios.interceptors.response.use(
 Echo.channel('push')
     .listen('PublicMessageEvent', (e) => {
         alert('test')
-        console.log(e)
     })

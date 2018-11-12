@@ -40,7 +40,7 @@ export default {
             let params = {}
 
             axios
-                .get('/api/announcements', {
+                .get('/announcements', {
                     params
                 })
                 .then(res => {

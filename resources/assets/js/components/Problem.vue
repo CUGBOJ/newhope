@@ -106,7 +106,7 @@ export default {
     },
     beforeRouteEnter(to, from, next) {
         axios
-            .get(`/api/problem/${to.params.problemId}`)
+            .get(`/problem/${to.params.problemId}`)
             .then(res => {
                 next(vm => {
                     vm.problemData = res.data
@@ -120,7 +120,7 @@ export default {
     beforeRouteUpdate(to, from, next) {
         this.loading = true
         axios
-            .get(`/api/problem/${to.params.problemId}`)
+            .get(`/problem/${to.params.problemId}`)
             .then(res => {
                 this.problemData = res.data
                 this.loading = false

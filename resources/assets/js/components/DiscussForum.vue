@@ -61,7 +61,7 @@ export default {
             this.loading = true
 
             axios
-                .get('/api/topic/' + this.topicId)
+                .get('/topic/' + this.topicId)
                 .then(res => {
                     let data = res.data
                     this.replies = data['replies']
@@ -70,7 +70,7 @@ export default {
 
                     // TODO: refactor backend to avoid fetch all userdata for each users
                     this.replies.forEach(r => {
-                        axios.get('/api/user/' + r['username']).then(res => Vue.set(r, 'user', res.data))
+                        axios.get('/user/' + r['username']).then(res => Vue.set(r, 'user', res.data))
                     })
 
                     this.loading = false

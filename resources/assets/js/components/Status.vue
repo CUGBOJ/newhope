@@ -114,7 +114,7 @@ export default {
                 )
             }
 
-            let statusUrl = this.contestId ? '/api/statusByContest/' + this.contestId : '/api/status'
+            let statusUrl = this.contestId ? '/statusByContest/' + this.contestId : '/status'
 
             axios
                 .get(statusUrl, {

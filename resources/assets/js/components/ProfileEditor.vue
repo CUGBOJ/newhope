@@ -90,7 +90,7 @@ export default {
             data.append('_method', 'PATCH')
 
             axios
-                .post('/api/user/' + this.storeUser.username, data)
+                .post('/user/' + this.storeUser.username, data)
                 .then(res => {
                     this.$Notice.success({
                         title: '更新信息成功',

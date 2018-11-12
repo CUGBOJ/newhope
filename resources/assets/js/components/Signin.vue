@@ -38,7 +38,7 @@ export default {
         ...mapActions(['getProfile']),
         handleSubmit() {
             axios
-                .post('/api/user', {
+                .post('/user', {
                     username: this.form.username,
                     password: this.form.password,
                     nickname: this.form.nickname,

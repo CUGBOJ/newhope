@@ -25,7 +25,7 @@ export default {
         changePage(p = 1) {
             this.loading = true
             axios
-                .get('/api/problem', {
+                .get('/problem', {
                     params: {
                         page: p,
                         perPage: this.perPage

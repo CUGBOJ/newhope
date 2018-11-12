@@ -58,7 +58,7 @@ export default {
             }
 
             axios
-                .get('/api/topics', {
+                .get('/topics', {
                     params
                 })
                 .then(res => {

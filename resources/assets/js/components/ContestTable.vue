@@ -38,7 +38,7 @@ export default {
             let params = {}
 
             axios
-                .get('/api/contests', {
+                .get('/contests', {
                     params
                 })
                 .then(res => {

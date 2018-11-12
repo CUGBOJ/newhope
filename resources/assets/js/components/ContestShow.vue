@@ -62,7 +62,7 @@ export default {
             this.loading = true
             if (this.contestId) {
                 axios
-                    .get('/api/contest/' + this.contestId)
+                    .get('/contest/' + this.contestId)
                     .then(res => {
                         this.contest = res.data
                         this.loading = false
