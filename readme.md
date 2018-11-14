@@ -189,7 +189,7 @@ php artisan serve
 
 
 ```打开websocket服务器
-laravel-echo-server start
+npx laravel-echo-server start
 ```
 
 ---
