@@ -38,7 +38,7 @@ export default {
         }
     },
     created() {
-        axios.get('api/users').then(res => {
+        axios.get('users').then(res => {
             this.users = res.data
         })
     }

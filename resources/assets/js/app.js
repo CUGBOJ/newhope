@@ -57,8 +57,8 @@ window.axios.interceptors.response.use(
     function(error) {
         if (error.response && error.response.status === 401) {
             app.$Notice.warning({
-                title: '更新状态',
-                desc: '用户状态已更新'
+                title: '未登录',
+                desc: '请登录账号'
             })
             store.commit('setLoggedIn', false)
             store.commit('setUser')

@@ -99,7 +99,7 @@ export default {
             addProblemId: null,
             loading: false,
             submitLoading: false,
-            timeRange: [],
+            timeRange: [new Date(), new Date()],
             password: '',
             updatePassword: false,
             data: {
