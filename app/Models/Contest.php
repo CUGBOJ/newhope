@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -52,7 +54,7 @@ class Contest extends Model
         'private',
         'hide_other',
     ];
-    
+
     protected $hidden = [
         'password',
     ];
@@ -69,7 +71,8 @@ class Contest extends Model
 
     public function problems()
     {
-        return $this->belongsToMany(Problem::class, 'contest_problem', 'contest_id', 'problem_id')->withPivot(['keychar', 'color'])->orderBy('contest_problem.keychar', 'asc');
+        return $this->belongsToMany(Problem::class, 'contest_problem', 'contest_id', 'problem_id')
+            ->withPivot(['keychar', 'color'])->orderBy('contest_problem.keychar', 'asc');
     }
 
     public function topics()

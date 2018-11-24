@@ -4,6 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed nickname
+ * @property mixed school
+ * @property mixed email
+ * @property mixed password
+ * @property mixed avatar
+ * @property mixed username
+ */
 class UserRequest extends FormRequest
 {
     public function authorize()

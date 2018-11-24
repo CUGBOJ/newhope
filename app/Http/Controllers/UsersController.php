@@ -44,7 +44,7 @@ class UsersController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $this->validate($request, [
             'username' => 'required|max:50|unique:users',
@@ -81,12 +81,14 @@ class UsersController extends Controller
         if ($request->password) {
             $data['password'] = bcrypt($request->password);
         }
+
         if ($request->avatar) {
             $result = $uploader->save($request->avatar, 'avatars', $user->username);
             if ($result) {
                 $data['avatar'] = $result['path'];
             }
         }
+
         $user->update($data);
         Auth::login($user);
 
@@ -95,10 +97,10 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
-        //$this->authorize('user_destroy');
         if ($user->id == Auth::user()->id) {
             abort(403);
         }
+
         $user->delete();
 
         return response()->json("Delete user success.");
