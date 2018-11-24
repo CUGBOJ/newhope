@@ -84,11 +84,10 @@ class UsersController extends Controller
         }
 
         if ($request->avatar) {
-            $result = $uploader->save($request->avatar, 'avatars', $user->username);
-            if ($result) {
-                $data['avatar'] = $result['path'];
-            }
-        } else if ($request->regenerate_avatar == 'true') {
+            $data['avatar'] = $request->avatar;
+        }
+
+        if ($request->regenerate_avatar == 'true') {
             $data['avatar'] = $this->regenerate_avatar($request->nickname);
         }
 

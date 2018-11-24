@@ -44,7 +44,6 @@ Route::post('contest', 'ContestsController@store');
 Route::get('problemsByContest/{contest}', 'ContestsController@getProblems');
 Route::get('getProblemId', 'ContestsController@getProblem');
 
-
 Route::get('usersByContest/{contest}', 'ContestsController@getUser');
 Route::get('rejectUserByContest/{contest}', 'ContestsController@getRejectUser');
 Route::get('statusByContest/{contest}', 'ContestsController@getStatus');
@@ -58,9 +57,19 @@ Route::post('problem', 'ProblemsController@store');
 
 Route::post('codeSubmit', 'StatusesController@store');
 
-
 Route::get('problem', 'ProblemsController@getProblems');
 
 Route::get('status', 'StatusesController@show');
 
-Route::get('standing/{contest}','ContestsController@getStanding');
+Route::get('standing/{contest}', 'ContestsController@getStanding');
+
+Route::post('uploadFile', function (Illuminate\Http\Request $request) {
+    $handler = new App\Handlers\ImageUploadHandler;
+    $result = $handler->save($request->file('file'), Auth::user()->username, uniqid());
+    if ($result) {
+        return response()->json($result, 200);
+    }
+    else {
+        return response()->json('upload failed', 500);
+    }
+});

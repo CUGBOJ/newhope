@@ -19,6 +19,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 /* eslint-disable no-console*/
 
 let token = document.head.querySelector('meta[name="csrf-token"]')
+window.token = token
 
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content

@@ -262,5 +262,12 @@ class ContestsController extends Controller
         }
     }
 
+    public function destroy(Contest $contest)
+    {
+        $this->authorize('manage_contents');
 
+        $contest->delete();
+
+        return response()->json("Delete contest success.", 200);
+    }
 }

@@ -7,9 +7,9 @@ class ImageUploadHandler
     // 只允许以下后缀名的图片文件上传
     protected $allowed_ext = ["png", "jpg", "gif", 'jpeg'];
 
-    public function save($file, $folder, $file_prefix)
+    public function save($file, $folder, $file_prefix = '')
     {
-        $folder_name = "uploads/images/" . "$folder" . "/" . "$file_prefix/";
+        $folder_name = "uploads/images/$folder";
 
         // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径。
         // 值如：/home/vagrant/Code/larabbs/public/uploads/images/avatars/201709/21/

@@ -1,11 +1,15 @@
 <template>
   <div v-if="user">
-    <div>
-      <label for="" class="avatar-label">用户头像</label>
-      <img :src="user.avatar" width="200" />
-      <input type="file" name="avatar" id="avatar" />
+    <Row type="flex" justify="space-around">
+    <Col span="8">
+      <img :src="user.avatar" width="180" />
+      <Upload action="/api/uploadFile" :on-success="uploadFileSuccess" :on-preview="changeAvatarToFile" :paste="true" type="drag" :with-credentials="true" :headers="{'X-CSRF-TOKEN': csrfToken}">
+        <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+        <p>上传头像</p>
+      </Upload>
       <Checkbox v-model="user.regenerate_avatar">重新生成头像</Checkbox>
-    </div>
+    </Col>
+    <Col span="10">
     <div>
       <label for="nickname">昵称：</label>
       <Input type="text" v-model="user.nickname" />
@@ -26,7 +30,9 @@
       <label for="school">学校：</label>
       <Input type="text" name="school" v-model="user.school" />
     </div>
-    <Button @click="submit">提交修改</Button>
+    </Col>
+    </Row>
+    <Button @click="submit" style="float: right">提交修改</Button>
   </div>
   <Spin size="large" fix v-else/>
 </template>
@@ -51,7 +57,10 @@ export default {
     computed: {
         ...mapGetters({
             storeUser: 'user'
-        })
+        }),
+        csrfToken() {
+            return window.token.content
+        }
     },
     watch: {
         storeUser: function(value) {
@@ -71,6 +80,15 @@ export default {
                 }
             }
         },
+        changeAvatar(response) {
+            this.user.avatar = response.path
+        },
+        uploadFileSuccess(response) {
+            this.changeAvatar(response)
+        },
+        changeAvatarToFile(file) {
+            this.changeAvatar(file.response)
+        },
         submit() {
             let data = new FormData()
 
@@ -80,14 +98,11 @@ export default {
                 'school',
                 'password',
                 'password_confirmation',
-                'regenerate_avatar'
+                'regenerate_avatar',
+                'avatar'
             ]
             for (let key of props) {
                 data.append(key, this.user[key])
-            }
-
-            if (document.getElementById('avatar').files.length) {
-                data.set('avatar', document.getElementById('avatar').files[0])
             }
 
             data.append('_method', 'PATCH')
