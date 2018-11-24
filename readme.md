@@ -187,9 +187,14 @@ php artisan serve
 
 可以增加`--port=<the_port_you_want>`参数来指定端口，默认为 8000
 
-
-```打开websocket服务器
+打开websocket服务器
+```
 npx laravel-echo-server start
+```
+
+加载admin页面资源
+```
+php artisan vendor:publish --provider="Frozennode\Administrator\AdministratorServiceProvider"
 ```
 
 ---
