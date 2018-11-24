@@ -5,7 +5,8 @@
 /public/css
 /public/fonts
 /public/js
-/public/uploads/images
+/public/uploads/images/avatars/*
+!/public/uploads/images/avatars/.gitkeep
 /public/mix-manifest.json
 /storage/*.key
 /vendor
