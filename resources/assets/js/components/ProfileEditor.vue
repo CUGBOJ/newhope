@@ -4,6 +4,7 @@
       <label for="" class="avatar-label">用户头像</label>
       <img :src="user.avatar" width="200" />
       <input type="file" name="avatar" id="avatar" />
+      <Checkbox v-model="user.regenerate_avatar">重新生成头像</Checkbox>
     </div>
     <div>
       <label for="nickname">昵称：</label>
@@ -42,7 +43,8 @@ export default {
                 email: '',
                 school: '',
                 password: '',
-                password_confirmation: ''
+                password_confirmation: '',
+                regenerate_avatar: false
             }
         }
     },
@@ -77,7 +79,8 @@ export default {
                 'email',
                 'school',
                 'password',
-                'password_confirmation'
+                'password_confirmation',
+                'regenerate_avatar'
             ]
             for (let key of props) {
                 data.append(key, this.user[key])

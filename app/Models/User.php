@@ -57,7 +57,7 @@ class User extends Authenticatable
     const UPDATED_AT = 'last_login_time';
     use HasRoles;
 
-    // protected $appends = ['can'];
+    protected $appends = ['can'];
 
     public function messages($instance)
     {

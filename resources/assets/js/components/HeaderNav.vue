@@ -1,7 +1,7 @@
 <template>
   <Header :style="{position: 'fixed', width: '100%', top: '0'}">
     <Menu mode="horizontal" theme="dark" active-name="1">
-      <div class="layout-logo" @click="$router.push({name: 'home'})"></div>
+      <div class="layout-logo" @click="$router.push({name: 'home'})">CUGBOJ</div>
       <div class="layout-nav">
         <ButtonGroup>
           <Button>

@@ -6,7 +6,7 @@
           <Col span="11" :offset="key % 2 === 1 ? 1 : 0">
           <Card dis-hover>
             <div class="d-flex">
-              <Avatar class="mx" size="large">{{value.username.substr(0, 1).toUpperCase()}}</Avatar>
+              <Avatar class="mx" shape="square" size="large" :src="value.avatar"></Avatar>
               <div class="mx">
                 <h3>
                   <router-link :to="'user/' + value.username">

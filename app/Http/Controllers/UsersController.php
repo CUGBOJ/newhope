@@ -61,6 +61,7 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'last_login_ip' => $request->ip(),
+            'avatar' => $this->regenerate_avatar($request->nickname),
         ]);
 
         Auth::login($user);
@@ -87,6 +88,8 @@ class UsersController extends Controller
             if ($result) {
                 $data['avatar'] = $result['path'];
             }
+        } else if ($request->regenerate_avatar == 'true') {
+            $data['avatar'] = $this->regenerate_avatar($request->nickname);
         }
 
         $user->update($data);
@@ -104,5 +107,13 @@ class UsersController extends Controller
         $user->delete();
 
         return response()->json("Delete user success.");
+    }
+
+    function regenerate_avatar(string $nickname)
+    {
+        $avatar_path = '/uploads/images/avatars/' . uniqid() . '.png';
+        \Avatar::create($nickname)->setShape('square')->setDimension(200, 200)->setFontSize(99)
+            ->save(public_path() . $avatar_path);
+        return $avatar_path;
     }
 }

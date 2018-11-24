@@ -109,7 +109,7 @@ sudo vi php.ini
 ```shell
 brew update
 brew search php
-brew install php@7.1
+brew install php@7.1 --with-freetype
 ```
 
 ### Composer
