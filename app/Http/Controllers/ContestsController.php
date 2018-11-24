@@ -34,6 +34,8 @@ class ContestsController extends Controller
 
     public function update(Contest $contest, ContestRequest $request)
     {
+        $this->authorize('manage_contents');
+
         $data = [];
         $data['title'] = $request->title;
         $data['description'] = $request->description;

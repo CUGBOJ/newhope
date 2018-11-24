@@ -1,7 +1,7 @@
 <template>
   <div>
     <Table :loading="loading" stripe :columns="columns" :data="data" :height="tableHeight"></Table>
-    <Row>
+    <Row v-if="this.$store.state.user && this.$store.state.user.can.manage_contents">
       <Button type="primary" :to="{name: 'problem-create'}">New Problem</Button>
     </Row>
     <div style="float: right;">
@@ -15,6 +15,7 @@ import axios from 'axios'
 export default {
     mounted() {
         this.changePage()
+        this.addActionColumn()
     },
     computed: {
         tableHeight() {
@@ -36,6 +37,35 @@ export default {
                     this.total = res.data.total
                     this.loading = false
                 })
+        },
+        addActionColumn() {
+            if (this.$store.state.user && this.$store.state.user.can.manage_contents) {
+                this.columns.push(
+                    {
+                        title: 'Action',
+                        key: 'action',
+                        fixed: 'right',
+                        width: 100,
+                        render: (h, params) => {
+                            return h('div', [
+                                h(
+                                    'router-link',
+                                    {
+                                        props: {
+                                            to: {
+                                                name: 'problem-edit',
+                                                params: {
+                                                    id: params.row.id
+                                                }
+                                            }
+                                        }
+                                    },
+                                    'Edit'
+                                )
+                            ])
+                        }
+                    })
+            }
         }
     },
     data() {
@@ -79,30 +109,6 @@ export default {
                     title: 'Accepted Users',
                     key: 'total_ac_user',
                     width: 100
-                },
-                {
-                    title: 'Action',
-                    key: 'action',
-                    fixed: 'right',
-                    width: 100,
-                    render: (h, params) => {
-                        return h('div', [
-                            h(
-                                'router-link',
-                                {
-                                    props: {
-                                        to: {
-                                            name: 'problem-edit',
-                                            params: {
-                                                id: params.row.id
-                                            }
-                                        }
-                                    }
-                                },
-                                'Edit'
-                            )
-                        ])
-                    }
                 }
             ],
             data: []

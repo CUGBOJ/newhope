@@ -27,7 +27,7 @@
         </Split>
         </Row>
         <Row type="flex" justify="end">
-            <Col span="2">
+            <Col span="2" v-if="this.$store.state.user && this.$store.state.user.can.manage_contents">
                 <i-button type="info" @click.native="editProblem">
                     编辑题目
                 </i-button>

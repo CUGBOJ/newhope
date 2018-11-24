@@ -48,8 +48,7 @@ export default {
         }
     },
     created() {
-
-        if ( this.loggedIn == true) {
+        if (this.loggedIn == true) {
             if (window.history.length > 0) {
                 this.$router.go(-1)
             } else {            

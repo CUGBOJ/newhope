@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
 
 /**
  * App\Models\User
@@ -55,6 +56,8 @@ class User extends Authenticatable
     const CREATED_AT = 'register_time';
     const UPDATED_AT = 'last_login_time';
     use HasRoles;
+
+    protected $appends = ['can'];
 
     public function messages($instance)
     {
@@ -134,9 +137,23 @@ class User extends Authenticatable
         $this->unreadNotifications->markAsRead();
     }
 
-    // public function roles()
-    // {
-    //     return $this->belongsToMany('\App\Models\Role', 'users_roles', 'user_id', 'role_id');
-    // }
-
+    /**
+     * Get all user permissions in a flat array.
+     *
+     * @return array
+     */
+    public function getCanAttribute()
+    {
+        $permissions = [];
+        if (Auth::user()) {
+            foreach (Permission::all() as $permission) {
+                if (Auth::user()->can($permission->name)) {
+                    $permissions[$permission->name] = true;
+                } else {
+                    $permissions[$permission->name] = false;
+                }
+            }
+        }
+        return $permissions;
+    }
 }

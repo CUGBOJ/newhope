@@ -1,7 +1,7 @@
 <template>
   <Spin size="large" fix v-if="loading"></Spin>
   <Card v-else>
-    <Row>
+    <Row v-if="this.$store.state.user && this.$store.state.user.can.manage_contents">
       <Button :to="{name: 'contest-create'}" type="primary">New contest</Button>
     </Row>
     <CellGroup>

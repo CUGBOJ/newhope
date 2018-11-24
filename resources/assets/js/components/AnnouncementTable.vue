@@ -1,7 +1,7 @@
 <template>
   <Spin size="large" fix v-if="loading"></Spin>
   <div v-else>
-    <Row>
+    <Row v-if="this.$store.state.user && this.$store.state.user.can.manage_contents">
       <Button type="primary">New announcement</Button>
     </Row>
     <ul>

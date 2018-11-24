@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class SessionsController extends Controller
 {
-    public function create()
-    {
-        return view('sessions.create');
-    }
 
     public function store(Request $request)
     {
@@ -36,7 +32,7 @@ class SessionsController extends Controller
     public function destroy()
     {
         Auth::logout();
-        session()->flush();
+        session()->forget('password_hash');
         return response()->json('Logout success');
     }
 
