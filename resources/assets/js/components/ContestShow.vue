@@ -29,6 +29,19 @@
                 <contestTopics :contestId="contestId" />
             </Tab-pane>
             <Tab-pane label="Clarification" key="clarification">Clarification</Tab-pane>
+            <Tab-pane label="Teams" key="team">
+                <Button @click="createTeam">新建队伍</Button>
+                <Card>
+                     <CellGroup>
+                         <Cell v-for="team in contest.teams" :key="team.id">
+                            <div>
+                                {{team.teamname}}
+                            </div>
+                            <Avatar v-for="user in team.users" :key="user.id" shape="square" :src="user.avatar" size="large"/>
+                         </Cell>
+                     </CellGroup>
+                </Card>
+            </Tab-pane>
         </Tabs>
     </div>
 </template>
@@ -58,6 +71,9 @@ export default {
         contestStanding: contestStanding
     },
     methods: {
+        createTeam() {
+
+        },
         fetchData() {
             this.loading = true
             if (this.contestId) {

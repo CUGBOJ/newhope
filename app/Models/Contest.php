@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Contest extends Model
 {
-    protected $with = ['problems'];
+    protected $with = ['problems', 'teams'];
 
     protected $fillable = [
         'create_time',

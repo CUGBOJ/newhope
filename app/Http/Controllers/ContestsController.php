@@ -22,9 +22,7 @@ class ContestsController extends Controller
 
     public function index(Request $request)
     {
-
-        $contest = Contest::getModel();
-        return $contest->get();
+        return Contest::without(['problems', 'teams'])->get();
     }
 
     public function show(Request $request, Contest $contest)
@@ -62,7 +60,6 @@ class ContestsController extends Controller
         array_unshift($query, "");
         unset($query[0]);
 
-
         $contest->problems()->sync($query);
 
         $contest->update($data);
@@ -87,7 +84,6 @@ class ContestsController extends Controller
 
         return redirect()->route('contests.show', $contest->id);
     }
-
 
     public function add_user_by_admin(Contest $contest, User $user)
     {
