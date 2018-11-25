@@ -230,7 +230,7 @@ export default {
                 })
         },
         addProblem(id) {
-            if (this.problems.includes(id)) {
+            if (this.problems.some(o => o.id == id)) {
                 this.$Notice.error({
                     title: '题目与已有题目重复'
                 })

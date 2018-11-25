@@ -19,7 +19,7 @@
       <Input type="email" v-model="user.email" />
     </div>
     <div>
-      <label for="password">密码：</label>
+      <label for="password">新密码：</label>
       <Input type="password" v-model="user.password" />
     </div>
     <div>

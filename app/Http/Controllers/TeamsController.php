@@ -7,7 +7,8 @@ use App\Models\Team;
 
 class TeamsController extends Controller
 {
-     public function store(Request $request){
+    public function store(Request $request)
+    {
         $this->validate($request, [
             'teamname' => 'required|max:50',
         ]);
@@ -16,8 +17,9 @@ class TeamsController extends Controller
             'teamname' => $request->teamname,
             'captain' =>Auth::user()->id,
         ]);
+
         return response()->json($team);
-     }
+    }
 
      public function addMember(Team $team,Request $request)
      {
@@ -25,7 +27,7 @@ class TeamsController extends Controller
         \DB::table('contest_user')->where('contest_id'.$team->contest_id)->where('user_id',$userId)->update(['team_id'=>$team->id]);
         $team->member_number++;
         return;
-     }
+    }
 
      public function subMember(Team $team,Request $request){
         $userId=$request->userId;
@@ -34,6 +36,7 @@ class TeamsController extends Controller
             destroy();
             return;
         }
+        
         $team->member_number--;
         \DB::table('contest_user')->where('contest_id'.$team->contest_id)->where('user_id',$userId)->where('team_id',$team->id)->update(['team_id'=>null]);
      }

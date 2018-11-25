@@ -22,7 +22,7 @@
                         {{`${discussion.username}`}}
                     </Tag>
                     <Tag color="primary">
-                        <Time :time="discussion.created_at"></Time>
+                        <Time :time="discussion.updated_at"></Time>
                     </Tag>
                 </div>
           </li>

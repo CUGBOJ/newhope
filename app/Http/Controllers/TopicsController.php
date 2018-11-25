@@ -39,7 +39,7 @@ class TopicsController extends Controller
             $topic = $topic->where('pid', $request->get('prob'));
         }
 
-        return $topic->get();
+        return $topic->orderBy('updated_at', 'desc')->get();
     }
 
     public function show(Topic $topic)

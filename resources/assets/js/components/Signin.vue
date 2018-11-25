@@ -9,7 +9,9 @@
         <Input name="nickname" v-model="form.nickname" clearable> </Input>
       </FormItem>
       <FormItem label="邮箱">
-        <Input name="email" type="email" v-model="form.email" clearable> </Input>
+        <Input name="email" type="email" v-model="form.email" clearable> 
+            <span slot="append">@cugb.edu.cn</span>
+        </Input>
       </FormItem>
       <FormItem label="密码">
         <Input name="password" type="password" v-model="form.password" clearable> </Input>
@@ -42,7 +44,7 @@ export default {
                     username: this.form.username,
                     password: this.form.password,
                     nickname: this.form.nickname,
-                    email: this.form.email,
+                    email: this.form.email + '@cugb.edu.cn',
                     password_confirmation: this.form.password_confirmation,
                     school: this.form.school
                 })
