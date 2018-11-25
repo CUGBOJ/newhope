@@ -49,7 +49,6 @@ class TeamsTableSeeder extends Seeder
                     \DB::table('contest_user')->where('contest_id',$contest_id)->where('user_id',$item->user_id)->update(['team_id' => $index+1]);
                     $i++;
                 }
-                $team->member_number=$i;
             
             });
 

@@ -25,7 +25,6 @@ class TeamsController extends Controller
      {
         $userId=$request->userId;
         \DB::table('contest_user')->where('contest_id'.$team->contest_id)->where('user_id',$userId)->update(['team_id'=>$team->id]);
-        $team->member_number++;
         return;
     }
 
@@ -37,7 +36,6 @@ class TeamsController extends Controller
             return;
         }
         
-        $team->member_number--;
         \DB::table('contest_user')->where('contest_id'.$team->contest_id)->where('user_id',$userId)->where('team_id',$team->id)->update(['team_id'=>null]);
      }
 
