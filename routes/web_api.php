@@ -55,6 +55,10 @@ Route::post('problem/{problem}', 'ProblemsController@update');
 Route::delete('problem/{problem}', 'ProblemsController@destroy');
 Route::post('problem', 'ProblemsController@store');
 
+Route::post('announcement/{announcement}', 'AnnouncementsController@update');
+Route::delete('announcement/{announcement}', 'AnnouncementsController@destroy');
+Route::post('announcement', 'AnnouncementsController@store');
+
 Route::post('codeSubmit', 'StatusesController@store');
 
 Route::get('problem', 'ProblemsController@getProblems');

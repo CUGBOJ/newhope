@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use http\Env\Response;
 use Illuminate\Http\Request;
 
 class AnnouncementsController extends Controller
@@ -33,40 +34,42 @@ class AnnouncementsController extends Controller
             $announce = $announce->where('username', $request->get('username'));
         }
 
-        return $announce->get();
+        return $announce->orderBy('updated_at', 'desc')->get();
     }
 
     public function store(Request $request)
     {
+        $this->authorize('manage_contents');
+
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',
         ]);
-        //$this->authorize('announcement_create');
-        $announcement = Announcement::create([
+
+        Announcement::create([
             'title' => $request->title,
             'body' => $request->body,
         ]);
-        session()->flash('success', 'Add announcement success.');
-        return redirect()->route('announcements.show', [$announcement]);
+
+        return response()->json('The announcement created successfully.');
     }
 
     public function destroy(Announcement $announcement)
     {
-        //$this->authorize('announcement_destroy');
+        $this->authorize('manage_contents');
         $announcement->delete();
-        return redirect()->route('announcements.index')->with('success', 'Delete announcement success.');
+        return response()->json('The announcement deleted successfully.');
     }
 
     public function update(Announcement $announcement, Request $request)
     {
+        $this->authorize('manage_contents');
         $this->validate($request, [
             'title' => 'required|max:50|min:2',
             'body' => 'required',
         ]);
-        //$this->authorize('announcement_edit');
+
         $announcement->update($request->all());
-        session()->flash('success', 'Modify announcement success.');
-        return redirect()->route('announcements.show', [$announcement]);
+        return response()->json('Modify announcement success.');
     }
 }

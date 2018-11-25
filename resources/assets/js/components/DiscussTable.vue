@@ -2,7 +2,7 @@
   <Spin size="large" fix v-if="loading"></Spin>
   <div v-else>
       <Row>
-          <Button type="primary" @click="this.window.location.href = '/topics/create'">New topic</Button>
+          <Button type="primary" :to="{name: 'topic-editor'}">New topic</Button>
       </Row>
       <ul>
           <li v-for="discussion in discussions" :key="discussion.id">
@@ -80,7 +80,7 @@ li
     & .title
         font-size 1.6em
 
-a
+li > a
     color #24292e
 
     &:hover
