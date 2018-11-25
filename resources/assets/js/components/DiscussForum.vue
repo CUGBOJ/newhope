@@ -9,24 +9,7 @@
                 <Col span="22">
                     <Card dis-hover>
                         <div> 
-                            <Poptip v-if="reply.user" trigger="hover" width="300" :transfer="true">
-                                <a> {{reply.user.username}} </a>
-                                <div slot="content">
-                                    <Row>
-                                        <Col span="6">
-                                        <Avatar v-if="reply.user" shape="square" :src="reply.user.avatar" size="large" /> 
-                                        </Col>
-                                        <Col span="18">
-                                            <Row>
-                                                {{reply.user.username}} {{reply.user.nickname}}
-                                            </Row>
-                                            <Row>
-                                            <div>{{reply.user.solved}} solved.</div>
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                </div>
-                            </Poptip>
+                            <UserPoptip :user="reply.user"/>
                             for problem 
                             <router-link :to="{name: 'problem', params: {problemId}}"> {{ '#' + problemId }} </router-link>
                             <div style="float: right">
@@ -41,10 +24,14 @@
         </div>
   </div>
 </template>
-
 <script>
+import UserPoptip from './UserPoptip.vue'
 import axios from 'axios'
+
 export default {
+    components: {
+        UserPoptip: UserPoptip
+    },
     data() {
         return {
             loading: true,

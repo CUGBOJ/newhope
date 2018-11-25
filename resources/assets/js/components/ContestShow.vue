@@ -33,11 +33,11 @@
                 <Button @click="createTeam">新建队伍</Button>
                 <Card>
                      <CellGroup>
-                         <Cell v-for="team in contest.teams" :key="team.id">
+                         <Cell v-for="team in contest.teams" :key="team.id" @click.native="joinTeam(team.id)">
                             <div>
                                 {{team.teamname}}
                             </div>
-                            <Avatar v-for="user in team.users" :key="user.id" shape="square" :src="user.avatar" size="large"/>
+                            <Avatar v-for="user in team.users" :key="user.id" shape="square" :src="user.avatar"/>
                          </Cell>
                      </CellGroup>
                 </Card>
@@ -73,6 +73,14 @@ export default {
     methods: {
         createTeam() {
 
+        },
+        joinTeam(id) {
+            this.$Modal.confirm({
+                content: '是否加入该队伍？',
+                onOk: () => {
+                    axios.post('' + id)
+                }
+            })
         },
         fetchData() {
             this.loading = true
