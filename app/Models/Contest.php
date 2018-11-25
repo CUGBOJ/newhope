@@ -42,6 +42,8 @@ class Contest extends Model
 {
     protected $with = ['problems', 'teams'];
 
+    protected $appends = ['is_started'];
+
     protected $fillable = [
         'create_time',
         'start_time',
@@ -88,5 +90,13 @@ class Contest extends Model
     public function teams()
     {
         return $this->hasMany(Team::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsStartedAttribute()
+    {
+        return time() - strtotime($this->start_time) > 0;
     }
 }

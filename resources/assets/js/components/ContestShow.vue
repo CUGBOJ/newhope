@@ -5,9 +5,9 @@
             <contestTitleCard v-if="contest" :title="contest.title" :start="new Date(contest.start_time)" :end="new Date(contest.end_time)">
             </contestTitleCard>
         </div>
-        <Tabs active-key="problems" style="margin-top:20px">
+        <Tabs style="margin-top:20px">
             <Button v-if="this.$store.state.user && this.$store.state.user.can.manage_contents" :to="{name: 'contest-edit', params: {id: contestId}}" type="warning" slot="extra">Update</Button>
-            <Tab-pane label="Problem" key="problems">
+            <Tab-pane label="Problem" key="problems" v-if="canSeeContest">
                 <Card>
                      <CellGroup>
                          <Cell v-for="problem in contest.problems" 
@@ -19,13 +19,13 @@
                      </CellGroup>
                 </Card>
             </Tab-pane>
-            <Tab-pane label="Status" key="status">
+            <Tab-pane label="Status" key="status" v-if="canSeeContest">
                 <contestStatus :contestId="contestId" />
             </Tab-pane>
-            <Tab-pane label="Standing" key="standing">
+            <Tab-pane label="Standing" key="standing" v-if="canSeeContest">
                 <contestStanding :contestId="contestId" :problems="contest.problems"/>
             </Tab-pane>
-            <Tab-pane label="Topics" key="topics">
+            <Tab-pane label="Topics" key="topics" v-if="canSeeContest">
                 <contestTopics :contestId="contestId" />
             </Tab-pane>
             <Tab-pane label="Clarification" key="clarification">Clarification</Tab-pane>
@@ -108,6 +108,9 @@ export default {
     computed: {
         contestId() {
             return this.$route.params.id.toString()
+        },
+        canSeeContest() {
+            return (this.contest && this.contest.is_started) || (this.$store.state.user && this.$store.state.user.can.manage_contents)
         }
     },
     beforeDestroy() {

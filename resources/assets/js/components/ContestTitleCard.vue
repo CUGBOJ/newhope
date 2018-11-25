@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card style="width:80%px height:300px">
+    <Card>
       <div style="text-align:center">
         <Time :time="start" type="datetime" style="float:left"></Time>
         <Time :time="end" type="datetime" style="float:right"></Time>
