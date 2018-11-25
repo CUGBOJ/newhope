@@ -30,7 +30,7 @@
             </Tab-pane>
             <Tab-pane label="Clarification" key="clarification">Clarification</Tab-pane>
             <Tab-pane label="Teams" key="team">
-                <Button @click="createTeam">新建队伍</Button>
+                <Button :to="{name: 'team-create'}" type="primary">新建/管理队伍</Button>
                 <Card>
                      <CellGroup>
                          <Cell v-for="team in contest.teams" :key="team.id" @click.native="joinTeam(team.id)">
@@ -71,14 +71,11 @@ export default {
         contestStanding: contestStanding
     },
     methods: {
-        createTeam() {
-
-        },
         joinTeam(id) {
             this.$Modal.confirm({
                 content: '是否加入该队伍？',
                 onOk: () => {
-                    axios.post('' + id)
+                    axios.post('team/' + id)
                 }
             })
         },

@@ -18,6 +18,7 @@ const NotificationPane = () => import('../components/NotificationPane.vue')
 const ContestTable = () => import('../components/ContestTable.vue')
 const ContestShow = () => import('../components/ContestShow.vue')
 const ContestEditor = () => import('../components/ContestEditor.vue')
+const TeamEditor = () => import('../components/TeamManage.vue')
 
 const Profile = () => import('../components/Profile.vue')
 const ProfileEditor = () => import('../components/ProfileEditor.vue')
@@ -146,6 +147,16 @@ const router = new VueRouter({
             path: '/notice',
             name: 'notice',
             component: NotificationPane
+        },
+        {
+            path: '/team/:id/create',
+            name: 'team-create',
+            component: TeamEditor
+        },
+        {
+            path: '/team/:id/edit',
+            name: 'team-edit',
+            component: TeamEditor
         },
         {
             path: '/practice',

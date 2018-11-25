@@ -76,7 +76,26 @@ class TeamsController extends Controller
     }
 
     public function dealApply(Team $team,Request $request){
-        $user=$request->user;
-        \DB::table('contest_user')->where('contest_id',$team->contest_id)->where('user_id',$user)->update('team_id',$team_id);
+       dd($team);
+        if($request->res==true){
+            $user=$request->user;
+            \DB::table('contest_user')->where('contest_id',$team->contest_id)->where('user_id',$user)->update('team_id',$team_id);
+            \DB::table('team_apply')->where('team_id',$team->id)->where('user_id',$user)->update(['be_deal'=>true,'deal_time'=>now()]);
+
+        }
+        else{
+            $user=$request->user;
+            \DB::table('contest_user')->where('contest_id',$team->contest_id)->where('user_id',$user)->update('team_id',$team_id);
+            \DB::table('team_apply')->where('team_id',$team->id)->where('user_id',$user)->delete();
+        }
+    }
+
+    public function getApplyList(Team $team){
+        $applyList=\DB::table('team_apply')->where('team_id',$team->id)->where('be_deal',false)->pluck('user_id')->toArray();
+        $applyUser=array();
+        foreach($applyList as $i){
+            array_push($applyUser,User::find($i));
+        }
+        return $applyUser;
     }
 }
