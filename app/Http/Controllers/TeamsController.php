@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Team;
+use App\Models\User;
+use App\Notifications\TeamApplyReplied;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class TeamsController extends Controller
 {
@@ -60,4 +65,18 @@ class TeamsController extends Controller
          return response()->json('Team be destroyed!', 200);
      }
 
+    public function apply(Team $team,Request $request){
+        // dd($request);
+        \DB::insert('insert into team_apply (user_id,team_id,create_time) values (?, ?,?)', [ Auth::user()->id, $team->id,now()]);
+        $user=User::find($team->captain);
+        $user->messages(new TeamApplyReplied($team->id,Auth::user()->id));
+        $user->save();
+        return response()->json(['message' => '申请成功'], 200);
+
+    }
+
+    public function dealApply(Team $team,Request $request){
+        $user=$request->user;
+        \DB::table('contest_user')->where('contest_id',$team->contest_id)->where('user_id',$user)->update('team_id',$team_id);
+    }
 }
