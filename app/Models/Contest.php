@@ -84,4 +84,9 @@ class Contest extends Model
     {
         return $this->hasMany(Status::class);
     }
+
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
 }

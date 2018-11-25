@@ -17,7 +17,7 @@ class CreateContestUserTable extends Migration
             $table->integer('id', 1)->index()->unsigned();
             $table->integer('contest_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
-            $table->integer('team_id')->nullable();
+            $table->integer('team_id')->nullable()->index();
 
             $table->foreign('contest_id')->references('id')->on('contests')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

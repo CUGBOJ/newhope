@@ -77,3 +77,7 @@ Route::post('uploadFile', function (Illuminate\Http\Request $request) {
         return response()->json('upload failed', 500);
     }
 });
+
+Route::get('team/{team}','TeamsController@show');
+Route::post('team','TeamsController@store');
+Route::get('teams','TeamsController@index');

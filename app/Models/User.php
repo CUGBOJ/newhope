@@ -120,6 +120,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Contest', 'contest_user', 'user_id', 'contest_id');
     }
 
+    public function teams()
+    {
+        return $this->belongsToMany('App\Models\Team', 'contest_user', 'user_id', 'team_id');
+    }
+
     public function isAuthorOf($model)
     {
         return $this->username == $model->username;
