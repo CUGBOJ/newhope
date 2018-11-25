@@ -10,12 +10,11 @@ class TeamsController extends Controller
      public function store(Request $request){
         $this->validate($request, [
             'teamname' => 'required|max:50',
-            'captain' =>'required'
         ]);
         
-        $contest = Team::create([
+        $team = Team::create([
             'teamname' => $request->teamname,
-            'captain' =>$request->captain,
+            'captain' =>Auth::user()->id,
         ]);
         return response()->json($team);
      }
@@ -23,7 +22,7 @@ class TeamsController extends Controller
      public function addMember(Team $team,Request $request)
      {
         $userId=$request->userId;
-        $team->users()->attach($userId);
+        \DB::table('contest_user')->where('contest_id'.$team->contest_id)->where('user_id',$userId)->update(['team_id'=>$team->id]);
         $team->member_number++;
         return;
      }
@@ -31,18 +30,24 @@ class TeamsController extends Controller
      public function subMember(Team $team,Request $request){
         $userId=$request->userId;
         if($userId==$team->captain){
+            DB::table('users')->where('team_id',  $team->id)->update(['team_id'=>null]);
             destroy();
             return;
         }
         $team->member_number--;
-        $user->roles()->detach($roleId);
+        \DB::table('contest_user')->where('contest_id'.$team->contest_id)->where('user_id',$userId)->where('team_id',$team->id)->update(['team_id'=>null]);
      }
 
      public function show(Team $team,Request $request){
-        $team->users;
-        return response()->json($team);
+        return response()->json(['base'=>$team,'grade'=>111]);
      }
-     public function index(Request $request)
+
+     public function getGrade(Team $team){
+
+
+     }
+
+     public function index(Reqest $request)
      {
          $team = Team::getModel();
          return $team->get();

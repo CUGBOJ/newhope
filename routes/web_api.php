@@ -81,3 +81,4 @@ Route::post('uploadFile', function (Illuminate\Http\Request $request) {
 Route::get('team/{team}','TeamsController@show');
 Route::post('team','TeamsController@store');
 Route::get('teams','TeamsController@index');
+Route::delete('team/{team}','TeamController@destroy');
