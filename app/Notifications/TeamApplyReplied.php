@@ -14,9 +14,9 @@ class TeamApplyReplied extends Notification implements ShouldQueue
 
     public $teamApply;
 
-    public function __construct($team_id, $user_id)
+    public function __construct($team_id, $user_id, $username)
     {
-        $this->teamApply = ['team_id' => $team_id, 'user_id' => $user_id, "create_time" => now()];
+        $this->teamApply = ['team_id' => $team_id, 'user_id' => $user_id, 'username' => $username, "create_time" => now()];
     }
 
     public function via($notifiable)
@@ -30,6 +30,7 @@ class TeamApplyReplied extends Notification implements ShouldQueue
         $tmp = $this->teamApply;
         return [
             'user_id' => $tmp['user_id'],
+            'username' => $tmp['username'],
             'team_id' => $tmp['team_id'],
             'create_time' => $tmp['create_time'],
         ];

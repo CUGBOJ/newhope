@@ -30,7 +30,7 @@
           <Button @click="readOne">阅读该条</Button>
         </div>
         <div v-else-if="val.type.endsWith('TeamApplyReplied')" :key="index" v-for="(data, index) in parseJsonData(val.data)">
-            收到用户{{data.user_id}}加入{{data.team_id}}队申请
+            收到用户{{data.username}}加入{{data.team_id}}队申请
         </div>
       </div>
     </div>
@@ -63,6 +63,7 @@ export default {
                     title: 'Success',
                     desc: res.data.message
                 })
+                this.fetchData()
             })
         },
         fetchData() {

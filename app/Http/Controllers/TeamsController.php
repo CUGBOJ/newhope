@@ -111,12 +111,12 @@ class TeamsController extends Controller
         $tmp = \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', Auth::user()->id)
             ->where('team_id', '<>', null)->count();
         if ($tmp) {
-            return response()->json(['message' => '失败，已经加入别的队伍!', 'res' => 'fail']);
+            return response()->json(['message' => '失败，已加入队伍!', 'res' => 'fail']);
         }
 
         \DB::insert('insert into team_apply (user_id,team_id,create_time) values (?,?,?)', [Auth::user()->id, $team->id, now()]);
         $user = User::find($team->captain);
-        $user->messages(new TeamApplyReplied($team->id, Auth::user()->id));
+        $user->messages(new TeamApplyReplied($team->id, Auth::user()->id, Auth::user()->username));
         $user->save();
         return response()->json(['message' => '申请成功', 'res' => 'success']);
     }

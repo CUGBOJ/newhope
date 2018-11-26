@@ -84,10 +84,9 @@ class ContestsController extends Controller
             'hide_other' => $request->hide_other,
             'password' => $request->password ? bcrypt($request->password) : null,
             'owner' => Auth::user()->username,
-            'create_time' => now(),
         ]);
 
-        return redirect()->route('contests.show', $contest->id);
+        return response()->json('Contest created successfully');
     }
 
     public function add_user_by_admin(Contest $contest, User $user)

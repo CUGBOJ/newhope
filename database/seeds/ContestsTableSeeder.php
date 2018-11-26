@@ -15,17 +15,17 @@ class ContestsTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::all()->pluck('username','id')->toArray();
+        $users = User::all()->pluck('username', 'id')->toArray();
         $faker = app(Faker\Generator::class);
-        $users2= User::all()->pluck('id','username')->toArray();
+        $users2 = User::all()->pluck('id', 'username')->toArray();
 
 
         factory(Contest::class)
             ->times(5)
             ->create()
             ->each(function ($contest, $index)
-            use ($users, $faker,$users2) {
-                $userList=$faker->randomElements($users,50);
+            use ($users, $faker, $users2) {
+                $userList = $faker->randomElements($users, 50);
                 $contest->id = $index + 1;
                 $problems = Problem::all()->random(10);
                 $keychar = 1;
@@ -41,7 +41,7 @@ class ContestsTableSeeder extends Seeder
                     $status->submit_time = $faker->dateTimeBetween($contest->start_time, $contest->end_time);
                     $status->pid = $faker->randomElement($problems)->id;
                 }));
-                foreach($userList as $user){
+                foreach ($userList as $user) {
                     $contest->users()->attach($users2[$user]);
                 }
             });
