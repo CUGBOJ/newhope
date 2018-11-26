@@ -52,9 +52,9 @@ class TeamsController extends Controller
 
             //captain
             if ($request->user_id == $team->captain) {
-                DB::table('users')->where('team_id', $team->id)->update(['team_id' => null]);
-                destroy();
-                return response()->json('success');
+                \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id',$request->user_id)->update(['team_id' => null]);
+                $team->delete();
+                return response()->json(['message'=>"队伍已经解散！"]);
             }
 
             //other
