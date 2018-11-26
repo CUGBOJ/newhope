@@ -23,10 +23,10 @@ class TeamsController extends Controller
         $team = Team::create([
             'teamname' => $request->teamname,
             'captain' => Auth::user()->id,
-            'contest_id' => $request->contest_id,
+            'contest_id' => $request->contest_i,
         ]);
 
-
+        \DB::table('contest_user')->where('contest_id', $request->contest_id)->where('user_id',Auth::user()->id)->update(['team_id'=>$team->id]);
         $team->users()->attach(Auth::user()->id);
 
         return response()->json($team);
