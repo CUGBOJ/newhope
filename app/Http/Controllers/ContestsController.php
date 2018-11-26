@@ -20,7 +20,7 @@ class ContestsController extends Controller
         ]);
     }
 
-    public function index(Request $request)
+    public function index()
     {
         return Contest::without(['problems', 'teams'])->get();
     }
@@ -103,26 +103,24 @@ class ContestsController extends Controller
 
     public function remove_user(Contest $contest, User $user)
     {
-
         $contest->users()->detach($user->id);
-        return redirect()->route('contests.show', $contest->id);
+        return response()->json(['message' => 'User removed from contest.',]);
     }
 
     public function add_reject_user(Contest $contest, Request $request)
     {
         $user = User::where('username', $request->username)->first();
         if ($user == null) {
-            return response()->json(['message' => 'not have this user',
-            ], 200);
+            return response()->json(['message' => 'Does not have this user.',]);
         }
         $contest->reject_users()->attach($user->id);
-        return redirect()->route('contests.show', $contest->id);
+        return response()->json(['message' => 'User added to rejected list.',]);
     }
 
     public function remove_reject_user(Contest $contest, User $user)
     {
         $contest->reject_users()->detach($user->id);
-        return redirect()->route('contests.show', $contest->id);
+        return response()->json(['message' => 'User removed from rejected list.',]);
     }
 
     public function getProblems(Contest $contest, Request $request)

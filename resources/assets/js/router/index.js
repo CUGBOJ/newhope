@@ -151,7 +151,10 @@ const router = new VueRouter({
         {
             path: '/team/:id/create',
             name: 'team-create',
-            component: TeamEditor
+            component: TeamEditor,
+            props: {
+                isCreator: true
+            }
         },
         {
             path: '/team/:id/edit',

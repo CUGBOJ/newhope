@@ -3,7 +3,6 @@
     <ul class="users">
       <Row>
         <span>已经加入成员</span>
-
         <li v-for="(value, key) in users" :key="key">
           <Col span="11" :offset="key % 2 === 1 ? 1 : 0">
           <Card dis-hover>
@@ -11,7 +10,7 @@
               <Avatar class="mx" shape="square" size="large" :src="value.avatar"></Avatar>
               <div class="mx">
                 <h3>
-                  <router-link :to="'user/' + value.username">
+                  <router-link :to="{name: 'user-show', params: {username: value.username}}">
                     {{ value.nickname }}
                   </router-link>
                 </h3>
@@ -38,7 +37,6 @@
                   </router-link>
                   <Button @click="agree(value.id)">同意</Button>
                   <Button @click="refuse(value.id)">拒绝</Button>
-
                 </h3>
               </div>
             </div>
@@ -47,7 +45,6 @@
           </Col>
         </li>
       </Row>
-
     </ul>
   </div>
 </template>
@@ -66,7 +63,9 @@ export default {
         }
     },
     mounted() {
-        if (!this.isCreator) {
+        if (this.isCreator) {
+            // TODO
+        } else {
             this.fetchData()
         }
     },
@@ -78,7 +77,6 @@ export default {
                     this.data = res.data
                     this.loading = false
                     this.users = res.data.base.users
-                    // console.log(this.users)
                 })
             
             axios.get('applyList/' + this.teamId)
@@ -92,9 +90,9 @@ export default {
                 user: userId
             }
             axios.post('dealApply/' + this.teamId,postdata)
-                .then(res => {
-                    console.log(res.data)
-                })
+            // .then(res => {
+            //     console.log(res.data)
+            // })
                 
         },
         refuse(userId) {
