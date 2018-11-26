@@ -11,7 +11,6 @@ class Team extends Model
     protected $with = ['users'];
     protected $fillable = [
         'teamname',
-        'number',
         'captain',
         'contest_id',
     ];

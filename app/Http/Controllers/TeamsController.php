@@ -20,7 +20,6 @@ class TeamsController extends Controller
             'contest_id' =>'required'
         ]);
 
-
         $team = Team::create([
             'teamname' => $request->teamname,
             'captain' => Auth::user()->id,
@@ -61,6 +60,7 @@ class TeamsController extends Controller
             //other
             \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $request->user_id)
                 ->where('team_id', $team->id)->update(['team_id' => null]);
+            $team->users()->detach($request->user_id);
             return response()->json('success');
         }
 
@@ -75,7 +75,7 @@ class TeamsController extends Controller
     }
 
     public function show(Team $team)
-    {
+    {   
         return response()->json(['base' => $team, 'grade' => $this->getGrade($team)]);
     }
 
@@ -89,10 +89,10 @@ class TeamsController extends Controller
         return 0;
     }
 
-    public function index(Reqest $request)
-    {
-        return Team::all();
-    }
+    // public function index()
+    // {
+    //     return Team::all();
+    // }
 
     public function destroy(Team $team)
     {
@@ -108,6 +108,7 @@ class TeamsController extends Controller
             return response()->json(['message' => '失败，已经加入别的队伍!', 'res' => 'fail']);
         }
 
+        \DB::insert('insert into team_apply (user_id,team_id,create_time) values (?, ?,?)', [ Auth::user()->id, $team->id,now()]);
         $user = User::find($team->captain);
         $user->messages(new TeamApplyReplied($team->id, Auth::user()->id));
         $user->save();
@@ -124,10 +125,13 @@ class TeamsController extends Controller
                 return response()->json(['message' => '失败，已经加入别的队伍', 'res' => 'fail']);
             }
 
+            
             \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
                 ->update(['team_id' => $team->id]);
             \DB::table('team_apply')->where('team_id', $team->id)->where('user_id', $user)
                 ->update(['be_deal' => true, 'deal_time' => now()]);
+            
+            $team->users()->attach($user);
 
             return response()->json(['message' => '成功!', 'res' => 'success']);
 
