@@ -143,8 +143,6 @@ class TeamsController extends Controller
 
         } else {
             $user = $request->user;
-            \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
-                ->update(['team_id' => $team->id]);
             \DB::table('team_apply')->where('team_id', $team->id)->where('user_id', $user)->delete();
         }
     }
