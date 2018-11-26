@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'nickname' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_ ]+$/',
+            'nickname' => 'required|between:3,25|regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9-_]+$/u',
             'email' => 'email|max:255',
             'password' => 'nullable|confirmed|min:6',
             'school' => 'max:20',

@@ -28,9 +28,9 @@
           <Button @click="$router.push({name: 'announcements'})">
             公告
           </Button>
-          <Button @click="$router.push('/help')">
+          <!-- <Button @click="$router.push('/help')">
             帮助
-          </Button>
+          </Button> -->
         </ButtonGroup>
         <ButtonGroup v-if="!loggedIn">
           <Button @click="$router.push({name: 'signin'})">

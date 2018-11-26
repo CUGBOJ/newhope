@@ -26,7 +26,10 @@ class TeamsController extends Controller
     }
 
     public function addMember(Team $team, Request $request)
-    {
+    {   
+        if(Auth::user()->id!=$team->captain){
+            abort(403);
+        } 
         $userId = $request->userId;
         \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $userId)
             ->update(['team_id' => $team->id]);
@@ -34,15 +37,22 @@ class TeamsController extends Controller
     }
 
     public function subMember(Team $team, Request $request)
-    {
-        $userId = $request->userId;
-        if ($userId == $team->captain) {
-            DB::table('users')->where('team_id', $team->id)->update(['team_id' => null]);
-            destroy();
-            return;
+    {   
+        if($request->userId==Auth::user()->id){            //Quit Team
+            //captain
+            if ($userId == $team->captain) {
+                DB::table('users')->where('team_id', $team->id)->update(['team_id' => null]);
+                destroy();
+                return;
+            }
+            //other
+            \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $request->userId)
+            ->where('team_id', $team->id)->update(['team_id' => null]);
         }
-
-        \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $userId)
+        if(Auth::user()->id!=$team->captain){   //captain sub member
+            abort(403);
+        }
+        \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $request->userId)
             ->where('team_id', $team->id)->update(['team_id' => null]);
     }
 
@@ -109,6 +119,9 @@ class TeamsController extends Controller
 
     public function getApplyList(Team $team)
     {
+        if(Auth::user()->id!=$team->captain){
+            abort(403);
+        }
         $apply_user_list = \DB::table('team_apply')
             ->where('team_id', $team->id)
             ->where('be_deal', false)
