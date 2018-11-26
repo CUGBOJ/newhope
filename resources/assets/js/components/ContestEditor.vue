@@ -54,6 +54,11 @@
                             is_private
                         </Checkbox>
                     </Row>
+                    <Row>
+                        <Checkbox size="large" v-model="data.register_required" :true-value="1" :false-value="0"> 
+                            register_required
+                        </Checkbox>
+                    </Row>
                     <h3> Password </h3>
                     <Row type="flex" align="middle">
                         <Col span="4">
@@ -109,6 +114,7 @@ export default {
                 end_time: new Date(),
                 hide_other: 0,
                 is_private: 0,
+                register_required: 0,
                 lock_board_time: new Date(),
                 start_time: new Date(),
                 problems: []
@@ -138,7 +144,8 @@ export default {
                 'title',
                 'description',
                 'hide_other',
-                'is_private'
+                'is_private',
+                'register_required'
             ]
 
             for (let key of props) {

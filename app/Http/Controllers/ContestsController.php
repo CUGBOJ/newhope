@@ -42,6 +42,7 @@ class ContestsController extends Controller
         $data['end_time'] = date("Y-m-d H:i:s", strtotime($request->end_time));
         $data['is_private'] = $request->is_private;
         $data['hide_other'] = $request->hide_other;
+        $data['register_required'] = $request->register_required;
 
         if ($request->password) {
             $data['password'] = bcrypt($request->password);

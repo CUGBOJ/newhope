@@ -25,6 +25,15 @@ class CreateUsersTable extends Migration
             $table->ipAddress('last_login_ip')->default('1.1.1.1');
             $table->integer('submit')->default(0);
             $table->integer('solved')->default(0);
+
+            // Register Info
+            $table->boolean('registered')->default(false);
+            $table->string('old_oj_account', 255);
+            $table->string('student_id', 20);
+            $table->string('gender', 20)->default('Secret');
+            $table->string('major', 255);
+            $table->string('info', 255);
+
             $table->rememberToken();
         });
 

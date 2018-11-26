@@ -57,8 +57,6 @@ class User extends Authenticatable
     const UPDATED_AT = 'last_login_time';
     use HasRoles;
 
-    protected $appends = ['can'];
-
     public function messages($instance)
     {
         // 如果要通知的人是当前用户，就不必通知了！
@@ -91,6 +89,11 @@ class User extends Authenticatable
         'register_time',
         'solved',
         'submit',
+        'old_oj_account',
+        'student_id',
+        'gender',
+        'major',
+        'info',
     ];
 
     /**

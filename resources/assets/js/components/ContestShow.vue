@@ -6,7 +6,7 @@
             </contestTitleCard>
         </div>
         <Tabs style="margin-top:20px">
-            <Button v-if="this.$store.state.user && this.$store.state.user.can.manage_contents" :to="{name: 'contest-edit', params: {id: contestId}}" type="warning" slot="extra">Update</Button>
+            <Button v-if="this.isAdmin" :to="{name: 'contest-edit', params: {id: contestId}}" type="warning" slot="extra">Update</Button>
             <Tab-pane label="Problem" key="problems" v-if="canSeeContest">
                 <Card>
                      <CellGroup>
@@ -54,6 +54,12 @@ import contestStanding from './ContestStanding.vue'
 import axios from 'axios'
 
 export default {
+    components: {
+        contestStatus: contestStatus,
+        contestTopics: contestTopics,
+        contestTitleCard: contestTitleCard,
+        contestStanding: contestStanding
+    },
     data() {
         return {
             lastCid: null,
@@ -64,13 +70,31 @@ export default {
     created() {
         this.fetchData()
     },    
-    components: {
-        contestStatus: contestStatus,
-        contestTopics: contestTopics,
-        contestTitleCard: contestTitleCard,
-        contestStanding: contestStanding
+    mounted() {
     },
     methods: {
+        checkRegister() {
+            if (this.contest.register_required) {
+                if (this.isAdmin) return
+                if (this.user.registered) return
+                this.$Modal.confirm({
+                    content: '本场比赛只允许注册用户参加!',
+                    cancelText: '退出比赛',
+                    okText: '完善信息',
+                    onOk: () => {
+                        this.$router.push({
+                            name: 'edit-profile',
+                            params: {
+                                username: this.user.username
+                            }
+                        })
+                    },
+                    onCancel: () => {
+                        this.$router.back()
+                    }
+                }) 
+            }
+        },
         joinTeam(id) {
             this.$Modal.confirm({
                 content: '是否加入该队伍？',
@@ -86,6 +110,7 @@ export default {
                     .get('/contest/' + this.contestId)
                     .then(res => {
                         this.contest = res.data
+                        this.checkRegister()
                         this.loading = false
                     })
                     .catch(() => {
@@ -103,11 +128,17 @@ export default {
         }
     },
     computed: {
+        user() {
+            return this.$store.state.user
+        },
         contestId() {
             return this.$route.params.id.toString()
         },
         canSeeContest() {
-            return (this.contest && this.contest.is_started) || (this.$store.state.user && this.$store.state.user.can.manage_contents)
+            return (this.contest && this.contest.is_started) || this.isAdmin
+        },
+        isAdmin() {
+            return this.user && this.user.can.manage_contents
         }
     },
     beforeDestroy() {

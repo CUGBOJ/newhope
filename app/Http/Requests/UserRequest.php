@@ -12,6 +12,12 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed avatar
  * @property mixed username
  * @property mixed regenerate_avatar
+ * @property mixed register
+ * @property mixed old_oj_account
+ * @property mixed student_id
+ * @property mixed gender
+ * @property mixed major
+ * @property mixed info
  */
 class UserRequest extends FormRequest
 {
@@ -30,6 +36,7 @@ class UserRequest extends FormRequest
             'avatar' => 'max:50'
         ];
     }
+
     public function messages()
     {
         return [

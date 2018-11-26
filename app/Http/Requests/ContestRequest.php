@@ -14,6 +14,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property int $is_private
  * @property int $hide_other
  * @property mixed problems
+ * @property int register_required
  */
 class ContestRequest extends FormRequest
 {

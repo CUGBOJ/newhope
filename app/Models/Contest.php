@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Contest extends Model
 {
-    protected $with = ['problems', 'teams'];
+    protected $with = ['problems', 'teams', 'users'];
 
     protected $appends = ['is_started'];
 
@@ -55,6 +55,7 @@ class Contest extends Model
         'description',
         'private',
         'hide_other',
+        'register_required',
     ];
 
     protected $hidden = [
@@ -63,7 +64,7 @@ class Contest extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'contest_user', 'contest_id', 'user_id');
+        return $this->belongsToMany(User::class, 'contest_user', 'contest_id', 'user_id');
     }
 
     public function reject_users()

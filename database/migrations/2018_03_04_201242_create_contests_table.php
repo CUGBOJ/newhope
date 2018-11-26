@@ -30,6 +30,7 @@ class CreateContestsTable extends Migration
             $table->boolean('is_private')->default(0);
             $table->boolean('hide_other')->default(0);
 
+            $table->boolean('register_required')->default(false);
         });
     }
 
