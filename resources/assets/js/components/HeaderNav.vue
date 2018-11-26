@@ -22,9 +22,9 @@
           <Button @click="$router.push({name: 'contests'})">
             比赛
           </Button>
-          <Button @click="$router.push({name: 'discusses'})">
+          <!-- <Button @click="$router.push({name: 'discusses'})">
             讨论区
-          </Button>
+          </Button> -->
           <Button @click="$router.push({name: 'announcements'})">
             公告
           </Button>

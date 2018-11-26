@@ -25,10 +25,10 @@
             <Tab-pane label="Standing" key="standing" v-if="canSeeContest">
                 <contestStanding :contestId="contestId" :problems="contest.problems"/>
             </Tab-pane>
-            <Tab-pane label="Topics" key="topics" v-if="canSeeContest">
+            <!-- <Tab-pane label="Topics" key="topics" v-if="canSeeContest">
                 <contestTopics :contestId="contestId" />
-            </Tab-pane>
-            <Tab-pane label="Clarification" key="clarification">Clarification</Tab-pane>
+            </Tab-pane> -->
+            <Tab-pane label="Clarification" key="clarification">暂无公告</Tab-pane>
             <Tab-pane label="Teams" key="team">
                 <Modal v-model="showEditModal" @on-ok="createNewTeam" :loading="this.submitLoading" draggable>
                     <Alert type="warning">请使用健康向上的队伍名，队伍名不可修改</Alert>
