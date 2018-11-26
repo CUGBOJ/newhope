@@ -53,9 +53,10 @@ use Spatie\Permission\Models\Permission;
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoles;
+    
     const CREATED_AT = 'register_time';
     const UPDATED_AT = 'last_login_time';
-    use HasRoles;
 
     public function messages($instance)
     {

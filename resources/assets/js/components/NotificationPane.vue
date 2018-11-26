@@ -5,7 +5,7 @@
     </h3>
     <Button @click="readAll">阅读所有</Button>
     <div class="notification-list" v-if="notification && notification.length">
-      <div v-for="(val, key) in notification" :key="key" v-if="val.read_at !== null">
+      <div v-for="(val, key) in notification" :key="key">
         <div v-if="val.types === 'announcementReplied'">
           <div>
             Admin:
@@ -29,6 +29,9 @@
           <span>{{val.created_at}}</span>
           <Button @click="readOne">阅读该条</Button>
         </div>
+        <div v-else-if="val.type.endsWith('TeamApplyReplied')" :key="index" v-for="(data, index) in parseJsonData(val.data)">
+            收到用户{{data.user_id}}加入{{data.team_id}}队申请
+        </div>
       </div>
     </div>
     <div v-else>
@@ -48,6 +51,11 @@ export default {
         this.fetchData()
     },
     methods: {
+        parseJsonData(data) {
+            return {
+                _: JSON.parse(data)
+            }
+        },
         readOne() {},
         readAll() {
             axios.post('/notifications').then(res => {

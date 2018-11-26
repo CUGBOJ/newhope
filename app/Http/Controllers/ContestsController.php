@@ -27,7 +27,11 @@ class ContestsController extends Controller
 
     public function show(Request $request, Contest $contest)
     {
-        return response()->json($contest);
+        if ($contest->users()->find(Auth::user()->id) || Auth::user()->can('manage_contents')) {
+            return response()->json($contest);
+        } else {
+            return response()->json('');
+        }
     }
 
     public function update(Contest $contest, ContestRequest $request)
@@ -95,11 +99,16 @@ class ContestsController extends Controller
     public function add_user_by_password(Contest $contest, Request $request)
     {
         $user = Auth::user();
-        if (Hash::check($request->password, $contest->password)) {
-            $contest->users()->attach($user->id);
+        if ($contest->is_private && !Hash::check($request->password, $contest->password)) {
+            return response()->json('Incorrect password', 403);
         }
 
-        return redirect()->route('contests.show', $contest->id);
+        if ($contest->register_required && !$user->registered) {
+            return response()->json('This contest requires user to register.', 403);
+        }
+
+        $contest->users()->attach($user->id);
+        return response()->json('Joined contest successfully.');
     }
 
     public function remove_user(Contest $contest, User $user)

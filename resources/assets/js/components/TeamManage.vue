@@ -84,12 +84,20 @@ export default {
             }
             axios.post('dealApply/' + this.teamId, postdata)
                 .then(res => {
-                    this.data = res.data
+                    this.$Notice.success({
+                        title: '操作成功',
+                        desc: res.data.message
+                    })
+                    this.loading = true
+                    this.fetchData()
                 })
-            // .then(res => {
-            //     console.log(res.data)
-            // })
-                
+                .catch(err => {
+                    this.$Notice.error({
+                        title: '操作失败',
+                        desc: err.response.data.message,
+                        duration: 0
+                    })
+                })
         },
         refuse(userId) {
             let postdata = {
@@ -98,7 +106,19 @@ export default {
             }
             axios.post('dealApply/' + this.teamId, postdata)
                 .then(res => {
-                    this.data = res.data
+                    this.$Notice.success({
+                        title: '操作成功',
+                        desc: res.data.message
+                    }) 
+                    this.loading = true
+                    this.fetchData()
+                })
+                .catch(err => {
+                    this.$Notice.error({
+                        title: '操作失败',
+                        desc: err.response.data.message,
+                        duration: 0
+                    })
                 })
         }
     },

@@ -5,10 +5,10 @@
       <Button :to="{name: 'contest-create'}" type="primary">New contest</Button>
     </Row>
     <CellGroup>
-      <Cell v-for="contest in contests" 
+      <Cell v-for="(contest, index) in contests" 
       :key="contest.id" 
       :title="contest.title" 
-      :to="{name: 'contest-show', params: {id: contest.id}}">
+      @click.native="checkRegister(index)">
         <div slot="label">
             <Tag color="default">
                 #{{contest.id}}
@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             loading: true,
-            contest: null
+            contests: null
         }
     },
     mounted() {
@@ -48,7 +48,39 @@ export default {
                 .catch(err => {
                     this.$Message.error(err.response.data.message)
                 })
+        },
+        checkRegister(index) {
+            if (this.contests[index].register_required && !(this.isAdmin || this.user.registered)) {
+                this.$Modal.confirm({
+                    content: '本场比赛只允许注册用户参加!',
+                    cancelText: '放弃',
+                    okText: '完善信息',
+                    onOk: () => {
+                        this.$router.push({
+                            name: 'edit-profile',
+                            params: {
+                                username: this.user.username
+                            }
+                        })
+                    }
+                }) 
+            } else {
+                this.$router.push({
+                    name: 'contest-show',
+                    params: {
+                        id: this.contests[index].id
+                    }
+                })
+            }
         }
+    },
+    computed: {
+        user() {
+            return this.$store.state.user
+        }, 
+        isAdmin() {
+            return this.user && this.user.can.manage_contents
+        }    
     }
 }
 </script>

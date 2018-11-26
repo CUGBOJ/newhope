@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
@@ -13,9 +14,9 @@ class TeamApplyReplied extends Notification implements ShouldQueue
 
     public $teamApply;
 
-    public function __construct($team_id,$user_id)
-    {   
-        $this->teamApply=['team_id'=>$team_id,'user_id'=>$user_id,"create_time"=>now()];
+    public function __construct($team_id, $user_id)
+    {
+        $this->teamApply = ['team_id' => $team_id, 'user_id' => $user_id, "create_time" => now()];
     }
 
     public function via($notifiable)
@@ -25,11 +26,10 @@ class TeamApplyReplied extends Notification implements ShouldQueue
     }
 
     public function toDatabase($notifiable)
-    {   
-        $tmp=$this->teamApply;
-        // dd($tmp);
+    {
+        $tmp = $this->teamApply;
         return [
-            'user_id' =>$tmp['user_id'],
+            'user_id' => $tmp['user_id'],
             'team_id' => $tmp['team_id'],
             'create_time' => $tmp['create_time'],
         ];

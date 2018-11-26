@@ -86,28 +86,6 @@ export default {
     mounted() {
     },
     methods: {
-        checkRegister() {
-            if (this.contest.register_required) {
-                if (this.isAdmin) return
-                if (this.user.registered) return
-                this.$Modal.confirm({
-                    content: '本场比赛只允许注册用户参加!',
-                    cancelText: '退出比赛',
-                    okText: '完善信息',
-                    onOk: () => {
-                        this.$router.push({
-                            name: 'edit-profile',
-                            params: {
-                                username: this.user.username
-                            }
-                        })
-                    },
-                    onCancel: () => {
-                        this.$router.back()
-                    }
-                }) 
-            }
-        },
         joinTeam(id) {
             if (this.myTeam) {
                 this.$Notice.info({
@@ -146,8 +124,8 @@ export default {
                     this.$Notice.success({
                         title: '新建队伍成功',
                         desc: res.data.message
-                    }) 
-                    this.fetchUserTeamData()
+                    })
+                    this.fetchData()
                 })
                 .catch(err => {
                     let detail = ''
@@ -187,7 +165,7 @@ export default {
                                 title: '退出队伍成功',
                                 desc: res.data.message
                             }) 
-                            this.fetchUserTeamData()
+                            this.fetchData()
                         })
                 }
             }) 
@@ -198,8 +176,11 @@ export default {
                 axios
                     .get('/contest/' + this.contestId)
                     .then(res => {
+                        if (!res.data) {
+                            this.askMembership()
+                            return
+                        }
                         this.contest = res.data
-                        this.checkRegister()
                         this.fetchUserTeamData()
                         this.loading = false
                     })
@@ -218,8 +199,30 @@ export default {
         fetchUserTeamData() {
             axios.get(`teamByContest/${this.contest.id}`)
                 .then(res => {
-                    if (res.data) this.myTeam = res.data
+                    this.myTeam = res.data ? res.data : null
                 })
+        },
+        askMembership() {
+            this.$Modal.confirm({
+                content: '是否加入比赛？',
+                onOk: () => {
+                    axios.post('addContestUser/' + this.contestId)
+                        .then(res => {
+                            this.$Notice.success({
+                                title: '加入成功',
+                                desc: res.data.message
+                            })
+                            this.fetchData()
+                        })
+                        .catch(err => {
+                            this.$Notice.error({
+                                title: '加入失败',
+                                desc: `${err.response.data.message}`,
+                                duration: 0
+                            })
+                        })
+                }
+            }) 
         }
     },
     computed: {

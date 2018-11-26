@@ -272,24 +272,7 @@ export default {
                 },
                 {
                     title: 'Submit Time',
-                    key: 'submit_time',
-                    render: (h, params) => {
-                        return h('Tooltip', 
-                            {
-                                props: {
-                                    content: params.row.submit_time 
-                                }
-                            },
-                            [h(
-                                'Time',
-                                {
-                                    props: {
-                                        time: params.row.submit_time
-                                    }
-                                }
-                            )]
-                        )
-                    }
+                    key: 'submit_time'
                 }
             ],
             data: []

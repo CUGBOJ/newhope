@@ -39,6 +39,7 @@ Route::get('contest/{contest}', 'ContestsController@show');
 Route::post('contest/{contest}', 'ContestsController@update');
 Route::delete('contest/{contest}', 'ContestsController@destroy');
 Route::post('contest', 'ContestsController@store');
+Route::post('addContestUser/{contest}', 'ContestsController@add_user_by_password');
 // Route::get('contest/{contest}/{problem}','ProblemsController@showByContest');
 
 Route::get('problemsByContest/{contest}', 'ContestsController@getProblems');

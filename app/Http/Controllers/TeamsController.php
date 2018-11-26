@@ -14,25 +14,25 @@ use Illuminate\Support\Facades\Auth;
 class TeamsController extends Controller
 {
     public function store(Request $request)
-    {   
+    {
         $this->validate($request, [
             'teamname' => 'required|max:50',
-            'contest_id' =>'required'
+            'contest_id' => 'required'
         ]);
 
         $team = Team::create([
             'teamname' => $request->teamname,
             'captain' => Auth::user()->id,
-            'contest_id'=>$request->contest_id,
+            'contest_id' => $request->contest_id,
         ]);
-        
+
 
         $team->users()->attach(Auth::user()->id);
 
         return response()->json($team);
     }
 
-    public function addMember(Team $team,$user)
+    public function addMember(Team $team, $user)
     {
         if (Auth::user()->id != $team->captain) {
             abort(403);
@@ -52,11 +52,12 @@ class TeamsController extends Controller
 
             //captain
             if ($request->user_id == $team->captain) {
-                \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id',$request->user_id)->update(['team_id' => null]);
+                \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('team_id', $team->id)
+                    ->update(['team_id' => null]);
                 $team->users()->detach();
                 $team->save();
                 $team->delete();
-                return response()->json(['message'=>"队伍已经解散！"]);
+                return response()->json(['message' => "队伍已经解散！"]);
             }
 
             //other
@@ -72,17 +73,18 @@ class TeamsController extends Controller
 
         \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $request->user_id)
             ->where('team_id', $team->id)->update(['team_id' => null]);
-        
+
         $team->users()->detach($request->user_id);
         $team->save();
     }
 
     public function show(Team $team)
-    {   
+    {
         return response()->json(['base' => $team, 'grade' => $this->getGrade($team)]);
     }
 
-    public function showTeamBasedOnContest(Contest $contest) {
+    public function showTeamBasedOnContest(Contest $contest)
+    {
         return Auth::user()->teams()->where('contest_id', '=', $contest->id)->get()->first();
     }
 
@@ -104,7 +106,7 @@ class TeamsController extends Controller
     }
 
     public function apply(Team $team, Request $request)
-    {   
+    {
 
         $tmp = \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', Auth::user()->id)
             ->where('team_id', '<>', null)->count();
@@ -112,7 +114,7 @@ class TeamsController extends Controller
             return response()->json(['message' => '失败，已经加入别的队伍!', 'res' => 'fail']);
         }
 
-        \DB::insert('insert into team_apply (user_id,team_id,create_time) values (?, ?,?)', [ Auth::user()->id, $team->id,now()]);
+        \DB::insert('insert into team_apply (user_id,team_id,create_time) values (?,?,?)', [Auth::user()->id, $team->id, now()]);
         $user = User::find($team->captain);
         $user->messages(new TeamApplyReplied($team->id, Auth::user()->id));
         $user->save();
@@ -125,16 +127,16 @@ class TeamsController extends Controller
             $user = $request->user;
             $teamCount = \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
                 ->where('team_id', '<>', null)->count();
-            if ($teamCount!=0) {
+            if ($teamCount != 0) {
                 return response()->json(['message' => '失败，已经加入别的队伍', 'res' => 'fail']);
             }
 
-            
+
             \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
                 ->update(['team_id' => $team->id]);
             \DB::table('team_apply')->where('team_id', $team->id)->where('user_id', $user)
                 ->update(['be_deal' => true, 'deal_time' => now()]);
-            
+
             $team->users()->attach($user);
 
             return response()->json(['message' => '成功!', 'res' => 'success']);
