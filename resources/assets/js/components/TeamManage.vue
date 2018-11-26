@@ -52,9 +52,6 @@
 import axios from 'axios'
 
 export default {
-    props: {
-        isCreator: Boolean
-    },
     data() {
         return {
             loading: false,
@@ -63,11 +60,7 @@ export default {
         }
     },
     mounted() {
-        if (this.isCreator) {
-            // TODO
-        } else {
-            this.fetchData()
-        }
+        this.fetchData()
     },
     methods: {
         fetchData() {
@@ -89,7 +82,7 @@ export default {
                 res: true,
                 user: userId
             }
-            axios.post('dealApply/' + this.teamId,postdata)
+            axios.post('dealApply/' + this.teamId, postdata)
                 .then(res => {
                     this.data = res.data
                 })
@@ -103,7 +96,7 @@ export default {
                 res: false,
                 user: userId
             }
-            axios.post('dealApply/' + this.teamId,postdata)
+            axios.post('dealApply/' + this.teamId, postdata)
                 .then(res => {
                     this.data = res.data
                 })

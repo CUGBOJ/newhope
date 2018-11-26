@@ -10,6 +10,7 @@ module.exports = {
         'quote-props': ['error', 'consistent-as-needed'],
         'comma-dangle': ['error', 'never'],
         'comma-style': ['error', 'last'],
+        'comma-spacing': ['error', {'after': true}],
         'space-before-blocks': ['error', 'always'],
         'array-bracket-spacing': ['error', 'never'],
         'object-curly-spacing': ['error', 'never'],
