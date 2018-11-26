@@ -12,7 +12,8 @@ class Team extends Model
     protected $fillable = [
         'teamname',
         'number',
-        'captain'
+        'captain',
+        'contest_id',
     ];
 
     public function contest()
@@ -22,7 +23,7 @@ class Team extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'contest_user', 'team_id', 'user_id');
+        return $this->belongsToMany('App\Models\User', 'team_user', 'team_id', 'user_id');
     }
 
     public function captain()

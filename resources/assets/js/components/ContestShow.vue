@@ -139,7 +139,8 @@ export default {
         },
         createNewTeam() {
             axios.post('teams', {
-                teamname: this.modalData.teamname
+                teamname: this.modalData.teamname,
+                contest_id: this.contest.id
             })
                 .then(res => {
                     this.$Notice.success({

@@ -14,30 +14,35 @@ use Illuminate\Support\Facades\Auth;
 class TeamsController extends Controller
 {
     public function store(Request $request)
-    {
+    {   
         $this->validate($request, [
             'teamname' => 'required|max:50',
+            'contest_id' =>'required'
         ]);
+
 
         $team = Team::create([
             'teamname' => $request->teamname,
             'captain' => Auth::user()->id,
+            'contest_id'=>$request->contest_id,
         ]);
+        
 
         $team->users()->attach(Auth::user()->id);
 
         return response()->json($team);
     }
 
-    public function addMember(Team $team, Request $request)
+    public function addMember(Team $team,$user)
     {
         if (Auth::user()->id != $team->captain) {
             abort(403);
         }
 
-        $user_id = $request->user_id;
+        $user_id = $user;
         \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user_id)
             ->update(['team_id' => $team->id]);
+        $team->users()->attach($user_id);//
         return;
     }
 
@@ -65,6 +70,8 @@ class TeamsController extends Controller
 
         \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $request->user_id)
             ->where('team_id', $team->id)->update(['team_id' => null]);
+        
+        $team->users()->detach($request->id);
     }
 
     public function show(Team $team)
@@ -73,7 +80,7 @@ class TeamsController extends Controller
     }
 
     public function showTeamBasedOnContest(Contest $contest) {
-        return Auth::user()->teams()->wherePivot('contest_id', '=', $contest->id)->get()->first();
+        return Auth::user()->teams()->where('contest_id', '=', $contest->id)->get()->first();
     }
 
     public function getGrade(Team $team)
