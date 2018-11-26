@@ -85,4 +85,4 @@ Route::delete('team/{team}','TeamsController@destroy');
 Route::post('team/{team}','TeamsController@apply');
 
 Route::get('applyList/{team}','TeamsController@getApplyList');
-Route::post('dealApply/{team}.TeamsController@dealApply');
+Route::post('dealApply/{team}','TeamsController@dealApply');

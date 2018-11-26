@@ -69,23 +69,35 @@ class TeamsController extends Controller
     }
 
     public function apply(Team $team, Request $request)
-    {
-        \DB::insert('insert into team_apply (user_id,team_id,create_time) values (?,?,?)', [Auth::user()->id, $team->id, now()]);
+    {   
+        $tmp=\DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', Auth::user()->id)
+        ->where('team_id','<>',null)->count();
+        if($tmp){
+            return response()->json(['message'=>'失败，已经加入别的队伍!','res'=>'fail']);
+        }
+
         $user = User::find($team->captain);
         $user->messages(new TeamApplyReplied($team->id, Auth::user()->id));
         $user->save();
-        return response()->json(['message' => '申请成功'], 200);
+        return response()->json(['message' => '申请成功','res'=>'success']);
     }
 
     public function dealApply(Team $team, Request $request)
-    {
-        dd($team);
+    {   
         if ($request->res == true) {
             $user = $request->user;
+            $tmp=\DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
+            ->where('team_id','<>',null)->count();
+            if($tmp){
+                return response()->json(['message'=>'失败，已经加入别的队伍','res'=>'fail']);
+            }
+
             \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
                 ->update(['team_id' => $team->id]);
             \DB::table('team_apply')->where('team_id', $team->id)->where('user_id', $user)
                 ->update(['be_deal' => true, 'deal_time' => now()]);
+            
+            return response()->json(['message'=>'成功!','res'=>'success']);
 
         } else {
             $user = $request->user;

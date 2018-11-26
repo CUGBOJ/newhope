@@ -90,6 +90,9 @@ export default {
                 user: userId
             }
             axios.post('dealApply/' + this.teamId,postdata)
+                .then(res => {
+                    this.data = res.data
+                })
             // .then(res => {
             //     console.log(res.data)
             // })
@@ -100,7 +103,10 @@ export default {
                 res: false,
                 user: userId
             }
-            axios.get('dealApply/' + this.teamId,postdata)
+            axios.post('dealApply/' + this.teamId,postdata)
+                .then(res => {
+                    this.data = res.data
+                })
         }
     },
     computed: {
