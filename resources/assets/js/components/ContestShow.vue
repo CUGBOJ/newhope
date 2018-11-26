@@ -36,8 +36,8 @@
                     <Input v-model="modalData.teamname"/>
                 </Modal>
                 <Button v-if="!myTeam" @click="showEditModal = true" type="primary">新建队伍</Button>
-                <Button v-else-if="this.myTeam.captain != this.user.id" @click="quitTeam" type="primary">退出队伍</Button>
-                <Button v-else @click="manageTeam" type="primary">管理队伍</Button>
+                <Button v-else @click="quitTeam" type="primary">退出队伍</Button>
+                <Button v-if="myTeam && myTeam.captain == user.id" @click="manageTeam" type="primary">管理队伍</Button>
                 <Card>
                      <CellGroup>
                          <Cell v-for="team in contest.teams" :selected="myTeam && myTeam.id == team.id" :key="team.id" @click.native="joinTeam(team.id)">
@@ -147,6 +147,7 @@ export default {
                         title: '新建队伍成功',
                         desc: res.data.message
                     }) 
+                    this.fetchUserTeamData()
                 })
                 .catch(err => {
                     let detail = ''
@@ -181,6 +182,13 @@ export default {
                     axios.post('removeMember/' + this.myTeam.id, {
                         user_id: this.user.id
                     })
+                        .then(res => {
+                            this.$Notice.success({
+                                title: '退出队伍成功',
+                                desc: res.data.message
+                            }) 
+                            this.fetchUserTeamData()
+                        })
                 }
             }) 
         },
@@ -208,7 +216,7 @@ export default {
             this.lastCid = this.$route.params.id.toString()
         },
         fetchUserTeamData() {
-            axios.get(`team/${this.contest.id}`)
+            axios.get(`teamByContest/${this.contest.id}`)
                 .then(res => {
                     if (res.data) this.myTeam = res.data
                 })
