@@ -78,6 +78,7 @@ Route::post('uploadFile', function (Illuminate\Http\Request $request) {
     }
 });
 
+Route::get('team/{contest}','TeamsController@showTeamBasedOnContest');
 Route::get('team/{team}','TeamsController@show');
 Route::post('teams','TeamsController@store');
 Route::get('teams','TeamsController@index');
@@ -86,4 +87,4 @@ Route::post('team/{team}','TeamsController@apply');
 
 Route::get('applyList/{team}','TeamsController@getApplyList');
 Route::post('dealApply/{team}','TeamsController@dealApply');
-Route::post('subMember/{team}','TeamsController@subMember');
+Route::post('removeMember/{team}','TeamsController@removeMember');

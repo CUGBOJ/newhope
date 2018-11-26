@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contest;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\User;
@@ -22,43 +24,56 @@ class TeamsController extends Controller
             'captain' => Auth::user()->id,
         ]);
 
+        $team->users()->attach(Auth::user()->id);
+
         return response()->json($team);
     }
 
     public function addMember(Team $team, Request $request)
-    {   
-        if(Auth::user()->id!=$team->captain){
+    {
+        if (Auth::user()->id != $team->captain) {
             abort(403);
-        } 
-        $userId = $request->userId;
-        \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $userId)
+        }
+
+        $user_id = $request->user_id;
+        \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user_id)
             ->update(['team_id' => $team->id]);
         return;
     }
 
-    public function subMember(Team $team, Request $request)
-    {   
-        if($request->userId==Auth::user()->id){            //Quit Team
+    public function removeMember(Team $team, Request $request)
+    {
+        //Quit Team
+        if ($request->user_id == Auth::user()->id) {
+
             //captain
-            if ($userId == $team->captain) {
+            if ($request->user_id == $team->captain) {
                 DB::table('users')->where('team_id', $team->id)->update(['team_id' => null]);
                 destroy();
-                return;
+                return response()->json('success');
             }
+
             //other
-            \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $request->userId)
-            ->where('team_id', $team->id)->update(['team_id' => null]);
+            \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $request->user_id)
+                ->where('team_id', $team->id)->update(['team_id' => null]);
+            return response()->json('success');
         }
-        if(Auth::user()->id!=$team->captain){   //captain sub member
+
+        if (Auth::user()->id != $team->captain) {   //captain sub member
             abort(403);
         }
-        \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $request->userId)
+
+        \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $request->user_id)
             ->where('team_id', $team->id)->update(['team_id' => null]);
     }
 
-    public function show(Team $team, Request $request)
+    public function show(Team $team)
     {
         return response()->json(['base' => $team, 'grade' => $this->getGrade($team)]);
+    }
+
+    public function showTeamBasedOnContest(Contest $contest) {
+        return Auth::user()->teams()->wherePivot('contest_id', '=', $contest->id)->get()->first();
     }
 
     public function getGrade(Team $team)
@@ -75,39 +90,39 @@ class TeamsController extends Controller
     public function destroy(Team $team)
     {
         $team->delete();
-        return response()->json('Team be destroyed!', 200);
+        return response()->json('Team is destroyed!', 200);
     }
 
     public function apply(Team $team, Request $request)
-    {   
-        $tmp=\DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', Auth::user()->id)
-        ->where('team_id','<>',null)->count();
-        if($tmp){
-            return response()->json(['message'=>'失败，已经加入别的队伍!','res'=>'fail']);
+    {
+        $tmp = \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', Auth::user()->id)
+            ->where('team_id', '<>', null)->count();
+        if ($tmp) {
+            return response()->json(['message' => '失败，已经加入别的队伍!', 'res' => 'fail']);
         }
 
         $user = User::find($team->captain);
         $user->messages(new TeamApplyReplied($team->id, Auth::user()->id));
         $user->save();
-        return response()->json(['message' => '申请成功','res'=>'success']);
+        return response()->json(['message' => '申请成功', 'res' => 'success']);
     }
 
     public function dealApply(Team $team, Request $request)
-    {   
+    {
         if ($request->res == true) {
             $user = $request->user;
-            $tmp=\DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
-            ->where('team_id','<>',null)->count();
-            if($tmp){
-                return response()->json(['message'=>'失败，已经加入别的队伍','res'=>'fail']);
+            $teamCount = \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
+                ->where('team_id', '<>', null)->count();
+            if ($teamCount) {
+                return response()->json(['message' => '失败，已经加入别的队伍', 'res' => 'fail']);
             }
 
             \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
                 ->update(['team_id' => $team->id]);
             \DB::table('team_apply')->where('team_id', $team->id)->where('user_id', $user)
                 ->update(['be_deal' => true, 'deal_time' => now()]);
-            
-            return response()->json(['message'=>'成功!','res'=>'success']);
+
+            return response()->json(['message' => '成功!', 'res' => 'success']);
 
         } else {
             $user = $request->user;
@@ -119,9 +134,10 @@ class TeamsController extends Controller
 
     public function getApplyList(Team $team)
     {
-        if(Auth::user()->id!=$team->captain){
+        if (Auth::user()->id != $team->captain) {
             abort(403);
         }
+
         $apply_user_list = \DB::table('team_apply')
             ->where('team_id', $team->id)
             ->where('be_deal', false)
@@ -131,6 +147,7 @@ class TeamsController extends Controller
         foreach ($apply_user_list as $user) {
             array_push($result_user_list, User::find($user));
         }
+
         return $result_user_list;
     }
 }
