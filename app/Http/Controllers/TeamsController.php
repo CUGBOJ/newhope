@@ -16,7 +16,7 @@ class TeamsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'teamname' => 'required|max:50',
+            'teamname' => 'required|max:50|unique:teams',
             'contest_id' => 'required'
         ]);
 
