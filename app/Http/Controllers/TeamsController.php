@@ -53,6 +53,8 @@ class TeamsController extends Controller
             //captain
             if ($request->user_id == $team->captain) {
                 \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id',$request->user_id)->update(['team_id' => null]);
+                $team->users()->detach();
+                $team->save();
                 $team->delete();
                 return response()->json(['message'=>"队伍已经解散！"]);
             }
@@ -71,7 +73,8 @@ class TeamsController extends Controller
         \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $request->user_id)
             ->where('team_id', $team->id)->update(['team_id' => null]);
         
-        $team->users()->detach($request->id);
+        $team->users()->detach($request->user_id);
+        $team->save();
     }
 
     public function show(Team $team)
@@ -101,7 +104,8 @@ class TeamsController extends Controller
     }
 
     public function apply(Team $team, Request $request)
-    {
+    {   
+
         $tmp = \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', Auth::user()->id)
             ->where('team_id', '<>', null)->count();
         if ($tmp) {
@@ -121,7 +125,7 @@ class TeamsController extends Controller
             $user = $request->user;
             $teamCount = \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
                 ->where('team_id', '<>', null)->count();
-            if ($teamCount) {
+            if ($teamCount!=0) {
                 return response()->json(['message' => '失败，已经加入别的队伍', 'res' => 'fail']);
             }
 

@@ -39,7 +39,7 @@ class TeamsTableSeeder extends Seeder
                             $team->captain=$item->user_id;
                         }
                         \DB::table('contest_user')->where('contest_id',$contest_id)->where('user_id',$item->user_id)->update(['team_id' => $index+1]);
-                        \DB::table('team_user')->insert(['team_id'=>$index,'user_id'=>$item->user_id]);
+                        \DB::table('team_user')->insert(['team_id'=>$index+1,'user_id'=>$item->user_id]);
                         $i++;
                     }
                 }
@@ -48,7 +48,7 @@ class TeamsTableSeeder extends Seeder
                     $item=$faker->randomElement($tmp);
                     $team->captain=$item->user_id;
                     \DB::table('contest_user')->where('contest_id',$contest_id)->where('user_id',$item->user_id)->update(['team_id' => $index+1]);
-                    \DB::table('team_user')->insert(['team_id'=>$index,'user_id'=>$item->user_id]);
+                    \DB::table('team_user')->insert(['team_id'=>$index+1,'user_id'=>$item->user_id]);
                     $i++;
                 }
             
