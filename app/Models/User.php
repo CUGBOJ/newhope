@@ -94,6 +94,7 @@ class User extends Authenticatable
         'gender',
         'major',
         'info',
+        'registered',
     ];
 
     /**

@@ -87,6 +87,9 @@ export default {
                 password_confirmation: '',
                 old_oj_account: '',
                 major: '',
+                student_id: '',
+                info: '',
+                gender: '',
                 regenerate_avatar: false
             }
         }
