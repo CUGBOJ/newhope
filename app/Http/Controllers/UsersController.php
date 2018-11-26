@@ -48,6 +48,8 @@ class UsersController extends Controller
 
     public function store(UserRequest $request)
     {
+        $this->validate($request, ['username' => 'required|max:50|unique:users',]);
+
         $user = User::create([
             'username' => $request->username,
             'nickname' => $request->nickname,

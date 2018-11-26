@@ -30,7 +30,7 @@ class UserRequest extends FormRequest
     {
         return [
             'nickname' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_ ]+$/',
-            'email' => 'email',
+            'email' => 'email|max:255',
             'password' => 'nullable|confirmed|min:6',
             'school' => 'max:20',
             'avatar' => 'max:50'
