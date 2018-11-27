@@ -30,7 +30,11 @@
           <Button @click="readOne">阅读该条</Button>
         </div>
         <div v-else-if="val.type.endsWith('TeamApplyReplied')" :key="index" v-for="(data, index) in parseJsonData(val.data)">
-            收到用户{{data.username}}加入{{data.team_id}}队申请
+            收到用户{{data.username}}加入
+            <router-link :to="{name: 'team-edit', params: {id: data.team_id}}">
+            {{data.team_id}}
+            </router-link>
+            队申请
         </div>
       </div>
     </div>

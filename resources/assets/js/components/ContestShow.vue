@@ -44,7 +44,7 @@
                             <div>
                                 {{team.teamname}}
                             </div>
-                            <Avatar v-for="user in team.users" :key="user.id" shape="square" :src="user.avatar"/>
+                            <UserPoptip v-for="user in team.users" :key="user.id" shape="square" :user="user" type="avatar" style="margin: 0 3px"/>
                          </Cell>
                      </CellGroup>
                 </Card>
@@ -58,6 +58,7 @@ import contestStatus from './Status.vue'
 import contestTopics from './ContestTopicsTable.vue'
 import contestTitleCard from './ContestTitleCard.vue'
 import contestStanding from './ContestStanding.vue'
+import UserPoptip from './UserPoptip'
 import axios from 'axios'
 
 export default {
@@ -65,7 +66,8 @@ export default {
         contestStatus: contestStatus,
         contestTopics: contestTopics,
         contestTitleCard: contestTitleCard,
-        contestStanding: contestStanding
+        contestStanding: contestStanding,
+        UserPoptip: UserPoptip
     },
     data() {
         return {

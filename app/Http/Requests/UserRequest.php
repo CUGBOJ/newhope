@@ -33,7 +33,7 @@ class UserRequest extends FormRequest
             'email' => 'email|max:255',
             'password' => 'nullable|confirmed|min:6',
             'school' => 'max:20',
-            'avatar' => 'max:50'
+            'avatar' => 'max:100'
         ];
     }
 

@@ -41,9 +41,9 @@
           </Button>
         </ButtonGroup>
         <Dropdown trigger="click" v-else>
-          <badge :count="user.notification_count" style="margin: 0 15px; cursor: pointer">
+          <Badge :count="user.notification_count" style="margin: 0 15px; cursor: pointer">
             <Avatar shape="square" :src="user.avatar" size="large" />
-          </badge>
+          </Badge>
           <DropdownMenu slot="list">
             <DropdownItem>
               <router-link :to="{name: 'notice'}">
@@ -88,4 +88,6 @@ export default {
 <style lang="stylus" scoped>
 a
   color unset
+>>> .ivu-badge-count
+  top 1px
 </style>
