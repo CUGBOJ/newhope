@@ -63,6 +63,7 @@ export default {
         readOne() {},
         readAll() {
             axios.post('/notifications').then(res => {
+                this.$router.go(0)
                 this.$Notice.success({
                     title: 'Success',
                     desc: res.data.message
