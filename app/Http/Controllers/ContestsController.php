@@ -38,10 +38,12 @@ class ContestsController extends Controller
     {
         $this->authorize('manage_contents');
 
+        //dd($request->team_max_member);
         $data = [];
         $data['title'] = $request->title;
         $data['description'] = $request->description;
         $data['start_time'] = date("Y-m-d H:i:s", strtotime($request->start_time));
+        $data['team_max_member'] =$request->team_max_member;
         $data['lock_board_time'] = date("Y-m-d H:i:s", strtotime($request->lock_board_time));
         $data['end_time'] = date("Y-m-d H:i:s", strtotime($request->end_time));
         $data['is_private'] = $request->is_private;
@@ -74,11 +76,13 @@ class ContestsController extends Controller
 
     public function store(ContestRequest $request)
     {
+        //dd($request->team_max_member);
         $contest = Contest::create([
             'title' => $request->title,
             'description' => $request->description,
             'start_time' => $request->start_time,
             'lock_board_time' => $request->lock_board_time,
+            'team_max_member'=>$request->team_max_member,
             'end_time' => $request->end_time,
             'is_private' => $request->is_private,
             'hide_other' => $request->hide_other,

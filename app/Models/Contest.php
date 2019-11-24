@@ -56,6 +56,7 @@ class Contest extends Model
         'private',
         'hide_other',
         'register_required',
+        'team_max_member',
     ];
 
     protected $hidden = [

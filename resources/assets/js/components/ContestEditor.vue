@@ -50,6 +50,20 @@
                         </Checkbox>
                     </Row>
                     <Row>
+                        <label>队伍最大人数：</label>
+                           <Select v-model="data.team_max_member" style="width:200px">
+                                <Option value="0">不开放Team</Option>
+                                <Option value="1">1</Option>
+                                <Option value="2">2</Option>
+                                <Option value="3">3</Option>
+                                <Option value="4">4</Option>
+                                <Option value="5">5</Option>
+                                <Option value="6">6</Option>
+                                <Option value="7">7</Option>
+                                <Option value="8">8</Option>
+                            </Select>
+                    </Row>
+                    <Row>
                         <Checkbox size="large" v-model="data.is_private" :true-value="1" :false-value="0"> 
                             is_private
                         </Checkbox>
@@ -114,6 +128,7 @@ export default {
                 end_time: new Date(),
                 hide_other: 0,
                 is_private: 0,
+                team_Max_Member:5,
                 register_required: 0,
                 lock_board_time: new Date(),
                 start_time: new Date(),
@@ -145,13 +160,14 @@ export default {
                 'description',
                 'hide_other',
                 'is_private',
-                'register_required'
+                'register_required',
+                'team_max_member'
             ]
 
             for (let key of props) {
                 data.append(key, this.data[key])
             }
-
+            console.log(this.data.team_max_member)
             data.append('start_time', this.timeRange[0].toISOString())
             data.append('end_time', this.timeRange[1].toISOString())
             data.append('lock_board_time', this.data.lock_board_time.toISOString())

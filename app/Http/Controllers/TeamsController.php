@@ -107,6 +107,11 @@ class TeamsController extends Controller
 
     public function apply(Team $team, Request $request)
     {
+        $teamMaxMember = $team->contest->team_max_member;
+        $count = $team->users->count();
+        if($count>=$teamMaxMember){
+            return response()->json(['message' => '失败，队伍已满!', 'res' => 'fail']);
+        }
 
         $tmp = \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', Auth::user()->id)
             ->where('team_id', '<>', null)->count();
@@ -129,6 +134,12 @@ class TeamsController extends Controller
                 ->where('team_id', '<>', null)->count();
             if ($teamCount != 0) {
                 return response()->json(['message' => '失败，已经加入别的队伍', 'res' => 'fail']);
+            }
+
+            $teamMaxMember = $team->contest->team_max_member;
+            $count = $team->users->count();
+            if($count>=$teamMaxMember){
+                return response()->json(['message' => '失败，队伍已满!', 'res' => 'fail']);
             }
 
 
