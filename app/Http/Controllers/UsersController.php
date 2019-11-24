@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Handlers\ImageUploadHandler;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -65,7 +66,7 @@ class UsersController extends Controller
         return response()->json(['message' => 'Register success.'], 200);
     }
 
-    public function update(User $user, UserRequest $request, ImageUploadHandler $uploader)
+    public function update(User $user, UserUpdateRequest $request, ImageUploadHandler $uploader)
     {
         if (Auth::user()->id != $user->id) {
             abort(403);
