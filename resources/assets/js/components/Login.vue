@@ -35,11 +35,7 @@ export default {
                 })
                 .then(res => {
                     this.$Message.success(res.data.message)
-            
-                    window.history.length > 0
-                        ? this.$router.go(-1)
-                        : this.$router.push('/')
-                    
+                    this.$router.push('/')   
                     this.getProfile()
                 })
                 .catch(err => {

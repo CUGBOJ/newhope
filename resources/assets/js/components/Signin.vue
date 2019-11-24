@@ -10,7 +10,6 @@
       </FormItem>
       <FormItem label="邮箱">
         <Input name="email" type="email" v-model="form.email" clearable> 
-            <span slot="append">@cugb.edu.cn</span>
         </Input>
       </FormItem>
       <FormItem label="密码">
@@ -44,20 +43,17 @@ export default {
                     username: this.form.username,
                     password: this.form.password,
                     nickname: this.form.nickname,
-                    email: this.form.email + '@cugb.edu.cn',
+                    email: this.form.email,
                     password_confirmation: this.form.password_confirmation,
                     school: this.form.school
                 })
                 .then(res => {
                     this.$Message.success(res.data.message)
-                    window.history.length > 1
-                        ? this.$router.go(-1)
-                        : this.$router.push('/')
+                    this.$router.push('/')
                     this.getProfile()
                 })
                 .catch(err => {
                     let detail = err.response.data.message + '\n'
-
                     if (err.response.data.errors) {
                         let errors = err.response.data.errors
                         if (errors) {
@@ -73,6 +69,15 @@ export default {
                         duration: 0
                     })
                 })
+        }
+    },
+    created() {
+        if (this.loggedIn == true) {
+            if (window.history.length > 0) {
+                this.$router.go(-1)
+            } else {            
+                this.$router.push('/')
+            }
         }
     },
     data() {
