@@ -46,7 +46,7 @@ class TeamsController extends Controller
     }
 
     public function removeMember(Team $team, Request $request)
-    {
+    {   
         //Quit Team
         if ($request->user_id == Auth::user()->id) {
 
@@ -71,7 +71,7 @@ class TeamsController extends Controller
             abort(403);
         }
 
-        \DB::table('contest_user')->where('contest_id' . $team->contest_id)->where('user_id', $request->user_id)
+        \DB::table('contest_user')->where('contest_id' ,$team->contest_id)->where('user_id', $request->user_id)
             ->where('team_id', $team->id)->update(['team_id' => null]);
 
         $team->users()->detach($request->user_id);

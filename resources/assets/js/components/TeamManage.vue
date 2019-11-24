@@ -3,7 +3,7 @@
     <ul class="users">
       <Row>
         <span>已经加入成员</span>
-        <li v-for="(value, key) in users" :key="key">
+        <li v-for="(value, key) in users" :key="key"  >
           <Col span="11" :offset="key % 2 === 1 ? 1 : 0">
           <Card dis-hover>
             <div class="d-flex">
@@ -15,6 +15,7 @@
                   </router-link>
                 </h3>
               </div>
+            <i-button  v-if="key!=0" type="error" @click="removeMember(value.id)">移除</i-button>
             </div>
             <span class="rk">#{{key + 1}}</span>
           </Card>
@@ -105,6 +106,28 @@ export default {
                 user: userId
             }
             axios.post('dealApply/' + this.teamId, postdata)
+                .then(res => {
+                    this.$Notice.success({
+                        title: '操作成功',
+                        desc: res.data.message
+                    }) 
+                    this.loading = true
+                    this.fetchData()
+                })
+                .catch(err => {
+                    this.$Notice.error({
+                        title: '操作失败',
+                        desc: err.response.data.message,
+                        duration: 0
+                    })
+                })
+        },
+        removeMember(userId){
+            let postdata = {
+                user_id: userId,
+            }
+            // console.log(userId)
+            axios.post('removeMember/' + this.teamId, postdata)
                 .then(res => {
                     this.$Notice.success({
                         title: '操作成功',
