@@ -127,7 +127,10 @@ class TeamsController extends Controller
     }
 
     public function dealApply(Team $team, Request $request)
-    {
+    {   
+        if (Auth::user()->id != $team->captain) {
+            abort(403,"403");
+        }
         if ($request->res == true) {
             $user = $request->user;
             $teamCount = \DB::table('contest_user')->where('contest_id', $team->contest_id)->where('user_id', $user)
@@ -175,5 +178,12 @@ class TeamsController extends Controller
         }
 
         return $result_user_list;
+    }
+
+    public function inTeam(Team $team){
+        $count=\DB::table('contest_user')->where('team_id', $team->id)->where('user_id', Auth::user()->id)->count();
+        if($count==0){
+            abort(403,"403");
+        }
     }
 }

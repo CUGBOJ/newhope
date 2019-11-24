@@ -64,6 +64,15 @@ export default {
     mounted() {
         this.fetchData()
     },
+    
+    created(){
+         axios.post('/inTeam/'+this.teamId)
+                .then(res => {
+                })
+                .catch(err => {
+                  this.$router.push('/403')
+                })
+    },
     methods: {
         fetchData() {
             this.loading = true
@@ -126,8 +135,6 @@ export default {
                 })
         },
         removeMember(userId){
-            console.log(value)
-            return
             let postdata = {
                 user_id: userId,
             }
@@ -141,12 +148,16 @@ export default {
                     this.fetchData()
                 })
                 .catch(err => {
+                    console.log(err)
+                    if(err.response.data.message=='403'){
+                    }
                     this.$Notice.error({
                         title: '操作失败',
                         desc: err.response.data.message,
                         duration: 0
                     })
-                })
+                },
+                )
         }
     },
     computed: {
