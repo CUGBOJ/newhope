@@ -160,9 +160,9 @@ class TeamsController extends Controller
 
     public function getApplyList(Team $team)
     {
-        if (Auth::user()->id != $team->captain) {
-            abort(403);
-        }
+        // if (Auth::user()->id != $team->captain) {
+        //     abort(403);
+        // }
 
         $apply_user_list = \DB::table('team_apply')
             ->where('team_id', $team->id)

@@ -15,7 +15,7 @@
                   </router-link>
                 </h3>
               </div>
-            <i-button  v-if="key!=0" type="error" @click="removeMember(value.id)">移除</i-button>
+                <Button v-if="captain==user.id && value.id!=captain" type="error" @click="removeMember(value.id)">移除</Button>
             </div>
             <span class="rk">#{{key + 1}}</span>
           </Card>
@@ -57,7 +57,8 @@ export default {
         return {
             loading: false,
             users: {},
-            applyUser: {}
+            applyUser: {},
+            captain:0
         }
     },
     mounted() {
@@ -68,6 +69,8 @@ export default {
             this.loading = true
             axios.get('/team/' + this.teamId)
                 .then(res => {
+                    console.log(res)
+                    this.captain= res.data.base.captain
                     this.data = res.data
                     this.loading = false
                     this.users = res.data.base.users
@@ -123,10 +126,11 @@ export default {
                 })
         },
         removeMember(userId){
+            console.log(value)
+            return
             let postdata = {
                 user_id: userId,
             }
-            // console.log(userId)
             axios.post('removeMember/' + this.teamId, postdata)
                 .then(res => {
                     this.$Notice.success({
@@ -148,6 +152,9 @@ export default {
     computed: {
         teamId() {
             return this.$route.params.id
+        },
+        user() {
+            return this.$store.state.user
         }
     }
 }

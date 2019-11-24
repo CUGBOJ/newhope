@@ -37,7 +37,7 @@
                 </Modal>
                 <Button v-if="!myTeam" @click="showEditModal = true" type="primary">新建队伍</Button>
                 <Button v-else @click="quitTeam" type="primary">退出队伍</Button>
-                <Button v-if="myTeam && myTeam.captain == user.id" @click="manageTeam" type="primary">管理队伍</Button>
+                <Button v-if="myTeam" @click="manageTeam" type="primary">我的队伍</Button>
                 <Card>
                      <CellGroup>
                          <Cell v-for="team in contest.teams" :selected="myTeam && myTeam.id == team.id" :key="team.id" @click.native="joinTeam(team.id)">
