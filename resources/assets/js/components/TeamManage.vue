@@ -69,7 +69,7 @@ export default {
             this.loading = true
             axios.get('/team/' + this.teamId)
                 .then(res => {
-                    console.log(res)
+                   // console.log(res)
                     this.captain= res.data.base.captain
                     this.data = res.data
                     this.loading = false

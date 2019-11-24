@@ -7,6 +7,7 @@ Vue.use(VueRouter)
 const LoginPane = () => import('../components/Login.vue')
 const SigninPane = () => import('../components/Signin.vue')
 const NotFoundPage = () => import('../components/NotFoundPage.vue')
+const Error403Page = () => import('../components/403.vue')
 
 const ProblemTable = () => import('../components/ProblemTable.vue')
 const UsersTable = () => import('../components/UsersTable.vue')
@@ -169,6 +170,10 @@ const router = new VueRouter({
                     ]
                 }
             ]
+        },
+        {
+            path: '/403',
+            component: Error403Page
         },
         {
             path: '*',

@@ -3,15 +3,12 @@
     <Card>
       <Row type="flex" justify="center">
         <Col>
-          <p>404 Not Found</p>
+          <p>403! 权限不足</p>
         </Col>
       </Row>
       <Row type="flex" justify="center">
         <Col :offset="8" :span="4">
           <Button type="primary" size="large" @click="home">Home</Button>
-        </Col>
-        <Col :span="4">
-          <Button type="primary" size="large" @click="back">Back</Button>
         </Col>
         <Col :span="8" />
       </Row>

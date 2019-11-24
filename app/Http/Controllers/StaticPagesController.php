@@ -41,4 +41,8 @@ class StaticPagesController extends Controller
             'except' => ['home', 'help', 'about',]
         ]);
     }
+
+    public function adminCheck(){
+        abort(403,'403');
+    }
 }

@@ -144,6 +144,13 @@ export default {
     methods: {
         fetchData() {
             this.loading = true
+            axios.post('/adminCheck')
+                .then(res => {
+                  // console.log(res.data)
+                })
+                .catch(err => {
+                  this.$router.push('/403')
+                })
             axios.get('/contest/' + this.contestId)
                 .then(res => {
                     this.data = res.data
@@ -167,7 +174,7 @@ export default {
             for (let key of props) {
                 data.append(key, this.data[key])
             }
-            console.log(this.data.team_max_member)
+            //console.log(this.data.team_max_member)
             data.append('start_time', this.timeRange[0].toISOString())
             data.append('end_time', this.timeRange[1].toISOString())
             data.append('lock_board_time', this.data.lock_board_time.toISOString())
