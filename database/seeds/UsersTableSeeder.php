@@ -12,21 +12,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = factory(User::class)->times(50)->make();
+        $users = factory(User::class)->times(1)->make();
         User::insert($users->makeVisible(['password', 'remember_token'])->makeHidden(['can'])->toArray());
-
-        $user = User::find(2);
-        $user->username = 'laravel';
-        $user->email = 'admin@cugbacm.org';
-        $user->school = 'CUGB';
-        $user->password = bcrypt('password');
-        $user->assignRole('root');
-        $user->save();
-
+    
         $user = User::find(1);
-        $user->username = 'all';
-        $user->email = 'all@all.com';
-        $user->school = 'all';
+        $user->username = 'admin';
+        $user->nickname = 'cugbacm';
+        $user->email = 'acm@cugb.edu.cn';
+        $user->school = 'CUGB';
         $user->password = bcrypt('password');
         $user->assignRole('admin');
         $user->save();

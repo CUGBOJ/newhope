@@ -12,14 +12,14 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->call([
-            ProblemsTableSeeder::class,
+            // ProblemsTableSeeder::class,
             UsersTableSeeder::class,            
-            ContestsTableSeeder::class,
-            TeamsTableSeeder::class,
-            StatusesTableSeeder::class,
-            TopicsTableSeeder::class,
-            ReplysTableSeeder::class,
-            AnnouncementsTableSeeder::class,
+            // ContestsTableSeeder::class,
+            // TeamsTableSeeder::class,
+            // StatusesTableSeeder::class,
+            // TopicsTableSeeder::class,
+            // ReplysTableSeeder::class,
+            // AnnouncementsTableSeeder::class,
         ]);
         Model::reguard();
     }
