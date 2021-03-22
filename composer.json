@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.2.0",
         "barryvdh/laravel-ide-helper": "^2.5",
         "doctrine/dbal": "^2.8",
         "fideloper/proxy": "~3.3",
@@ -64,6 +64,7 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "disable-tls": false
     }
 }

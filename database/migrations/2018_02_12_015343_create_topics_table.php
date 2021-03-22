@@ -14,16 +14,16 @@ class CreateTopicsTable extends Migration
     public function up()
     {
         Schema::create('topics', function (Blueprint $table) {
-            $table->integer('id', 1)->unsigned();
+            $table->increments('id', 1);
             $table->string('username')->index('username');
             $table->integer('problem_id')->index('problem_id');
-            $table->string('title')->index('title');
+            $table->string('title');
             $table->text('body');
-            $table->integer('reply_count')->index('reply_count')->default(0);
-            $table->integer('view_count')->index('view_count')->default(0);
+            $table->integer('reply_count')->default(0);
+            $table->integer('view_count')->default(0);
             $table->string('last_reply_username');
             $table->integer('order')->default(0);
-            $table->integer('contest_id')->nullable()->default(null);
+            $table->integer('contest_id')->index('cid')->nullable()->default(null);
             $table->timestamps();
         });
     }

@@ -21,7 +21,6 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::orderBy('solved', 'desc')->orderBy('submit', 'ASC')->paginate(20);
-
         return response()->json($users);
     }
 

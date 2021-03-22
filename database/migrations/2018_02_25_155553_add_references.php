@@ -31,7 +31,7 @@ class AddReferences extends Migration
 
         Schema::table('replies', function (Blueprint $table) {
             $table->dropForeign(['username']);
-            //         $table->dropForeign(['topic_id']);
+            //$table->dropForeign(['topic_id']);
         });
 
     }

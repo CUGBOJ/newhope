@@ -14,7 +14,7 @@ class CreateContestsTable extends Migration
     public function up()
     {
         Schema::create('contests', function (Blueprint $table) {
-            $table->integer('id', 1)->unsigned();
+            $table->increments('id', 1);
             $table->timestamps();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();

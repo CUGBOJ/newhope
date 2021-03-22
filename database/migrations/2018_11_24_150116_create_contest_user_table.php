@@ -14,7 +14,7 @@ class CreateContestUserTable extends Migration
     public function up()
     {
         Schema::create('contest_user', function (Blueprint $table) {
-            $table->integer('id', 1)->index()->unsigned();
+            $table->increments('id');
             $table->integer('contest_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
             $table->integer('team_id')->nullable()->index();
