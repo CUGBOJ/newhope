@@ -22,7 +22,7 @@
         "iview": "^3.1.0",
         "iview-loader": "^1.0.0",
         "laravel-mix": "^2.1.11",
-        "lodash": "^4.17.4",
+        "lodash": "^4.17.21",
         "prismjs": "^1.15.0",
         "stylus": "^0.54.5",
         "stylus-loader": "^3.0.1",
